@@ -75,7 +75,7 @@ class PreventiveController{
         sheet.setColumnWidth(2, 5980)
         sheet.setColumnWidth(3, 3120)
         sheet.setColumnWidth(4, 4420)
-        sheet.setColumnWidth(5, 4420)
+        sheet.setColumnWidth(5, 0)
         sheet.setColumnWidth(6, 5980)
         sheet.setColumnWidth(7, 3640)
         sheet.setColumnWidth(8, 2340)
@@ -2234,7 +2234,7 @@ class PreventiveController{
         return "preventive/index"
     }
 
-    @RequestMapping("/preventive/summary")
+    @RequestMapping("/preventive")
     fun summaryPreventive(model:Model):String{
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + "api/preventive_summary")
