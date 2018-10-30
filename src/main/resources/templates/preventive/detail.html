@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header_prasetia}"></head>
+<body class="bg-gray">
+    <nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+    <main role="main" class="container">
+        <div class="box">
+            <div class="box-body">
+                <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <div class="col-md-12" th:each="dataRow : ${preventiveDetailDataList}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 >Maintenance Preventive Projects Report Detail</h3>
+                            </div>
+                        </div>
+                        <div class="row">&nbsp;</div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <dl class="item-property col-md-6">
+                                    <dt>Project Type</dt>
+                                    <dd><p>FLM (First Line Maintenance) </p></dd>
+                                </dl>
+                                <dl class="item-property col-md-6">
+                                    <dt>Tahun</dt>
+                                    <dd><p th:text="${dataRow.tahun}">2018</p></dd>
+                                </dl>
+                            </div>
+                            <div class="col-md-6">
+                                <dl class="item-property col-md-6">
+                                    <dt>Customer</dt>
+                                    <dd><p th:text="${dataRow.customer_name}">DMT</p></dd>
+                                </dl>
+                                <dl class="item-property col-md-6">
+                                    <dt>Area / Sub Area</dt>
+                                    <dd><p th:text="${dataRow.area}">Sumbagsel (Paket 1) / Bengkulu DMT</p></dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="overflow-x:auto;">
+                            <div class="row">&nbsp;</div>
+                                <div class="col-md-12">
+                                    <table class="table border table-bordered table-sm table-striped small">
+                                        <thead>
+                                        <tr>
+                                            <th>Nomor PO</th>
+                                            <th>Jan</th>
+                                            <th>Feb</th>
+                                            <th>Mar</th>
+                                            <th>Apr</th>
+                                            <th>May</th>
+                                            <th>Jun</th>
+                                            <th>Jul</th>
+                                            <th>Aug</th>
+                                            <th>Sep</th>
+                                            <th>Okt</th>
+                                            <th>Nov</th>
+                                            <th>Des</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="14"><strong>Nilai PO / Bulan</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="dataRowPO : ${dataRow.sale_order}">
+                                            <td th:text="${dataRowPO.client_order_ref}">4100056733</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.i, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.ii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.iii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.iv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.v, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.vi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.vii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.viii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.ix, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.x, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.xi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.xii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.total, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[1], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[2], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[3], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[4], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[5], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[6], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[7], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[8], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[9], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[10], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[11], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[12], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </tr>
+                                        </tbody>
+                                        <thead>
+                                            <tr>
+                                                <th colspan="14"><strong>Nilai Penagihan (DPP)/Bulan</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="dataRowInvoice : ${dataRow.invoice}">
+                                            <td th:text="${dataRowInvoice.client_order_ref}">4100056733</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.i, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.ii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.iii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.iv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.v, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.vi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.vii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.viii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.ix, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.x, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.xi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.xii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowInvoice.total, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[1], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[2], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[3], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[4], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[5], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[6], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[7], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[8], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[9], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[10], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[11], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[12], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </tr>
+                                        </tbody>
+                                        <thead>
+                                        <tr>
+                                            <th colspan="14"><strong>Budget dan Realisasi</strong></th>
+                                        </tr>
+                                        <tr>
+                                            <th>Keterangan</th>
+                                            <th>Jan</th>
+                                            <th>Feb</th>
+                                            <th>Mar</th>
+                                            <th>Apr</th>
+                                            <th>May</th>
+                                            <th>Jun</th>
+                                            <th>Jul</th>
+                                            <th>Aug</th>
+                                            <th>Sep</th>
+                                            <th>Okt</th>
+                                            <th>Nov</th>
+                                            <th>Des</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="14"><strong>Budget</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody th:each="dataRowBudgetArea : ${dataRow.budget_area}">
+                                        <tr>
+                                            <th colspan="14"><strong th:text="${dataRowBudgetArea.area_detail}">Budget</strong></th>
+                                        </tr>
+                                        <tr th:each="dataRowBudget : ${dataRowBudgetArea.budget}">
+                                            <td th:text="${dataRowBudget.name}">4100056733</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.i, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.ii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.iii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.iv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.v, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.vi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.vii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.viii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.ix, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.x, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.xi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.xii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowBudget.total, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[1], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[2], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[3], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[4], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[5], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[6], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[7], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[8], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[9], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[10], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[11], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_budget[12], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </tr>
+                                        </tbody>
+                                        <thead>
+                                        <tr>
+                                            <th colspan="14"><strong>Realisasi</strong></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody th:each="dataRowRealisasiBudgetArea : ${dataRow.realisasi_budget_area}">
+                                        <tr>
+                                            <th colspan="14"><strong th:text="${dataRowRealisasiBudgetArea.area_detail}">Budget</strong></th>
+                                        </tr>
+                                        <tr th:each="dataRowRealisasiBudget : ${dataRowRealisasiBudgetArea.realisasi_budget}">
+                                            <td th:text="${dataRowRealisasiBudget.name}">4100056733</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.i, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.ii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.iii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.iv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.v, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.vi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.vii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.viii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.ix, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.x, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.xi, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.xii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRowRealisasiBudget.total, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>TOTAL</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[1], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[2], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[3], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[4], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[5], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[6], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[7], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[8], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[9], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[10], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[11], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_realisasi_budget[12], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <div class="row">&nbsp;</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table border table-bordered table-sm table-striped small">
+                                        <thead>
+                                        <tr>
+                                            <th>Summary</th>
+                                            <th>Jan</th>
+                                            <th>Feb</th>
+                                            <th>Mar</th>
+                                            <th>Apr</th>
+                                            <th>May</th>
+                                            <th>Jun</th>
+                                            <th>Jul</th>
+                                            <th>Aug</th>
+                                            <th>Sep</th>
+                                            <th>Okt</th>
+                                            <th>Nov</th>
+                                            <th>Des</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <th>Laba / Rugi</th>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[0], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[1], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[2], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[3], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[4], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[5], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[6], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[7], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[8], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[9], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[10], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[11], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_laba_rugi[12], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Realisasi Budget vs Nilai Budget</th>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[0], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[1], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[2], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[3], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[4], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[5], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[6], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[7], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[8], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[9], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[10], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[11], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_vs_budget[12], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Realisasi Penagihan vs Nilai PO</th>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[1], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[2], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[3], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[4], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[5], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[6], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[7], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[8], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[9], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[10], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[11], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[12], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Realisasi Budget vs Nilai PO</th>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[1], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[2], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[3], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[4], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[5], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[6], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[7], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[8], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[9], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[10], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[11], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_realisasi_budget_vs_nilai_po[12], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Budget vs PO</th>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[1], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[2], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[3], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[4], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[5], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[6], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[7], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[8], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[9], 1, 'POINT', 2, 'COMMA')}" >0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[10], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[11], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total_budget_vs_nilai_po[12], 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <a th:href="@{'/preventive/download/xls'}" class="btn btn-primary pull-right">Download</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

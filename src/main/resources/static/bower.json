@@ -1,0 +1,24 @@
+{
+  "name": "rubahapi",
+  "homepage": "https://github.com/junifar/SpringRubahapi",
+  "authors": [
+    "junifar <junifar@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.12.9",
+    "backbone": "^1.3.3",
+    "admin-lte": "adminlte#^2.4.8"
+  }
+}

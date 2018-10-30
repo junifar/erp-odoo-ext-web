@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header_prasetia}"></head>
+<body class="bg-gray">
+    <nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+    <main role="main" class="container">
+        <div class="box">
+            <div class="box-body">
+                <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">PO - Invoice</h3>
+                                    </div>
+                                    <div class="box-body chart-responsive">
+                                        <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Invoice - Realisasi</h3>
+                                    </div>
+                                    <div class="box-body chart-responsive">
+                                        <div class="chart" id="bar-chart2" style="height: 300px;"></div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Maintenance Preventive Projects</h3>
+                                    </div>
+                                    <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
+                                        <thead>
+                                        <tr>
+                                            <th class="small text-center">Tahun</th>
+                                            <th class="small text-center">PO</th>
+                                            <th class="small text-center">Penagihan</th>
+                                            <th class="small text-center">%</th>
+                                            <th class="small text-center">Nilai Budget</th>
+                                            <th class="small text-center">Realisasi Budget</th>
+                                            <th class="small text-center">%</th>
+                                            <th class="small text-center">Laba/Rugi</th>
+                                            <th class="small text-center">%</th>
+                                            <th class="small text-center">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="dataRow: ${preventiveSummaryDataList}">
+                                            <td th:text="${dataRow.tahun}" class="small">2018</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_penagihan, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_penagihan, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small">
+                                                <a th:href="@{'/preventive/' + ${dataRow.tahun}}">Download</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            "use strict";
+            var bar = new Morris.Area({
+                element: 'bar-chart',
+                resize: true,
+                data: [
+                    /*[# th:each="dataRow: ${preventiveSummaryDataList}"]*/
+                    {y: [[${dataRow.tahun}]], a: [[${dataRow.nilai_po}]], b: [[${dataRow.nilai_penagihan}]]},
+                    /*[/]*/
+                ],
+                barColors: ['#00a65a', '#042af5'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Nilai PO', 'Nilai Invoice'],
+                hideHover: 'auto'
+            });
+
+            var bar2 = new Morris.Area({
+                element: 'bar-chart2',
+                resize: true,
+                data: [
+                    /*[# th:each="dataRow: ${preventiveSummaryDataList}"]*/
+                    {y: [[${dataRow.tahun}]], a: [[${dataRow.nilai_penagihan}]], b: [[${dataRow.realisasi_budget}]]},
+                    /*[/]*/
+                ],
+                barColors: ['#00a65a', '#042af5'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Nilai Invoice', 'Nilai Realisasi'],
+                hideHover: 'auto'
+            });
+        })
+    </script>
+</body>
+</html>

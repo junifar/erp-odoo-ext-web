@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>OpenERP Reporting</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/bower_components/admin-lte/dist/css/AdminLTE.min.css}">
+
+    <script type="text/javascript" th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/bower_components/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <style type="text/css">
+        .navbar {
+            background-color: #215A9A!important;
+            z-index: 1;
+            border-radius: 0!important;
+            border: 0!important;
+        }
+
+        .navbar-brand span {
+            color: #FFF;
+        }
+        .navbar-brand {
+            border-right: 1px solid #fff;
+        }
+        ul.nav.navbar-nav{
+
+        }
+        ul.nav.navbar-nav > li > a{
+            color:#fff;
+        }
+
+        ul.nav.navbar-nav > li > a:hover{
+            color:#fff;
+        }
+
+        .mega-dropdown {
+            position: static !important;
+            /* width: 100%;*/
+        }
+
+        .mega-dropdown-menu {
+            padding: 20px 0px;
+            width: 100%;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+        .mega-dropdown-menu > li > ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .mega-dropdown-menu > li  ul  li {
+            list-style: none;
+        }
+
+        .mega-dropdown-menu > li  ul  li  a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.428571429;
+            color: #999;
+            white-space: normal;
+        }
+
+        .mega-dropdown-menu > li ul li a:hover,
+        .mega-dropdown-menu > li ul li a:focus {
+            text-decoration: none;
+            color: #444;
+            background-color: #f5f5f5;
+        }
+
+        .mega-dropdown-menu .dropdown-header {
+            color: #428bca;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .mega-dropdown-menu  .sub-header{
+            font-size: 16px;
+            font-weight: 300;
+            padding: 3px 20px;
+        }
+
+        .btn-nav{
+            padding:5px 10px 5px 10px!important;
+            margin-top:10px;
+            color:blue;
+            background-color:transparent;
+        }
+
+        a.btn-nav:hover{
+            background-color:#fff!important;
+            color:#215A9A!important;
+        }
+
+    </style>
+</head>
+<body>
+    <!--<div class="navbar navbar-default" role="navigation">-->
+        <!--<div class="container-fluid">-->
+            <!--<div class="navbar-header">-->
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-app">-->
+                    <!--<span class="sr-only">Toggle navigation</span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                <!--</button>-->
+                <!--<a class="navbar-brand" href="#"><span>Prasetia OpenERP Report</span></a>-->
+            <!--</div>-->
+            <!--<div id="navbar-app" class="collapse navbar-collapse navbar-ex1-collapse">-->
+                <!--<ul class="nav navbar-nav">-->
+                    <!--&lt;!&ndash;<li><a href="#">Inicio</a></li>&ndash;&gt;-->
+                    <!--<li class="dropdown mega-dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget Report<span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu mega-dropdown-menu row" role="menu">-->
+                            <!--<li class="col-md-3">-->
+                                <!--<ul>-->
+                                    <!--<li class="dropdown-header">Internal</li>-->
+                                    <!--<li><a href="#">Budget Monitoring Department</a></li>-->
+                                    <!--&lt;!&ndash;<li><a href="#">Budget Monitoring Maintenance Corrective</a></li>&ndash;&gt;-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                            <!--<li class="col-md-9">-->
+                                <!--<span class="dropdown-header">Project</span>-->
+                                <!--<div class="row">-->
+                                    <!--<ul class="col-md-4">-->
+                                        <!--<li class="sub-header">Maintenance</li>-->
+                                        <!--<li><a href="#">Budget Monitoring Maintenance Preventive</a></li>-->
+                                        <!--<li><a href="#">Budget Monitoring Maintenance Corrective</a></li>-->
+                                    <!--</ul>-->
+                                    <!--<ul class="col-md-4">-->
+                                        <!--<li class="sub-header">Budget</li>-->
+                                        <!--<li><a href="">Budget Monitoring Project</a></li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                    <!--<li><a th:href="@{/ui}" class="btn btn-sm btn-nav btn-default"><span class="glyphicon glyphicon-off"></span> Sign Out</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-th"></span> Admin Dashboard</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-3 col-xs-6">
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3>MP-B</h3>
+
+                                        <p>Maintenance <br/> Preventive</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-cube"></i>
+                                    </div>
+                                    <a th:href="@{'/preventive'}"class="small-box-footer">More Detail<i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3>MC-B</h3>
+
+                                        <p>Maintenance <br/> Corrective</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-cube"></i>
+                                    </div>
+                                    <a th:href="@{'/corrective'}"class="small-box-footer">More Detail<i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+                                <div class="small-box bg-purple">
+                                    <div class="inner">
+                                        <h3>PRJ-B</h3>
+
+                                        <p>Project <br/> CME</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-cube"></i>
+                                    </div>
+                                    <a th:href="@{'/project'}"class="small-box-footer">More Detail<i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+                                <div class="small-box bg-blue">
+                                    <div class="inner">
+                                        <h3>Dept-B</h3>
+
+                                        <p>Internal <br/> Department</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-cube"></i>
+                                    </div>
+                                    <a th:href="@{'/#'}" class="small-box-footer">Coming Soon<i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

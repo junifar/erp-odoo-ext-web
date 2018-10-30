@@ -1,0 +1,117 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <nav class="navbar navbar-expand-md bg-secondary bg-secondary-blue navbar-dark" th:fragment="navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img th:src="@{/images/Prasetia Logo.png}" width="60" height="35" class="d-inline-block align-top rounded img-fluid mx-auto border border-light" alt=""> Prasetia </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Contact us</a>
+                    </li>
+                </ul>
+                <form class="form-inline m-0">
+                    <input class="form-control mr-2" type="text" placeholder="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <nav th:fragment="navbar_prasetia" class="navbar navbar-default navbar-static-top fixed" role="navigation">
+        <div class="col-md-12">
+            <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-app">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><span>Prasetia OpenERP Report</span></a>
+            </div>
+            <div id="navbar-app" class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!--<li><a href="#">Inicio</a></li>-->
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Budget Report<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu row" role="menu">
+                            <li class="col-md-3">
+                                <ul>
+                                    <li class="dropdown-header">Internal</li>
+                                    <li><a href="#">Budget Monitoring Department</a></li>
+                                    <!--<li><a href="#">Budget Monitoring Maintenance Corrective</a></li>-->
+                                </ul>
+                            </li>
+                            <li class="col-md-9">
+                                <span class="dropdown-header">Project</span>
+                                <div class="row">
+                                    <ul class="col-md-4">
+                                        <li class="sub-header">Maintenance</li>
+                                        <li><a th:href="@{'/preventive'}">Budget Monitoring Maintenance Preventive</a></li>
+                                        <li><a th:href="@{'/corrective'}">Budget Monitoring Maintenance Corrective</a></li>
+                                    </ul>
+                                    <ul class="col-md-4">
+                                        <li class="sub-header">Budget</li>
+                                        <li><a th:href="@{'/project'}">Budget Monitoring Project</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a th:href="@{/ui}" class="btn btn-sm btn-nav btn-default"><span class="glyphicon glyphicon-off"></span> Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </nav>
+
+    <!--<header class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">-->
+        <!--<a class="navbar-brand" href="#">ERP Monitoring</a>-->
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--<span class="navbar-toggler-icon"></span>-->
+        <!--</button>-->
+
+        <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+            <!--<ul class="navbar-nav mr-auto">-->
+                <!--<li class="nav-item active">-->
+                    <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="#">Link</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item dropdown">-->
+                    <!--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                        <!--Dropdown-->
+                    <!--</a>-->
+                    <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                        <!--<a class="dropdown-item" href="#">Action</a>-->
+                        <!--<a class="dropdown-item" href="#">Another action</a>-->
+                        <!--<div class="dropdown-divider"></div>-->
+                        <!--<a class="dropdown-item" href="#">Something else here</a>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link disabled" href="#">Disabled</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <!--<form class="form-inline my-2 my-lg-0">-->
+                <!--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
+                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</header>-->
+</html>

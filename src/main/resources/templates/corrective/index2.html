@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{themes/header :: head}"></head>
+
+<body class="fix-header card-no-border logo-center">
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"></circle> </svg>
+    </div>
+    <div id="main-wrapper">
+        <header th:replace="~{themes/header :: header}"></header>
+        <aside th:replace="~{themes/header :: left-sidebar}"></aside>
+        <div class="page-wrapper">
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 col-8 align-self-center">
+                        <h3 class="text-themecolor m-b-0 m-t-0">Maintenance Corrective</h3>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Maintenance Corrective</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Summary Maintenance Corrective</h4>
+                                <h6 class="card-subtitle">Summary data maintenance corrective based on OpenERP</h6>
+                                <div class="table-responsive m-t-40">
+                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable"
+                                           cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Periode</th>
+                                                <th>Jumlah Site</th>
+                                                <th>Nilai PO</th>
+                                                <th>Nilai Inv</th>
+                                                <th>%</th>
+                                                <th>Realisasi Budget</th>
+                                                <th>Laba / Rugi</th>
+                                                <th>%</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Periode</th>
+                                                <th>Jumlah Site</th>
+                                                <th>Nilai PO</th>
+                                                <th>Nilai Inv</th>
+                                                <th>%</th>
+                                                <th>Realisasi Budget</th>
+                                                <th>Laba / Rugi</th>
+                                                <th>%</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <tr th:each="dataRow: ${correctiveSummaryDataList}">
+                                                <td th:text="${dataRow.year_project}">Periode</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_inv, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="pull-right" th:text="${#numbers.formatDecimal(dataRow.percentage, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.profit, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="pull-right" th:text="${#numbers.formatDecimal(dataRow.profit_precentage, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td>
+                                                    <a class="btn btn-info" th:href="@{'/corrective/xls/' + ${dataRow.year_project}}">Download</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- .right-sidebar -->
+                <div th:replace="~{themes/header :: right-sidebar}"></div>
+            </div>
+            <footer th:replace="~{themes/header :: footer}"></footer>
+        </div>
+    </div>
+    <span th:replace="~{themes/header :: footer-js}"></span>
+    <script>
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+    </script>
+</body>
+
+</html>
