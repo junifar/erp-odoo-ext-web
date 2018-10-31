@@ -2350,6 +2350,37 @@ class PreventiveController{
         return total
     }
 
+    @RequestMapping("/preventive/details/{customer_id}/{tahun}/{area_id}")
+    fun detailsPreventive(model: Model, @PathVariable("customer_id") customer_id: Int,
+                         @PathVariable("tahun") tahun: Int,
+                         @PathVariable("area_id") area_id: String): String{
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
+        val preventiveDetailDataList:List<PreventiveCustomerDetailHeader> = objectMapper.readValue(url)
+
+        val totalNilaiPO = getTotalPO(preventiveDetailDataList)
+        val totalNilaiInvoice = getTotalInvoice(preventiveDetailDataList)
+        val totalNilaiBudget = getTotalNilaiBudget(preventiveDetailDataList)
+        val totalNilaiRealisasiBudget = getTotalNilaiRealisasiBudget(preventiveDetailDataList)
+        val totalLabaRugi = getDifferenceValue(totalNilaiInvoice, totalNilaiBudget)
+        val totalRealisasiVsBudget = getDivisionPrecent(totalNilaiRealisasiBudget, totalNilaiBudget)
+        val totalInvoiceVsNilaiPO  = getDivisionPrecent(totalNilaiPO, totalNilaiInvoice)
+        val totalRealisasiBudgetVsNilaiPO = getDivisionPrecent(totalNilaiPO, totalNilaiRealisasiBudget)
+        val totalBudgetVsNilaiPO = getDivisionPrecent(totalNilaiPO, totalNilaiBudget)
+
+        model.addAttribute("preventiveDetailDataList", preventiveDetailDataList)
+        model.addAttribute("total_nilai_po", totalNilaiPO)
+        model.addAttribute("total_nilai_invoice", totalNilaiInvoice)
+        model.addAttribute("total_nilai_budget", totalNilaiBudget)
+        model.addAttribute("total_nilai_realisasi_budget", totalNilaiRealisasiBudget)
+        model.addAttribute("total_laba_rugi", totalLabaRugi)
+        model.addAttribute("total_realisasi_vs_budget", totalRealisasiVsBudget)
+        model.addAttribute("total_invoice_vs_nilai_po", totalInvoiceVsNilaiPO)
+        model.addAttribute("total_realisasi_budget_vs_nilai_po", totalRealisasiBudgetVsNilaiPO)
+        model.addAttribute("total_budget_vs_nilai_po", totalBudgetVsNilaiPO)
+        return "preventive/details"
+    }
+
     @RequestMapping("/preventive/detail/{customer_id}/{tahun}/{area_id}")
     fun detailPreventive(model: Model, @PathVariable("customer_id") customer_id: Int,
                          @PathVariable("tahun") tahun: Int,
