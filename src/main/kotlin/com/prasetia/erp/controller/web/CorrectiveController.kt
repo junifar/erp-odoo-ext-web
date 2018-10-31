@@ -1,4 +1,4 @@
-package com.prasetia.erp.web
+package com.prasetia.erp.controller.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue

@@ -7,7 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import javax.servlet.http.HttpServletResponse
 
 class XlsCme(response:HttpServletResponse, tahun: String, type_id: Int, data:List<CmeSummaryYearProjectTypeCustData>){
-    var workbook:HSSFWorkbook = HSSFWorkbook()
+    private var workbook:HSSFWorkbook = HSSFWorkbook()
     init {
         SheetSummary(workbook, data)
         data.forEach {

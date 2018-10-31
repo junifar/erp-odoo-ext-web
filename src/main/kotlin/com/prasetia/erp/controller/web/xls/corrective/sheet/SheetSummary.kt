@@ -11,7 +11,7 @@ import org.apache.poi.ss.util.CellRangeAddress
 
 class SheetSummary(workbook:HSSFWorkbook, data: List<CorrectiveYearData>){
     var sheet: HSSFSheet = workbook.createSheet("Summary")
-    var numRow:Int = 5
+    private var numRow:Int = 5
 
     fun styleHeader(workbook: HSSFWorkbook): HSSFCellStyle {
         val styleHeader = workbook.createCellStyle()

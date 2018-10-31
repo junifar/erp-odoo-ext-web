@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment
 
 class SheetSummary(workbook:HSSFWorkbook, data:List<CmeSummaryYearProjectTypeCustData>){
     var sheet: HSSFSheet = workbook.createSheet("Summary")
-    var numRow:Int = 4
+    private var numRow:Int = 4
 
     private fun styleHeader(workbook: HSSFWorkbook): HSSFCellStyle {
         val styleHeader = workbook.createCellStyle()

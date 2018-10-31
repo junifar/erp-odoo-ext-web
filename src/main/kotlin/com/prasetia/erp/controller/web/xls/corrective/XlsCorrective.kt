@@ -7,7 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import javax.servlet.http.HttpServletResponse
 
 class XlsCorrective(response: HttpServletResponse, tahun:String, data:List<CorrectiveYearData>){
-    var workbook: HSSFWorkbook = HSSFWorkbook()
+    private var workbook: HSSFWorkbook = HSSFWorkbook()
     init {
         SheetSummary(workbook, data)
         SheetCorrectiveYear(workbook, tahun, data)

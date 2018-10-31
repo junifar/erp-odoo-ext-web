@@ -1,4 +1,4 @@
-package com.prasetia.erp.web
+package com.prasetia.erp.controller.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
@@ -232,21 +232,6 @@ class PreventiveController{
         return retVal
     }
 
-    fun addCommentCell(column:Int,sheet: HSSFSheet, cell:HSSFCell, value:Long?, data:List<PreventiveSaleOrderInvoice>?){
-        if (value != null) {
-            if(value > 0){
-                var messageValue = ""
-                data?.forEach {
-                    if (it.i != null){
-                        messageValue += checkValueNullMessageValue(it.i.toInt(), it.i_val, it.i_state)
-                    }
-                }
-                addComment(sheet, cell, messageValue, 4, 4)
-            }
-
-        }
-    }
-
     fun addCommentCell(column:Int,sheet: HSSFSheet, cell:HSSFCell, value:Long?, month:Int, data:List<PreventiveSaleOrderInvoice>?){
         if (value != null) {
             if(value > 0){
@@ -300,7 +285,7 @@ class PreventiveController{
         header = sheet.createRow(2)
         header.createCell(1).setCellValue("Customer")
         header.getCell(1).setCellStyle(styleHeader)
-        header.createCell(2).setCellValue("$customer")
+        header.createCell(2).setCellValue(customer)
         header.getCell(2).setCellStyle(styleHeader)
 
         header = sheet.createRow(3)
@@ -312,7 +297,7 @@ class PreventiveController{
         header = sheet.createRow(4)
         header.createCell(1).setCellValue("Area")
         header.getCell(1).setCellStyle(styleHeader)
-        header.createCell(2).setCellValue("$area")
+        header.createCell(2).setCellValue(area)
         header.getCell(2).setCellStyle(styleHeader)
 
         sheet.addMergedRegion(CellRangeAddress(7, 7, 3,4))
@@ -764,12 +749,9 @@ class PreventiveController{
     private fun createDetailPOInvoiceXls(workbook: HSSFWorkbook, sheet2: HSSFSheet, preventiveDetailDataList: List<PreventiveCustomerDetailHeader>) {
         val styleTableContent = styleTableContent(workbook)
         val styleTableContentNumber = styleTableContentNumber(workbook)
-        val styleTableHeader = styleTableHeader(workbook)
-        val styleTableHeaderNumber = styleTableHeaderNumber(workbook)
         var numRow = 5
         var content:HSSFRow
-        var firstRowNum = true
-        var rowNum:Double = 1.0
+        var rowNum = 1.0
 
         preventiveDetailDataList.forEach {
             items ->

@@ -10,9 +10,9 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment
 
 class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<CorrectiveYearData>){
     var sheet: HSSFSheet = workbook.createSheet("Summary $tahun")
-    var numRow:Int = 5
+    private var numRow:Int = 5
 
-    fun setColWidth(sheet: HSSFSheet):HSSFSheet{
+    private fun setColWidth(sheet: HSSFSheet):HSSFSheet{
         sheet.setColumnWidth(0, 1560)
         sheet.setColumnWidth(1, 13520)
         sheet.setColumnWidth(2, 4940)
@@ -39,17 +39,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return sheet
     }
 
-    fun styleHeader(workbook: HSSFWorkbook): HSSFCellStyle {
-        val styleHeader = workbook.createCellStyle()
-        val fontCalibri = workbook.createFont()
-        fontCalibri.fontName = "Calibri"
-        fontCalibri.bold = true
-        fontCalibri.fontHeightInPoints = 11
-        styleHeader.setFont(fontCalibri)
-        return styleHeader
-    }
-
-    fun styleTableHeader(workbook: HSSFWorkbook): HSSFCellStyle {
+    private fun styleTableHeader(workbook: HSSFWorkbook): HSSFCellStyle {
         val styleTableHeader = workbook.createCellStyle()
         val fontCalibriTableHeader = workbook.createFont()
         fontCalibriTableHeader.fontName = "Calibri"
@@ -66,7 +56,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return styleTableHeader
     }
 
-    fun fontCalibriTableContent(workbook: HSSFWorkbook): HSSFFont {
+    private fun fontCalibriTableContent(workbook: HSSFWorkbook): HSSFFont {
         val fontCalibriTableContent = workbook.createFont()
         fontCalibriTableContent.fontName = "Calibri"
         fontCalibriTableContent.fontHeightInPoints = 11
@@ -74,7 +64,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return fontCalibriTableContent
     }
 
-    fun styleTableContent(workbook: HSSFWorkbook):HSSFCellStyle{
+    private fun styleTableContent(workbook: HSSFWorkbook):HSSFCellStyle{
         val styleTableContent = workbook.createCellStyle()
         val fontCalibriTableContent = fontCalibriTableContent(workbook)
         styleTableContent.setBorderBottom(BorderStyle.THIN)
@@ -85,7 +75,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return styleTableContent
     }
 
-    fun styleTableContentNumber(workbook: HSSFWorkbook):HSSFCellStyle{
+    private fun styleTableContentNumber(workbook: HSSFWorkbook):HSSFCellStyle{
         val styleTableContentNumber = workbook.createCellStyle()
         styleTableContentNumber.dataFormat = HSSFDataFormat.getBuiltinFormat("#,##0.00")
         styleTableContentNumber.setBorderBottom(BorderStyle.THIN)
@@ -96,7 +86,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return styleTableContentNumber
     }
 
-    fun styleTableContentDate(workbook: HSSFWorkbook):HSSFCellStyle{
+    private fun styleTableContentDate(workbook: HSSFWorkbook):HSSFCellStyle{
         val styleTableContentNumber = workbook.createCellStyle()
         styleTableContentNumber.dataFormat = HSSFDataFormat.getBuiltinFormat("d-mmm-yy")
         styleTableContentNumber.setBorderBottom(BorderStyle.THIN)
@@ -107,7 +97,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return styleTableContentNumber
     }
 
-    fun styleTableContentPercent(workbook: HSSFWorkbook):HSSFCellStyle{
+    private fun styleTableContentPercent(workbook: HSSFWorkbook):HSSFCellStyle{
         val styleTableContentNumber = workbook.createCellStyle()
         styleTableContentNumber.dataFormat = HSSFDataFormat.getBuiltinFormat("0.00%")
         styleTableContentNumber.setBorderBottom(BorderStyle.THIN)
@@ -118,41 +108,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         return styleTableContentNumber
     }
 
-    fun styleTableHeaderNumber(workbook: HSSFWorkbook):HSSFCellStyle{
-        val styleTableHeader = workbook.createCellStyle()
-        val fontCalibriTableHeader = workbook.createFont()
-        fontCalibriTableHeader.fontName = "Calibri"
-        fontCalibriTableHeader.fontHeightInPoints = 11
-        fontCalibriTableHeader.bold = true
-        styleTableHeader.dataFormat = HSSFDataFormat.getBuiltinFormat("#,##0.00")
-        styleTableHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND)
-        styleTableHeader.fillForegroundColor = HSSFColor.GREY_25_PERCENT.index
-        styleTableHeader.setBorderBottom(BorderStyle.THIN)
-        styleTableHeader.setBorderTop(BorderStyle.THIN)
-        styleTableHeader.setBorderLeft(BorderStyle.THIN)
-        styleTableHeader.setBorderRight(BorderStyle.THIN)
-        styleTableHeader.setFont(fontCalibriTableHeader)
-        return styleTableHeader
-    }
-
-    fun styleTableHeaderPercent(workbook: HSSFWorkbook):HSSFCellStyle{
-        val styleTableHeader = workbook.createCellStyle()
-        val fontCalibriTableHeader = workbook.createFont()
-        fontCalibriTableHeader.fontName = "Calibri"
-        fontCalibriTableHeader.fontHeightInPoints = 11
-        fontCalibriTableHeader.bold = true
-        styleTableHeader.dataFormat = HSSFDataFormat.getBuiltinFormat("0.00%")
-        styleTableHeader.setFillPattern(FillPatternType.SOLID_FOREGROUND)
-        styleTableHeader.fillForegroundColor = HSSFColor.GREY_25_PERCENT.index
-        styleTableHeader.setBorderBottom(BorderStyle.THIN)
-        styleTableHeader.setBorderTop(BorderStyle.THIN)
-        styleTableHeader.setBorderLeft(BorderStyle.THIN)
-        styleTableHeader.setBorderRight(BorderStyle.THIN)
-        styleTableHeader.setFont(fontCalibriTableHeader)
-        return styleTableHeader
-    }
-
-    fun createHeaderXls(workbook: HSSFWorkbook, sheet:HSSFSheet){
+    private fun createHeaderXls(workbook: HSSFWorkbook, sheet:HSSFSheet){
         val styleTableHeader = styleTableHeader(workbook)
 
         var header = sheet.createRow(4)
@@ -204,18 +160,15 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
         header.getCell(22).setCellStyle(styleTableHeader)
     }
 
-    fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data: List<CorrectiveYearData>){
+    private fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data: List<CorrectiveYearData>){
         val styleTableContent = styleTableContent(workbook)
         val styleTableContentNumber = styleTableContentNumber(workbook)
         val styleTableContentDate = styleTableContentDate(workbook)
-        val styleTableHeader = styleTableHeader(workbook)
-        val styleTableHeaderPercent = styleTableHeaderPercent(workbook)
-        val styleTableHeaderNumber = styleTableHeaderNumber(workbook)
         val styleTableContentPercent = styleTableContentPercent(workbook)
 
         var content:HSSFRow
         var numRow = this.numRow
-        var numRec:Double = 1.00
+        var numRec = 1.00
 
         data.forEach {
             items ->
@@ -272,7 +225,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
                     content.getCell(17).setCellStyle(styleTableContentNumber)
                     var noInvoice = ""
                     var nilaiInvoice:Long = 0
-                    var invoiceState:String = ""
+                    var invoiceState = ""
                     cash_advance.advance_invoice!!.forEach {
                         noInvoice = it.no_inv
                         nilaiInvoice = it.nilai_invoice

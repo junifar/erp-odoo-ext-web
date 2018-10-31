@@ -1,4 +1,4 @@
-package com.prasetia.erp.web.prasetia_erp
+package com.prasetia.erp
 
 import org.junit.Test
 import org.junit.runner.RunWith

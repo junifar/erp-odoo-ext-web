@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment
 
 class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String, data:List<CmeYearProjectTypeCustProjectDetailData>?){
     var sheet: HSSFSheet = workbook.createSheet("$customer_id-$customer")
-    var numRow:Int = 6
+    private var numRow:Int = 6
 
     private fun styleHeader(workbook: HSSFWorkbook): HSSFCellStyle {
         val styleHeader = workbook.createCellStyle()
