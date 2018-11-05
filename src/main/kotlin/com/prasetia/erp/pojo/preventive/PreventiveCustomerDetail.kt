@@ -79,9 +79,10 @@ class PreventiveBudget(
         val x:Long?,
         val xi:Long?,
         val xii:Long?,
-        val total: Long?
+        val total: Long?,
+        var realisasi_budget: MutableList<PreventiveRealisasiBudget>?
 ){
-    constructor(): this(0, "", 0, 0,0,0,0,0,0,0,0,0,0,0, 0)
+    constructor(): this(0, "", 0, 0,0,0,0,0,0,0,0,0,0,0, 0, null)
 }
 
 class PreventiveRealisasiBudgetArea(
