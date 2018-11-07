@@ -2364,9 +2364,10 @@ class PreventiveController{
         val totalNilaiRealisasiBudget = getTotalNilaiRealisasiBudget(preventiveDetailDataList)
         val totalLabaRugi = getDifferenceValue(totalNilaiInvoice, totalNilaiBudget)
         val totalRealisasiVsBudget = getDivisionPrecent(totalNilaiRealisasiBudget, totalNilaiBudget)
-        val totalInvoiceVsNilaiPO  = getDivisionPrecent(totalNilaiPO, totalNilaiInvoice)
+        val totalInvoiceVsNilaiPO  = getDivisionPrecent(totalNilaiInvoice, totalNilaiPO)
         val totalRealisasiBudgetVsNilaiPO = getDivisionPrecent(totalNilaiPO, totalNilaiRealisasiBudget)
         val totalBudgetVsNilaiPO = getDivisionPrecent(totalNilaiPO, totalNilaiBudget)
+        val totalLabarugiVsNilaiPO = getDivisionPrecent(totalLabaRugi, totalNilaiPO)
 
         model.addAttribute("preventiveDetailDataList", preventiveDetailDataList)
         model.addAttribute("total_nilai_po", totalNilaiPO)
@@ -2378,6 +2379,7 @@ class PreventiveController{
         model.addAttribute("total_invoice_vs_nilai_po", totalInvoiceVsNilaiPO)
         model.addAttribute("total_realisasi_budget_vs_nilai_po", totalRealisasiBudgetVsNilaiPO)
         model.addAttribute("total_budget_vs_nilai_po", totalBudgetVsNilaiPO)
+        model.addAttribute("total_laba_rugi_vs_nilai_po", totalLabarugiVsNilaiPO)
         return "preventive/details"
     }
 
