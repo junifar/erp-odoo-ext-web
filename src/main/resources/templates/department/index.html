@@ -24,7 +24,15 @@
                                             <th class="small text-center">Action</th>
                                         </tr>
                                         <tbody>
-
+                                        <tr th:each="dataRow: ${departmentSummaryDataList}">
+                                            <td th:text="${dataRow.periode}" class="small">Periode</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00></td>
+                                            <td class="text-right small">
+                                                <a th:href="@{'/corrective/xls/' + ${dataRow.periode}}">Download</a>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                         </thead>
                                     </table>
