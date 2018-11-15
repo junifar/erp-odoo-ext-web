@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header_prasetia}"></head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+    <main role="main" class="container">
+        <div class="box">
+            <div class="box-body">
+                <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <div class="col-md-12">
+                        <div class="row col-md-12">
+                            <div class="col-md-12">
+                                <h3 >Maintenance Preventive Projects Report Detail</h3>
+                            </div>
+                            <div class="row">&nbsp;</div>
+                            <div class="box col-md-12" th:each="dataRow : ${departmentDetailDataList}">
+                                <div class="col-md-6">
+                                    <div class="box-header with-border">
+                                        General Information
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Tahun</label>
+                                                <input type="text" class="form-control" placeholder="Tahun" disabled="" th:value="${periode}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Department</label>
+                                                <input type="text" class="form-control" placeholder="department_name" disabled="" th:value="${dataRow.department_name}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="box-header with-border">
+                                        Department Information
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Nilai Budget</label>
+                                                <input type="text" class="form-control" placeholder="Nilai Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Realisasi Budget</label>
+                                                <input type="text" class="form-control" placeholder="Realisasi Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-header with-border">
+                                        % Information
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>% Department</label>
+                                                <input type="text" class="form-control" placeholder="Persentase" disabled="" th:value="${dataRow.persent_budget}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
