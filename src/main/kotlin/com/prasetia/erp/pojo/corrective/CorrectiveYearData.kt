@@ -10,16 +10,16 @@ class CorrectiveYearData(
         val year_project: String?,
         val nilai_po: Long?,
         val nilai_inv: Long?,
-        val realisasi_budget: Long?,
         val nilai_budget: Long?,
-        val percentage:Float?,
-        val persent_budget:Float?,
+        val realisasi_budget: Long?,
+        val percentage: Float?,
+        val persent_budget: Float?,
         val profit: Long?,
         val profit_precentage: Float?,
         var projects : MutableList<CorrectiveProjectData>?
 ){
-    constructor(): this(0,  0, "",0, "", 0, 0, 0,0, 0f
-            ,0f,0,0f, null)
+    constructor(): this(0,  0, "",0, "", 0, 0, 0,
+            0,0f,0f,0,0f, null)
 }
 
 class CorrectiveProjectData(
