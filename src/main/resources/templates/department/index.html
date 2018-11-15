@@ -10,6 +10,22 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Budget - Realisasi Chart</h3>
+                                    </div>
+                                    <div class="box-body chart-responsive">
+                                        <div class="chart" id="bar-chart">
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="box">
                                     <div class="box-header with-border">
                                         <h3 class="box-title">Budget Department Summary</h3>
@@ -27,10 +43,10 @@
                                         <tr th:each="dataRow: ${departmentSummaryDataList}">
                                             <td th:text="${dataRow.periode}" class="small">Periode</td>
                                             <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00></td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00></td>
                                             <td class="text-right small">
-                                                <a th:href="@{'/corrective/xls/' + ${dataRow.periode}}">Download</a>
+                                                <a th:href="@{'/budget_department/' + ${dataRow.periode}}">Detail</a>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -43,6 +59,27 @@
                 </div>
             </div>
         </div>
+        </div>
     </main>
+    <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            "use strict";
+            var bar = new Morris.Area({
+                element: 'bar-chart',
+                resize: true,
+                data: [
+                    /*[# th:each="dataRow: ${departmentSummaryDataList}"]*/
+                    {y: [[${dataRow.periode}]], a: [[${dataRow.nilai_budget}]], b: [[${dataRow.realisasi_budget}]]},
+                    /*[/]*/
+                ],
+                barColors: ['#00a65a', '#042af5'],
+                xkey: 'y',
+                ykeys: ['a','b'],
+                labels: ['Nilai Budget', 'Realisasi Budget'],
+                hideHover: 'auto'
+            });
+        })
+    </script>
 </body>
 </html>
