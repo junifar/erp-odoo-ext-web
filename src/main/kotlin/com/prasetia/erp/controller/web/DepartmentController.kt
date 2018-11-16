@@ -14,6 +14,7 @@ import java.net.URL
 @Controller("Budget Department Controller")
 class DepartmentController{
 
+
     @RequestMapping("/budget_department")
     fun indexDepartment(model: Model):String{
         val objectMapper = ObjectMapper()
@@ -39,32 +40,41 @@ class DepartmentController{
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
 
-//        val totalNilaiBudget = getTotalNilaiBudget(departmentDetailDataList)
-
+//        var Temp = 1281
 
         model.addAttribute("departmentDetailDataList",departmentDetailDataList)
-//        model.addAttribute("totalNilaiBudget",totalNilaiBudget)
+        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
         model.addAttribute("department_id",department_id)
         model.addAttribute("periode",periode)
+//        model.addAttribute("Temp",Temp)
         return "department/detail_department"
     }
 
-//    fun getTotalBudget(data:List<DepartmentBudgetYearData>):Long{
-//        var total:Long = 0
-//        data.forEach {
-//            items->
-//            items.department_budget?.forEach {
-//                item_details ->
-//                    item_details.budget_detail?.forEach {
-//
-//                    }
-//            }
-//        }
-//    }
 
-//    fun getTotalNilaiBudget(data: List<DepartmentBudgetYearData>)=longArrayOf(
-//            getTotalBudget(data),
-//    )
+    fun getTotalBudget(data:List<DepartmentBudgetYearData>, type:String): Long{
+        var total: Long = 0
+        data.forEach {
+            when (type){
+                "total_budget" -> it.nilai_budget?.let { total = total.plus(it) }
+                "total_realisasi" -> it.realisasi_budget?.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getDepartmentPrecent(data:Long, data1: Long) = floatArrayOf(
+            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    )
+
+    fun getTotalDepartmentCustomer(data:List<DepartmentBudgetYearData>) = longArrayOf(
+            getTotalBudget(data, "total_budget"),
+            getTotalBudget(data, "total_realisasi")
+    )
+
+
 
 }

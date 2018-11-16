@@ -7,13 +7,13 @@
         <div class="box">
             <div class="box-body">
                 <div class="my-3 p-3 bg-white rounded shadow-sm">
-                    <div class="col-md-12">
+                    <div class="col-md-12" th:each="dataRow : ${departmentDetailDataList}">
                         <div class="row col-md-12">
                             <div class="col-md-12">
-                                <h3 >Maintenance Preventive Projects Report Detail</h3>
+                                <h3 >Department Budget Report Detail</h3>
                             </div>
                             <div class="row">&nbsp;</div>
-                            <div class="box col-md-12" th:each="dataRow : ${departmentDetailDataList}">
+                            <div class="box col-md-12" >
                                 <div class="col-md-6">
                                     <div class="box-header with-border">
                                         General Information
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="box-header with-border">
-                                        Department Information
+                                        Budget and Realisasion
                                     </div>
                                     <div class="box-body">
                                         <div class="col-md-12">
@@ -45,13 +45,6 @@
                                                 <label>Realisasi Budget</label>
                                                 <input type="text" class="form-control" placeholder="Realisasi Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-header with-border">
-                                        % Information
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>% Department</label>
                                                 <input type="text" class="form-control" placeholder="Persentase" disabled="" th:value="${dataRow.persent_budget}">
@@ -59,6 +52,78 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            </div>
+                            <div class="row col-md-12">
+                                <div class="row col-md-12">
+                                    <h4 >Departement Budget</h4>
+                                <table class="table border table-bordered table-sm table-striped small">
+                                    <thead>
+                                    <tr>
+                                        <th class=" text-center">No Budget</th>
+                                        <th class=" text-center">No Budget Item</th>
+                                        <th class=" text-center">Item Description</th>
+                                        <th class=" text-center">Nilai Budget</th>
+                                        <th class=" text-center">Realisasi Budget</th>
+                                        <th class=" text-center"> % </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody >
+                                        <span th:each="dataRowDetail: ${dataRow.department_budget}">
+                                            <span th:each="dataRowDetailDetail: ${dataRowDetail.budget_detail}">
+                                            <tr >
+                                                    <td class="text-left" th:text="${dataRowDetail.name}"></td>
+                                                    <td class="text-left" th:text="${dataRowDetailDetail.code}"></td>
+                                                    <td class="text-left" th:text="${dataRowDetailDetail.budget_item_view}"></td>
+                                                    <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            </tr>
+                                            </span>
+                                        </span>
+                                        <tr>
+                                            <th class="text-center " >TOTAL</th>
+                                            <th class="text-left " ></th>
+                                            <th class="text-left " ></th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentRealisasiBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                                <div class="row col-md-12">
+                                <h4 >Detail Realisasi</h4>
+                                <table class="table border table-bordered table-sm table-striped small">
+                                    <thead>
+                                    <tr>
+                                        <th class=" text-center">No Budget</th>
+                                        <th class=" text-center">Ref</th>
+                                        <th class=" text-center">Description</th>
+                                        <th class=" text-center">Total</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <span th:each="dataRowDetail: ${dataRow.department_budget}">
+                                            <span th:each="dataRowDetailDetail: ${dataRowDetail.budget_detail}">
+                                                <span th:each="dataRowSubDetail:${dataRowDetailDetail.realisasi}">
+                                            <tr >
+                                                    <td class="text-left " th:text="${dataRowDetail.name}"></td>
+                                                    <td class="text-left " th:text="${dataRowSubDetail.ref}"></td>
+                                                    <td class="text-left " th:text="${dataRowSubDetail.narration}"></td>
+                                                    <td class="text-right " th:text="${#numbers.formatDecimal(dataRowSubDetail.budget_realisasi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            </tr>
+                                            </span>
+                                        </span>
+                                    </span>
+                                    <tr>
+                                        <th class="text-center " >TOTAL</th>
+                                        <th class="text-right " ></th>
+                                        <th class="text-right " ></th>
+                                        <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
