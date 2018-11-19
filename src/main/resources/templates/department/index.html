@@ -33,19 +33,19 @@
                                     <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
                                         <thead>
                                         <tr>
-                                            <th class="small text-center">Tahun</th>
-                                            <th class="small text-center">Nilai Budget</th>
-                                            <th class="small text-center">Realisasi Budget</th>
-                                            <th class="small text-center">%</th>
-                                            <th class="small text-center">Action</th>
+                                            <th class="text-center">Tahun</th>
+                                            <th class="text-center">Nilai Budget</th>
+                                            <th class="text-center">Realisasi Budget</th>
+                                            <th class="text-center">%</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                         <tbody>
                                         <tr th:each="dataRow: ${departmentSummaryDataList}">
                                             <td th:text="${dataRow.periode}" class="small">Periode</td>
-                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00></td>
-                                            <td class="text-right small">
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00></td>
+                                            <td class="text-right">
                                                 <a th:href="@{'/budget_department/' + ${dataRow.periode}}">Detail</a>
                                             </td>
                                         </tr>

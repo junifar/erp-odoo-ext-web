@@ -57,7 +57,7 @@
                             <div class="row col-md-12">
                                 <div class="row col-md-12">
                                     <h4 >Departement Budget</h4>
-                                <table class="table border table-bordered table-sm table-striped small">
+                                <table class="table border table-bordered table-sm table-striped">
                                     <thead>
                                     <tr>
                                         <th class=" text-center">No Budget</th>
@@ -66,19 +66,24 @@
                                         <th class=" text-center">Nilai Budget</th>
                                         <th class=" text-center">Realisasi Budget</th>
                                         <th class=" text-center"> % </th>
+                                        <th class=" text-center"> action </th>
                                     </tr>
                                     </thead>
                                     <tbody >
                                         <span th:each="dataRowDetail: ${dataRow.department_budget}">
                                             <span th:each="dataRowDetailDetail: ${dataRowDetail.budget_detail}">
-                                            <tr >
-                                                    <td class="text-left" th:text="${dataRowDetail.name}"></td>
-                                                    <td class="text-left" th:text="${dataRowDetailDetail.code}"></td>
-                                                    <td class="text-left" th:text="${dataRowDetailDetail.budget_item_view}"></td>
-                                                    <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                    <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                    <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                            </tr>
+                                                <tr >
+                                                        <td class="text-left" th:text="${dataRowDetail.name}"></td>
+                                                        <td class="text-left" th:text="${dataRowDetailDetail.code}"></td>
+                                                        <td class="text-left" th:text="${dataRowDetailDetail.budget_item_view}"></td>
+                                                        <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                        <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                        <td class="text-right" th:text="${#numbers.formatDecimal(dataRowDetailDetail.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                        <td class="text-right ">
+                                                            <a th:href="@{'/budget_department/' + ${periode} +'/'+${department_id}+ '/' + ${dataRowDetailDetail.line_id}}">Detail</a>
+                                                        </td>
+                                                </tr>
+                                                </span>
                                             </span>
                                         </span>
                                         <tr>
@@ -88,13 +93,16 @@
                                             <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                             <th class="text-right " th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                             <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentRealisasiBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <td class="text-right ">
+                                                <a th:href="@{'/budget_department/' + ${periode} +'/'+${department_id}}">Show All</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                                 <div class="row col-md-12">
                                 <h4 >Detail Realisasi</h4>
-                                <table class="table border table-bordered table-sm table-striped small">
+                                <table class="table border table-bordered table-sm table-striped">
                                     <thead>
                                     <tr>
                                         <th class=" text-center">No Budget</th>
@@ -117,11 +125,13 @@
                                         </span>
                                     </span>
                                     <tr>
-                                        <th class="text-center " >TOTAL</th>
+                                        <th class="text-center " >SUB TOTAL</th>
                                         <th class="text-right " ></th>
                                         <th class="text-right " ></th>
-                                        <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                        </tr>
+                                        <span>
+                                        <th class="text-right " th:text="${#numbers.formatDecimal(total_realisasi_detail, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        </span>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>

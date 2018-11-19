@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="box-body">
                                         <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered
-                                        display nowrap border border-dark small table-condensed">
+                                        display nowrap border border-dark table-condensed">
                                             <thead>
                                             <tr>
                                                 <th class="text-center">Department Name</th>
@@ -46,10 +46,10 @@
                                             <tbody>
                                             <tr th:each="dataRow: ${departmentPeriodeTypeDataList}">
                                                 <td th:text="${dataRow.department_name}">Colo</td>
-                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small">
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right">
                                                     <a th:href="@{'/budget_department/' + ${periode} + '/' + ${dataRow.department_id}}">Detail</a>
                                                 </td>
                                             </tr>

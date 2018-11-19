@@ -43,7 +43,6 @@ class DepartmentController{
         val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
         val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
 
-//        var Temp = 1281
 
         model.addAttribute("departmentDetailDataList",departmentDetailDataList)
         model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
@@ -54,6 +53,40 @@ class DepartmentController{
         return "department/detail_department"
     }
 
+    fun departmentDetailDataListFilter(data:List<DepartmentBudgetYearData>, line_id: Long):List<DepartmentBudgetYearData>{
+        var departmentDetailDataList:List<DepartmentBudgetYearData> = data
+        var total:Long=0
+        departmentDetailDataList.forEach {
+            budgetYearData ->
+            budgetYearData.department_budget?.forEach {
+                department_budget->
+                department_budget.budget_detail?.forEach {
+                    budget_detail->
+                    if (budget_detail.line_id != line_id ){
+                        budget_detail.realisasi = null
+                    }
+                }
+            }
+        }
+        return departmentDetailDataList
+    }
+
+    @RequestMapping("/budget_department/{periode}/{department_id}/{line_id}")
+    fun detailRealisasi(model: Model,@PathVariable("periode")periode: Int,
+                        @PathVariable("department_id")department_id: Int,
+                        @PathVariable("line_id")line_id:Long): String {
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
+
+        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilter(departmentDetailDataList,line_id))
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
+        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
+        return "department/detail_department"
+    }
 
     fun getTotalBudget(data:List<DepartmentBudgetYearData>, type:String): Long{
         var total: Long = 0
@@ -65,6 +98,31 @@ class DepartmentController{
         }
         return total
     }
+
+
+    fun getTotalRealisasi(data: List<DepartmentBudgetYearData>,type: String):Long {
+        var total:Long=0
+        data.forEach {
+            budget_data ->
+            budget_data.department_budget?.forEach {
+                budget_detail ->
+                budget_detail.budget_detail?.forEach {
+                    budget_realisasi ->
+                    budget_realisasi.realisasi?.forEach {
+                        when(type){
+                            "total_realisasi_detail" -> it.budget_realisasi?.let { total = total.plus(it) }
+                        }
+                    }
+                }
+            }
+
+            }
+            return  total
+        }
+
+    fun getTotalRealisasiData(data:List<DepartmentBudgetYearData>) = (
+            getTotalRealisasi(data, "total_realisasi_detail")
+            )
 
     fun getDepartmentPrecent(data:Long, data1: Long) = floatArrayOf(
             if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
