@@ -13,9 +13,13 @@ class PreventiveCustomerGroup(
         val id:Long,
         var customer: String?,
         var customer_id: Long?,
+        val nilai_po: Long?,
+        val nilai_penagihan: Long?,
+        val nilai_budget: Long?,
+        val realisasi_budget: Long?,
         var detail: MutableList<PreventiveCustomerGroupDetail>?
 ){
-    constructor(): this(0, "", 0, null)
+    constructor(): this(0, "", 0, 0,0,0,0, null)
 }
 
 class PreventiveCustomerGroupDetail(
