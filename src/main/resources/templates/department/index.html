@@ -16,8 +16,7 @@
                                         <h3 class="box-title">Budget - Realisasi Chart</h3>
                                     </div>
                                     <div class="box-body chart-responsive">
-                                        <div class="chart" id="bar-chart">
-                                        </div>
+                                        <div class="chart" id="bar-chart"></div>
                                     </div>
                                     <!-- /.box-body -->
                                 </div>
@@ -41,7 +40,7 @@
                                         </tr>
                                         <tbody>
                                         <tr th:each="dataRow: ${departmentSummaryDataList}">
-                                            <td th:text="${dataRow.periode}" class="small">Periode</td>
+                                            <td th:text="${dataRow.periode}" class="">2018</td>
                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00></td>
@@ -80,6 +79,7 @@
                 hideHover: 'auto'
             });
         })
+
     </script>
 </body>
 </html>

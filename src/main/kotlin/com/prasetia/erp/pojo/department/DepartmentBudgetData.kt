@@ -22,7 +22,7 @@ class DepartmentBudgetDetailData(
         val persent_budget: Float?,
         var realisasi:List<DepartmentBudgetRealisasiData>?
 ){
-    constructor(): this(0,0,0 , "","",0,0,0f, null)
+    constructor(): this(0,0,0,"","",0,0,0f,null)
 }
 
 class DepartmentBudgetYearData(

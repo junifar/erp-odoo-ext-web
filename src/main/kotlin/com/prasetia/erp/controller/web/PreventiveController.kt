@@ -3,6 +3,7 @@ package com.prasetia.erp.controller.web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.pojo.PreventiveCustomerGroup
 import com.prasetia.erp.pojo.PreventiveCustomerYear
 import com.prasetia.erp.pojo.preventive.PreventiveCustomerDetailHeader
 import com.prasetia.erp.pojo.preventive.PreventiveSaleOrderInvoice
@@ -2211,8 +2212,13 @@ class PreventiveController{
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + "api/preventive_customer/$tahun")
         val preventiveDataList: List<PreventiveCustomerYear> = objectMapper.readValue(url)
+        var preventiveDataListDetail:List<PreventiveCustomerGroup>? = mutableListOf()
+        preventiveDataList.forEach {
+            preventiveDataListDetail = it.detail
+        }
         model.addAttribute("total", getTotalPreventiveCustomer(preventiveDataList))
         model.addAttribute("preventiveDataList", preventiveDataList)
+        model.addAttribute("preventiveDataListGraph", preventiveDataListDetail?.sortedByDescending { it.customer }?.take(5))
         return "preventive/index"
     }
 
