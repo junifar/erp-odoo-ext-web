@@ -69,7 +69,7 @@
                                             <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                             <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                             <td class="text-right small">
-                                                <a th:href="@{'/preventive/' + ${dataRow.tahun}}">Download</a>
+                                                <a th:href="@{'/preventive/' + ${dataRow.tahun}}">Details</a>
                                             </td>
                                         </tr>
                                         </tbody>

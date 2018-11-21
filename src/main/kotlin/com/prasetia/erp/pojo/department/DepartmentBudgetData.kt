@@ -13,6 +13,7 @@ class DepartmentBudgetRealisasiData(
 
 class DepartmentBudgetDetailData(
         val id:Long,
+        val budget_id: Long?,
         val line_id:Long?,
         val code:String?,
         val budget_item_view:String?,
@@ -21,7 +22,7 @@ class DepartmentBudgetDetailData(
         val persent_budget: Float?,
         var realisasi:List<DepartmentBudgetRealisasiData>?
 ){
-    constructor(): this(0,0, "","",0,0,0f, null)
+    constructor(): this(0,0,0,"","",0,0,0f,null)
 }
 
 class DepartmentBudgetYearData(
