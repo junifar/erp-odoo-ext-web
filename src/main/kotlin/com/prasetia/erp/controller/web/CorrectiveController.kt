@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.controller.web.xls.corrective.XlsCorrective
-import com.prasetia.erp.pojo.corrective.CorrectiveCustomerSummaryData
-import com.prasetia.erp.pojo.corrective.CorrectiveYearData
+import com.prasetia.erp.pojo.corrective.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
@@ -48,7 +47,7 @@ class CorrectiveController{
         return total
     }
 
-    fun getTotalCorrectiveCustomer(data:List<CorrectiveYearData>) = longArrayOf(
+    fun getTotalCorrectiveCustomer(data: List<CorrectiveYearData>) = longArrayOf(
             getTotalCorrectiveCustomer(data, "total_site"),
             getTotalCorrectiveCustomer(data, "total_po"),
             getTotalCorrectiveCustomer(data, "total_inv"),
@@ -79,6 +78,28 @@ class CorrectiveController{
         model.addAttribute("correctiveDataListGraph", correctiveDataList.sortedByDescending { it.nilai_po }.take(5))
         model.addAttribute("correctiveDataListGraph2", correctiveDataList.sortedByDescending { it.nilai_budget }.take(5))
         return "corrective/index"
+    }
+
+    @RequestMapping("/corrective/{customer_id}/{tahun}")
+    fun indexCorrectiveByYearCustomer(model:Model, @PathVariable("tahun") tahun:String, @PathVariable("customer_id") customer_id:Int): String{
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL + "api/corrective_detail/$customer_id/$tahun")
+        val correctiveDataCustomerList: List<CorrectiveDetailYearCustomerData> = objectMapper.readValue(url)
+
+        var correctiveDataSOList: List<CorrectiveSOData>? = mutableListOf()
+        correctiveDataCustomerList.forEach{
+            correctiveDataSOList = it.sales_order
+        }
+        var correctiveDataBudgetList: List<CorrectiveBudgetData>? = mutableListOf()
+        correctiveDataCustomerList.forEach{
+            correctiveDataBudgetList = it.budget
+        }
+        model.addAttribute("correctiveDataList", correctiveDataCustomerList)
+        model.addAttribute("correctiveDataSOList", correctiveDataSOList?.sortedByDescending { it.nilai_po })
+        model.addAttribute("correctiveDataBudgetList", correctiveDataBudgetList?.sortedByDescending { it.nilai_budget })
+        model.addAttribute("correctiveDataListGraph1", correctiveDataSOList?.sortedByDescending { it.nilai_po }?.take(5))
+        model.addAttribute("correctiveDataListGraph2", correctiveDataBudgetList?.sortedByDescending { it.nilai_budget }?.take(5))
+        return "corrective/detailcustomeryear"
     }
 
     @RequestMapping("/corrective/xls/{tahun}")

@@ -9,6 +9,34 @@
                 <div class="my-3 p-3 bg-white rounded shadow-sm">
                     <div class="col-md-12">
                         <div class="row">
+                            <div class="col-md-6">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">PO - Invoice</h3>
+                                    </div>
+                                    <div class="box-body chart-responsive">
+                                        <div class="chart" id="bar-chart" style="height: 300px;"></div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Invoice - Realisasi</h3>
+                                    </div>
+                                    <div class="box-body chart-responsive">
+                                        <div class="chart" id="bar-chart2" style="height: 300px;"></div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="box">
                                     <div class="box-header with-border">
@@ -54,5 +82,40 @@
             </div>
         </div>
     </main>
+    <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            "use strict";
+            var bar = new Morris.Area({
+                element: 'bar-chart',
+                resize: true,
+                data: [
+                    /*[# th:each="dataRow: ${cmeSummaryYearDataList}" th:if="${dataRow.year_project} != null"]*/
+                    {y: '[[${dataRow.year_project}]]', a: [[${dataRow.nilai_po}]], b: [[${dataRow.nilai_invoice}]]},
+                    /*[/]*/
+                ],
+                barColors: ['#00a65a', '#042af5'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Nilai PO', 'Nilai Invoice'],
+                hideHover: 'auto'
+            });
+
+            var bar2 = new Morris.Area({
+                element: 'bar-chart2',
+                resize: true,
+                data: [
+                    /*[# th:each="dataRow: ${cmeSummaryYearDataList}" th:if="${dataRow.year_project} != null"]*/
+                    {y: '[[${dataRow.year_project}]]', a: [[${dataRow.nilai_budget}]], b: [[${dataRow.realisasi_budget}]]},
+                    /*[/]*/
+                ],
+                barColors: ['#00a65a', '#042af5'],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Nilai Budget', 'Nilai Realisasi'],
+                hideHover: 'auto'
+            });
+        })
+    </script>
 </body>
 </html>

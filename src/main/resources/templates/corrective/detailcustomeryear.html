@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header_prasetia}"></head>
+<body class="bg-gray">
+    <nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+    <main role="main" class="container">
+        <div class="box">
+            <div class="box-body">
+                <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <div class="col-md-12" th:each="dataRow: ${correctiveDataList}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row col-md-12">
+                                    <div class="col-md-12">
+                                        <h3 >Maintenance Preventive Projects Report Detail</h3>
+                                    </div>
+                                </div>
+                                <div class="row">&nbsp;</div>
+                                <div class="box col-md-12">
+                                    <div class="col-md-6">
+                                        <div class="box-header with-border">
+                                            General Information
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Tahun</label>
+                                                    <input type="text" class="form-control" placeholder="Tahun" disabled="" th:value="${dataRow.year_project}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Customer</label>
+                                                    <input type="text" class="form-control" placeholder="Customer" disabled=""
+                                                           th:value="${dataRow.code}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Jumlah Site</label>
+                                                    <input type="text" class="form-control" placeholder="Jumlah Site" disabled=""
+                                                           th:value="${dataRow.jumlah_site}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="box-header with-border">
+                                            PO Information
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Nilai PO</label>
+                                                    <input type="text" class="form-control" placeholder="Nilai PO" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nilai Invoice</label>
+                                                    <input type="text" class="form-control" placeholder="Nilai Penagihan" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.nilai_inv, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>% PO</label>
+                                                    <input type="text" class="form-control" placeholder="% PO" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.percentage, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-header with-border">
+                                            Budget Information
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Nilai Budget</label>
+                                                    <input type="text" class="form-control" placeholder="Nilai Budget" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Realisasi</label>
+                                                    <input type="text" class="form-control" placeholder="Realisasi" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>% Budget</label>
+                                                    <input type="text" class="form-control" placeholder="% Budget" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-header with-border">
+                                            Laba Rugi Information
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Laba / Rugi</label>
+                                                    <input type="text" class="form-control" placeholder="Laba / Rugi" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.profit, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>% Laba / Rugi</label>
+                                                    <input type="text" class="form-control" placeholder="% Laba / Rugi" disabled=""
+                                                           th:value="${#numbers.formatDecimal(dataRow.profit_precentage, 1, 'POINT', 2, 'COMMA')}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">PO - Invoice, Top 5 Nilai PO</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="chart">
+                                            <canvas id="areaChart" style="height: 250px"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            <div class="col-md-6">
+                                <!-- BAR CHART -->
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Budget - Realisasi, Top 5 Nilai Budget</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="chart">
+                                            <canvas id="areaChart2" style="height: 250px"></canvas>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Maintenance Corrective Projects Report</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="col-md-12">
+                                            <!-- Custom Tabs -->
+                                            <div class="nav-tabs-custom">
+                                                <ul class="nav nav-tabs">
+                                                    <li class="active"><a href="#tab_1" data-toggle="tab">PO - Invoice</a></li>
+                                                    <li><a href="#tab_2" data-toggle="tab">Budget - Realisasi</a></li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tab_1">
+                                                        <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="small text-center">Nomor PO</th>
+                                                                <th class="small text-center">Project Name</th>
+                                                                <th class="small text-center">Nilai PO</th>
+                                                                <th class="small text-center">Nilai Invoice</th>
+                                                                <th class="small text-center">%</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="dataRowSO: ${correctiveDataSOList}">
+                                                                <td th:text="${dataRowSO.no_po}" class="small">Customer</td>
+                                                                <td th:text="${dataRowSO.project_id + ' - ' + dataRowSO.site_name}" class="small">Customer</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSO.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSO.nilai_invoice, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSO.persent_invoice, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                    <div class="tab-pane" id="tab_2">
+                                                        <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="small text-center">Nomor Budget</th>
+                                                                <th class="small text-center">Project Name</th>
+                                                                <th class="small text-center">Nilai Budget</th>
+                                                                <th class="small text-center">Nilai Realisasi</th>
+                                                                <th class="small text-center">%</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="dataRowBudget: ${correctiveDataBudgetList}">
+                                                                <td th:text="${dataRowBudget.nomor_budget}" class="small">Customer</td>
+                                                                <td th:text="${dataRowBudget.project_id + ' - ' + dataRowBudget.site_name}" class="small">Customer</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowBudget.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowBudget.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowBudget.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <!-- /.tab-pane -->
+                                                </div>
+                                                <!-- /.tab-content -->
+                                            </div>
+                                            <!-- nav-tabs-custom -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
+</body>
+<script th:inline="javascript">
+        $(document).ready(function(){
+            /* ChartJS
+             * -------
+             * Here we will create a few charts using ChartJS
+             */
+
+            //-------------
+            //- BAR CHART -
+            //-------------
+            var areaChartData = {
+              labels  : [
+                /*[# th:each="dataRow: ${correctiveDataListGraph1}"]*/
+                    [[${dataRow.no_po}]].substring(0,10),
+                /*[/]*/
+              ],
+              datasets: [
+                {
+                  label               : 'Nilai PO',
+                  fillColor           : 'rgba(210, 214, 222, 1)',
+                  strokeColor         : 'rgba(210, 214, 222, 1)',
+                  pointColor          : 'rgba(210, 214, 222, 1)',
+                  pointStrokeColor    : '#c1c7d1',
+                  pointHighlightFill  : '#fff',
+                  pointHighlightStroke: 'rgba(220,220,220,1)',
+                  data                : [
+                      /*[# th:each="dataRow: ${correctiveDataListGraph1}"]*/
+                        [[${dataRow.nilai_po}]],
+                      /*[/]*/
+                  ]
+                },
+                {
+                  label               : 'Nilai Invoice',
+                  fillColor           : 'rgba(60,141,188,0.9)',
+                  strokeColor         : 'rgba(60,141,188,0.8)',
+                  pointColor          : '#3b8bba',
+                  pointStrokeColor    : 'rgba(60,141,188,1)',
+                  pointHighlightFill  : '#fff',
+                  pointHighlightStroke: 'rgba(60,141,188,1)',
+                  data                : [
+                      /*[# th:each="dataRow: ${correctiveDataListGraph1}"]*/
+                        [[${dataRow.nilai_invoice}]],
+                      /*[/]*/
+                  ]
+                }
+              ]
+            }
+            var barChartCanvas                   = $('#areaChart').get(0).getContext('2d')
+            var barChart                         = new Chart(barChartCanvas)
+            var barChartData                     = areaChartData
+            barChartData.datasets[1].fillColor   = '#296f99'
+            barChartData.datasets[1].strokeColor = '#296f99'
+            barChartData.datasets[1].pointColor  = '#296f99'
+            var barChartOptions                  = {
+              //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+              scaleBeginAtZero        : true,
+              //Boolean - Whether grid lines are shown across the chart
+              scaleShowGridLines      : true,
+              //String - Colour of the grid lines
+              scaleGridLineColor      : 'rgba(0,0,0,.05)',
+              //Number - Width of the grid lines
+              scaleGridLineWidth      : 1,
+              //Boolean - Whether to show horizontal lines (except X axis)
+              scaleShowHorizontalLines: true,
+              //Boolean - Whether to show vertical lines (except Y axis)
+              scaleShowVerticalLines  : true,
+              //Boolean - If there is a stroke on each bar
+              barShowStroke           : true,
+              //Number - Pixel width of the bar stroke
+              barStrokeWidth          : 2,
+              //Number - Spacing between each of the X value sets
+              barValueSpacing         : 5,
+              //Number - Spacing between data sets within X values
+              barDatasetSpacing       : 1,
+              //String - A legend template
+              legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+              //Boolean - whether to make the chart responsive
+              responsive              : true,
+              maintainAspectRatio     : true
+            }
+
+            barChartOptions.datasetFill = false
+            barChart.Bar(barChartData, barChartOptions)
+
+            //-------------
+            //- BAR CHART -
+            //-------------
+            var areaChartData2 = {
+              labels  : [
+                /*[# th:each="dataRow: ${correctiveDataListGraph2}"]*/
+                    [[${dataRow.nomor_budget}]].substring(0,10),
+                /*[/]*/
+              ],
+              datasets: [
+                {
+                  label               : 'Nilai Bugdet',
+                  fillColor           : 'rgba(210, 214, 222, 1)',
+                  strokeColor         : 'rgba(210, 214, 222, 1)',
+                  pointColor          : 'rgba(210, 214, 222, 1)',
+                  pointStrokeColor    : '#00a65a',
+                  pointHighlightFill  : '#fff',
+                  pointHighlightStroke: 'rgba(220,220,220,1)',
+                  data                : [
+                      /*[# th:each="dataRow: ${correctiveDataListGraph2}"]*/
+                        [[${dataRow.nilai_budget}]],
+                      /*[/]*/
+                  ]
+                },
+                {
+                  label               : 'Nilai Realisasi',
+                  fillColor           : 'rgba(60,141,188,0.9)',
+                  strokeColor         : 'rgba(60,141,188,0.8)',
+                  pointColor          : '#3b8bba',
+                  pointStrokeColor    : 'rgba(60,141,188,1)',
+                  pointHighlightFill  : '#fff',
+                  pointHighlightStroke: 'rgba(60,141,188,1)',
+                  data                : [
+                      /*[# th:each="dataRow: ${correctiveDataListGraph2}"]*/
+                        [[${dataRow.realisasi_budget}]],
+                      /*[/]*/
+                  ]
+                }
+              ]
+            }
+            var barChartCanvas2                   = $('#areaChart2').get(0).getContext('2d')
+            var barChart2                         = new Chart(barChartCanvas2)
+            var barChartData2                     = areaChartData2
+            barChartData2.datasets[1].fillColor   = '#296f99'
+            barChartData2.datasets[1].strokeColor = '#296f99'
+            barChartData2.datasets[1].pointColor  = '#296f99'
+            var barChartOptions2                  = {
+              //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+              scaleBeginAtZero        : true,
+              //Boolean - Whether grid lines are shown across the chart
+              scaleShowGridLines      : true,
+              //String - Colour of the grid lines
+              scaleGridLineColor      : 'rgba(0,0,0,.05)',
+              //Number - Width of the grid lines
+              scaleGridLineWidth      : 1,
+              //Boolean - Whether to show horizontal lines (except X axis)
+              scaleShowHorizontalLines: true,
+              //Boolean - Whether to show vertical lines (except Y axis)
+              scaleShowVerticalLines  : true,
+              //Boolean - If there is a stroke on each bar
+              barShowStroke           : true,
+              //Number - Pixel width of the bar stroke
+              barStrokeWidth          : 2,
+              //Number - Spacing between each of the X value sets
+              barValueSpacing         : 5,
+              //Number - Spacing between data sets within X values
+              barDatasetSpacing       : 1,
+              //String - A legend template
+              legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+              //Boolean - whether to make the chart responsive
+              responsive              : true,
+              maintainAspectRatio     : true
+            }
+
+            barChartOptions2.datasetFill = false
+            barChart2.Bar(barChartData2, barChartOptions2)
+        })
+    </script>
+</html>

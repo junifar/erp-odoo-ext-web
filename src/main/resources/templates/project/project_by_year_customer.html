@@ -60,10 +60,8 @@
                                                         <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark small table-condensed">
                                                             <thead>
                                                             <tr>
-                                                                <th class="text-center">Project Type</th>
-                                                                <th class="text-center">Tahun</th>
+                                                                <th class="text-center">Customer</th>
                                                                 <th class="text-center">Jumlah Site</th>
-                                                                <th class="text-center">Site Cancel</th>
                                                                 <th class="text-center">Estimasi Nilai PO</th>
                                                                 <th class="text-center">Nilai PO</th>
                                                                 <th class="text-center">Nilai INV</th>
@@ -73,11 +71,9 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td th:text="${dataRow.project_type}">Colo</td>
-                                                                <td th:text="${dataRow.year_project}">2018</td>
+                                                            <tr th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}">
+                                                                <td th:text="${dataRow.customer}">Colo</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.estimate_po, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_invoice, 1, 'POINT', 2, 'COMMA')}">999</td>
@@ -85,7 +81,7 @@
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.remaining_invoice, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right">
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
-                                                                    <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
+                                                                    <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id} + '/' + ${dataRow.customer_id}}">Details</a>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -95,10 +91,8 @@
                                                         <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark small table-condensed">
                                                             <thead>
                                                             <tr>
-                                                                <th class="text-center">Project Type</th>
-                                                                <th class="text-center">Tahun</th>
+                                                                <th class="text-center">Customer</th>
                                                                 <th class="text-center">Jumlah Site</th>
-                                                                <th class="text-center">Site Cancel</th>
                                                                 <th class="text-center">Nilai Budget</th>
                                                                 <th class="text-center">Realisasi Budget</th>
                                                                 <th class="text-center">%</th>
@@ -106,17 +100,15 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td th:text="${dataRow.project_type}">Colo</td>
-                                                                <td th:text="${dataRow.year_project}">2018</td>
+                                                            <tr th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}">
+                                                                <td th:text="${dataRow.customer}">Colo</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage_realization, 1, 'POINT', 2, 'COMMA')}">73%</td>
                                                                 <td class="text-right">
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
-                                                                    <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
+                                                                    <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id} + '/' + ${dataRow.customer_id}}">Details</a>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -126,10 +118,8 @@
                                                         <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark small table-condensed">
                                                             <thead>
                                                             <tr>
-                                                                <th class="text-center">Project Type</th>
-                                                                <th class="text-center">Tahun</th>
+                                                                <th class="text-center">Customer</th>
                                                                 <th class="text-center">Jumlah Site</th>
-                                                                <th class="text-center">Site Cancel</th>
                                                                 <th class="text-center">Laba Rugi</th>
                                                                 <th class="text-center">%</th>
                                                                 <th class="text-center">%</th>
@@ -137,17 +127,15 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td th:text="${dataRow.project_type}">Colo</td>
-                                                                <td th:text="${dataRow.year_project}">2018</td>
+                                                            <tr th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}">
+                                                                <td th:text="${dataRow.customer}">Colo</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.profit_loss, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage_profit_realization, 1, 'POINT', 2, 'COMMA')}">73%</td>
                                                                 <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage_profit_po, 1, 'POINT', 2, 'COMMA')}">73%</td>
                                                                 <td class="text-right">
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
-                                                                    <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
+                                                                    <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id} + '/' + ${dataRow.customer_id}}">Details</a>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
@@ -178,8 +166,8 @@
             //-------------
             var areaChartData = {
               labels  : [
-                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                    [[${dataRow.project_type}]],
+                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                    [[${dataRow.customer}]],
                 /*[/]*/
               ],
               datasets: [
@@ -192,7 +180,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(220,220,220,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
                         [[${dataRow.nilai_po}]],
                       /*[/]*/
                   ]
@@ -206,7 +194,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(60,141,188,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
                         [[${dataRow.nilai_invoice}]],
                       /*[/]*/
                   ]
@@ -255,8 +243,8 @@
             //-------------
             var areaChartData2 = {
               labels  : [
-                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                    [[${dataRow.project_type}]],
+                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                    [[${dataRow.customer}]],
                 /*[/]*/
               ],
               datasets: [
@@ -269,7 +257,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(220,220,220,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
                         [[${dataRow.nilai_budget}]],
                       /*[/]*/
                   ]
@@ -283,7 +271,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(60,141,188,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
                         [[${dataRow.realisasi_budget}]],
                       /*[/]*/
                   ]

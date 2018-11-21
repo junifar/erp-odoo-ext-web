@@ -36,6 +36,25 @@ class CmeController{
         return "project/project_by_year"
     }
 
+    @RequestMapping("/project/{tahun}/{type_id}")
+    fun yearCustomerCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int): String{
+        val objectMapper = ObjectMapper()
+        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
+        val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
+        model.addAttribute("cmeSummaryYearProjectTypeCustDataList", cmeSummaryYearProjectTypeCustDataList)
+        model.addAttribute("year_project", tahun)
+        return "project/project_by_year_customer"
+    }
+
+    @RequestMapping("/project/{tahun}/{type_id}/{customer_id}")
+    fun yearCustomerDetailCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int, @PathVariable("customer_id") customer_id: Long): String{
+        val objectMapper = ObjectMapper()
+        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
+        val cmeSummaryYearTypeCustDetailDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
+        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id })
+        return "project/project_by_year_customer_detail"
+    }
+
     @RequestMapping("/project/download/{tahun}/{type_id}")
     fun downloadCME(model:Model, response:HttpServletResponse, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int){
         response.contentType = "application/vnd.ms-excel"
