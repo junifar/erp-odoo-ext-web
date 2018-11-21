@@ -19,7 +19,7 @@ class PreventiveCustomerGroup(
         val realisasi_budget: Long?,
         var detail: MutableList<PreventiveCustomerGroupDetail>?
 ){
-    constructor(): this(0, "",0,0,0, 0, 0,null)
+    constructor(): this(0, "", 0, 0,0,0,0, null)
 }
 
 class PreventiveCustomerGroupDetail(
