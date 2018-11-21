@@ -2218,7 +2218,8 @@ class PreventiveController{
         }
         model.addAttribute("total", getTotalPreventiveCustomer(preventiveDataList))
         model.addAttribute("preventiveDataList", preventiveDataList)
-        model.addAttribute("preventiveDataListGraph", preventiveDataListDetail?.sortedByDescending { it.customer }?.take(5))
+        model.addAttribute("preventiveDataListGraph", preventiveDataListDetail?.sortedByDescending { it.nilai_po }?.take(5))
+        model.addAttribute("preventiveDataListGraph1", preventiveDataListDetail?.sortedByDescending { it.nilai_budget }?.take(5))
         return "preventive/index"
     }
 
