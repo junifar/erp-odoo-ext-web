@@ -41,8 +41,10 @@ class CmeYearProjectTypeCustProjectDetailData(
     val customer:String?,
     val customer_id:Long?,
     val site_type_id: Long?,
+    var percent_po : Float?,
+    var percent_labarugi : Float?,
     val area: String?
 ){
     constructor(): this(0,"",0,"","",0,"",
-            0,0,0,0,"", 0, 0, "")
+            0,0,0,0,"", 0, 0, 0f, 0f, "")
 }
