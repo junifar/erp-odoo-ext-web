@@ -1,14 +1,17 @@
 package com.prasetia.erp.pojo.department
 
+import java.util.*
+
 class DepartmentBudgetRealisasiData(
         val id:Long,
+        val date: Date?,
         val budget_id:Long,
         val parent_id:Long,
         val ref:String?,
         val narration:String?,
         val budget_realisasi:Long?
 ){
-    constructor(): this(0,0,0,"", "",0)
+    constructor(): this(0,null,0,0, "","",0)
 }
 
 class DepartmentBudgetDetailData(

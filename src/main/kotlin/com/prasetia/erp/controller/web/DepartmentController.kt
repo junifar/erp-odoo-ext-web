@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.controller.web.xls.department.XlsDepartment
 import com.prasetia.erp.pojo.department.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URL
+import javax.servlet.http.HttpServletResponse
 
 @Controller("Budget Department Controller")
 class DepartmentController{
@@ -161,5 +163,18 @@ class DepartmentController{
             return  total
         }
 
+    @RequestMapping("/budget_department/xls/{periode}/{department_id}")
+    fun downloadDepartment(model: Model,response:HttpServletResponse,
+                           @PathVariable("periode")periode:String,
+                           @PathVariable("department_id")department_id: String){
+        response.contentType = "application/vnd.ms-excel"
+        response.setHeader("Content-Disposition","attachment;filename=\"budget-department-file-$periode.xls\"")
 
-}
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL+"api/department_budget/$periode/$department_id")
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
+
+
+        XlsDepartment(response, periode, department_id, departmentDetailDataList)
+        }
+    }
