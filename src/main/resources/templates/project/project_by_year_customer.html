@@ -14,7 +14,7 @@
                                 <!-- BAR CHART -->
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">PO - Invoice, Top 5</h3>
+                                        <h3 class="box-title">PO - Invoice, Top 5 PO</h3>
                                     </div>
                                     <div class="box-body">
                                         <div class="chart">
@@ -29,7 +29,7 @@
                                 <!-- BAR CHART -->
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Budget - Realisasi</h3>
+                                        <h3 class="box-title">Budget - Realisasi, Top 5 Budget</h3>
                                     </div>
                                     <div class="box-body">
                                         <div class="chart">
@@ -166,7 +166,7 @@
             //-------------
             var areaChartData = {
               labels  : [
-                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustGraph}"]*/
                     [[${dataRow.customer}]],
                 /*[/]*/
               ],
@@ -180,7 +180,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(220,220,220,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustGraph}"]*/
                         [[${dataRow.nilai_po}]],
                       /*[/]*/
                   ]
@@ -194,7 +194,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(60,141,188,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustGraph}"]*/
                         [[${dataRow.nilai_invoice}]],
                       /*[/]*/
                   ]
@@ -243,7 +243,7 @@
             //-------------
             var areaChartData2 = {
               labels  : [
-                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustGraph2}"]*/
                     [[${dataRow.customer}]],
                 /*[/]*/
               ],
@@ -257,7 +257,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(220,220,220,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustGraph2}"]*/
                         [[${dataRow.nilai_budget}]],
                       /*[/]*/
                   ]
@@ -271,7 +271,7 @@
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(60,141,188,1)',
                   data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustDataList}"]*/
+                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeCustGraph2}"]*/
                         [[${dataRow.realisasi_budget}]],
                       /*[/]*/
                   ]

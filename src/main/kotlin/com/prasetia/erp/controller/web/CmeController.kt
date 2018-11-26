@@ -7,6 +7,7 @@ import com.prasetia.erp.controller.web.xls.cme.XlsCme
 import com.prasetia.erp.pojo.cme.CmeSummaryYearData
 import com.prasetia.erp.pojo.cme.CmeSummaryYearProjectTypeCustData
 import com.prasetia.erp.pojo.cme.CmeSummaryYearProjectTypeData
+import com.prasetia.erp.pojo.cme.CmeYearProjectTypeCustProjectDetailData
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
@@ -41,7 +42,9 @@ class CmeController{
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
-        model.addAttribute("cmeSummaryYearProjectTypeCustDataList", cmeSummaryYearProjectTypeCustDataList)
+        model.addAttribute("cmeSummaryYearProjectTypeCustDataList", cmeSummaryYearProjectTypeCustDataList.sortedByDescending { it.nilai_po })
+        model.addAttribute("cmeSummaryYearProjectTypeCustGraph", cmeSummaryYearProjectTypeCustDataList.sortedByDescending { it.nilai_po }.take(5))
+        model.addAttribute("cmeSummaryYearProjectTypeCustGraph2", cmeSummaryYearProjectTypeCustDataList.sortedByDescending { it.nilai_budget }.take(5))
         model.addAttribute("year_project", tahun)
         return "project/project_by_year_customer"
     }
@@ -51,7 +54,17 @@ class CmeController{
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearTypeCustDetailDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
+        var cmeYearTypeCustProject: List<CmeYearProjectTypeCustProjectDetailData>? = mutableListOf()
+        cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id }.forEach{
+            cmeYearTypeCustProject = it.project_list
+            it.project_list?.forEach {
+                it.percent_po = if (it.estimate_po > 0)((it.estimate_po - it.nilai_budget) * 100f) / it.estimate_po else 0f
+                it.percent_labarugi = if (it.estimate_po > 0)((it.nilai_invoice - it.realisasi_budget) * 100f) / it.realisasi_budget else 0f
+            }
+        }
         model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id })
+        model.addAttribute("cmeYearTypeCustProjectGraph1", cmeYearTypeCustProject?.take(5))
+        model.addAttribute("tahun", tahun)
         return "project/project_by_year_customer_detail"
     }
 
