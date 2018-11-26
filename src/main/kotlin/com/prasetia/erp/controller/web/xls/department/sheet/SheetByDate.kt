@@ -201,37 +201,25 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
 
 
         data.forEach { d1 ->
-            Detail1 = d1.department_budget
-            Detail1?.forEach { d2 ->
-                Detail2 = d2.budget_detail
-                Detail2?.forEach { d3 ->
-                    Detail3 = d3.realisasi
-                    Detail3?.forEach {
-                        Detail3?.forEach {
+            d1.department_budget?.forEach { d2 ->
+                d2.budget_detail?.forEach { d3 ->
+                    d3.realisasi?.forEach {
+                        if (toSimpleString(it.date) == bulan.toString()) {
 
+                            content = sheet.createRow(numRow++)
+                            val cell5 = content.createCell(5)
 
-                            if (toSimpleString(it.date) == bulan.toString()) {
+                            content.createCell(1).setCellValue(d2.name)
+                            content.getCell(1).setCellStyle(styleTableContent)
+                            content.createCell(2).setCellValue(toSimpleDate(it.date))
+                            content.getCell(2).setCellStyle(styleTableContent)
+                            content.createCell(3).setCellValue(it.ref)
+                            content.getCell(3).setCellStyle(styleTableContent)
+                            content.createCell(4).setCellValue(it.narration)
+                            content.getCell(4).setCellStyle(styleTableContent)
+                            it.budget_realisasi?.toDouble()?.let { it1 -> cell5.setCellValue(it1) }
+                            content.getCell(5).setCellStyle(styleTableContent)
 
-                                content = sheet.createRow(numRow++)
-                                val cell0 = content.createCell(0)
-                                val cell1 = content.createCell(1)
-                                val cell2 = content.createCell(2)
-                                val cell3 = content.createCell(3)
-                                val cell4 = content.createCell(4)
-                                val cell5 = content.createCell(5)
-
-                                content.createCell(1).setCellValue(d2.name)
-                                content.getCell(1).setCellStyle(styleTableContent)
-                                content.createCell(2).setCellValue(toSimpleDate(it.date))
-                                content.getCell(2).setCellStyle(styleTableContent)
-                                content.createCell(3).setCellValue(it.ref)
-                                content.getCell(3).setCellStyle(styleTableContent)
-                                content.createCell(4).setCellValue(it.narration)
-                                content.getCell(4).setCellStyle(styleTableContent)
-                                it.budget_realisasi?.toDouble()?.let { it1 -> cell5.setCellValue(it1) }
-                                content.getCell(5).setCellStyle(styleTableContent)
-
-                            }
                         }
                     }
                 }

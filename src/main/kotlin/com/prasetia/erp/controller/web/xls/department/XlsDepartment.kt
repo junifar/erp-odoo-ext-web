@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletResponse
 
 class XlsDepartment(response: HttpServletResponse, periode: String, department_id: String, data: List<DepartmentBudgetYearData>) {
     private var workbook: HSSFWorkbook = HSSFWorkbook()
-    var Detail1: List<DepartmentBudgetData>? = mutableListOf()
-    var Detail2: List<DepartmentBudgetDetailData>? = mutableListOf()
-    var Detail3: List<DepartmentBudgetRealisasiData>? = mutableListOf()
 
     init {
         SheetSummary(workbook, data, periode)
@@ -27,8 +24,6 @@ class XlsDepartment(response: HttpServletResponse, periode: String, department_i
         SheetByDate(workbook,10,data)
         SheetByDate(workbook,11,data)
         SheetByDate(workbook,12,data)
-
-
 
         val out = response.outputStream
         workbook.write(out)
