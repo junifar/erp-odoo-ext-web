@@ -33,6 +33,8 @@ class CmeController{
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun")
         val cmeSummaryYearProjectTypeDataList: List<CmeSummaryYearProjectTypeData> = objectMapper.readValue(url)
         model.addAttribute("cmeSummaryYearProjectTypeDataList", cmeSummaryYearProjectTypeDataList)
+        model.addAttribute("cmeSummaryYearProjectTypeDataList1", cmeSummaryYearProjectTypeDataList.sortedByDescending { it.nilai_po }.take(5))
+        model.addAttribute("cmeSummaryYearProjectTypeDataList2", cmeSummaryYearProjectTypeDataList.sortedByDescending { it.realisasi_budget }.take(5))
         model.addAttribute("year_project", tahun)
         return "project/project_by_year"
     }

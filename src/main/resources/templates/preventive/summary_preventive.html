@@ -90,7 +90,6 @@
     </main>
     <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
     <script th:inline="javascript">
-
         $(document).ready(function(){
             var color = Chart.helpers.color;
             var ctx = document.getElementById("areaChart")
@@ -128,6 +127,9 @@
                 },
                 options: {
                     responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
                 }
             })
 
@@ -164,6 +166,9 @@
                 },
                 options: {
                     responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
                 }
             })
         })

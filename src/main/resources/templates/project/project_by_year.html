@@ -29,7 +29,7 @@
                                 <!-- BAR CHART -->
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Budget - Realisasi</h3>
+                                        <h3 class="box-title">Budget - Realisasi, Top 5</h3>
                                     </div>
                                     <div class="box-body">
                                         <div class="chart">
@@ -168,164 +168,86 @@
     <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
     <script th:inline="javascript">
         $(document).ready(function(){
-            /* ChartJS
-             * -------
-             * Here we will create a few charts using ChartJS
-             */
-
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var areaChartData = {
-              labels  : [
-                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                    [[${dataRow.project_type}]],
-                /*[/]*/
-              ],
-              datasets: [
-                {
-                  label               : 'Nilai PO',
-                  fillColor           : 'rgba(210, 214, 222, 1)',
-                  strokeColor         : 'rgba(210, 214, 222, 1)',
-                  pointColor          : 'rgba(210, 214, 222, 1)',
-                  pointStrokeColor    : '#c1c7d1',
-                  pointHighlightFill  : '#fff',
-                  pointHighlightStroke: 'rgba(220,220,220,1)',
-                  data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                        [[${dataRow.nilai_po}]],
-                      /*[/]*/
-                  ]
+            var color = Chart.helpers.color;
+            var ctx = document.getElementById("areaChart")
+            var ctx2 = document.getElementById("areaChart2")
+            var myChart = new Chart(ctx,{
+                type: 'bar',
+                data: {
+                    labels  : [
+                        /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList1}"]*/
+                        [[${dataRow.project_type}]],
+                        /*[/]*/
+                    ],
+                    datasets:[{
+                        label: "Nilai PO",
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        backgroundColor: color(window.chartColors.green).alpha(20).rgbString(),
+                        data:[
+                            /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList1}"]*/
+                            [[${dataRow.nilai_po}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Nilai Invoice',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        backgroundColor: color(window.chartColors.blue).alpha(5).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList1}"]*/
+                            [[${dataRow.nilai_invoice}]],
+                            /*[/]*/
+                        ]
+                    }]
                 },
-                {
-                  label               : 'Nilai Invoice',
-                  fillColor           : 'rgba(60,141,188,0.9)',
-                  strokeColor         : 'rgba(60,141,188,0.8)',
-                  pointColor          : '#3b8bba',
-                  pointStrokeColor    : 'rgba(60,141,188,1)',
-                  pointHighlightFill  : '#fff',
-                  pointHighlightStroke: 'rgba(60,141,188,1)',
-                  data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                        [[${dataRow.nilai_invoice}]],
-                      /*[/]*/
-                  ]
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
                 }
-              ]
-            }
-            var barChartCanvas                   = $('#areaChart').get(0).getContext('2d')
-            var barChart                         = new Chart(barChartCanvas)
-            var barChartData                     = areaChartData
-            barChartData.datasets[1].fillColor   = '#296f99'
-            barChartData.datasets[1].strokeColor = '#296f99'
-            barChartData.datasets[1].pointColor  = '#296f99'
-            var barChartOptions                  = {
-              //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-              scaleBeginAtZero        : true,
-              //Boolean - Whether grid lines are shown across the chart
-              scaleShowGridLines      : true,
-              //String - Colour of the grid lines
-              scaleGridLineColor      : 'rgba(0,0,0,.05)',
-              //Number - Width of the grid lines
-              scaleGridLineWidth      : 1,
-              //Boolean - Whether to show horizontal lines (except X axis)
-              scaleShowHorizontalLines: true,
-              //Boolean - Whether to show vertical lines (except Y axis)
-              scaleShowVerticalLines  : true,
-              //Boolean - If there is a stroke on each bar
-              barShowStroke           : true,
-              //Number - Pixel width of the bar stroke
-              barStrokeWidth          : 2,
-              //Number - Spacing between each of the X value sets
-              barValueSpacing         : 5,
-              //Number - Spacing between data sets within X values
-              barDatasetSpacing       : 1,
-              //String - A legend template
-              legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-              //Boolean - whether to make the chart responsive
-              responsive              : true,
-              maintainAspectRatio     : true
-            }
+            })
 
-            barChartOptions.datasetFill = false
-            barChart.Bar(barChartData, barChartOptions)
-
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var areaChartData2 = {
-              labels  : [
-                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                    [[${dataRow.project_type}]],
-                /*[/]*/
-              ],
-              datasets: [
-                {
-                  label               : 'Nilai Bugdet',
-                  fillColor           : 'rgba(210, 214, 222, 1)',
-                  strokeColor         : 'rgba(210, 214, 222, 1)',
-                  pointColor          : 'rgba(210, 214, 222, 1)',
-                  pointStrokeColor    : '#00a65a',
-                  pointHighlightFill  : '#fff',
-                  pointHighlightStroke: 'rgba(220,220,220,1)',
-                  data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                        [[${dataRow.nilai_budget}]],
-                      /*[/]*/
-                  ]
+            var myChart2 = new Chart(ctx2,{
+                type: 'bar',
+                data: {
+                    labels  : [
+                        /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList2}"]*/
+                        [[${dataRow.project_type}]],
+                        /*[/]*/
+                    ],
+                    datasets:[{
+                        label: "Nilai Budget",
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        backgroundColor: color(window.chartColors.green).alpha(20).rgbString(),
+                        data:[
+                            /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList2}"]*/
+                            [[${dataRow.nilai_budget}]],
+                            /*[/]*/
+                        ]
+                    },
+                        {
+                            label               : 'Realisasi Budget',
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.blue,
+                            backgroundColor: color(window.chartColors.blue).alpha(5).rgbString(),
+                            data                : [
+                                /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList2}"]*/
+                                [[${dataRow.realisasi_budget}]],
+                                /*[/]*/
+                            ]
+                        }]
                 },
-                {
-                  label               : 'Nilai Realisasi',
-                  fillColor           : 'rgba(60,141,188,0.9)',
-                  strokeColor         : 'rgba(60,141,188,0.8)',
-                  pointColor          : '#3b8bba',
-                  pointStrokeColor    : 'rgba(60,141,188,1)',
-                  pointHighlightFill  : '#fff',
-                  pointHighlightStroke: 'rgba(60,141,188,1)',
-                  data                : [
-                      /*[# th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}"]*/
-                        [[${dataRow.realisasi_budget}]],
-                      /*[/]*/
-                  ]
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
                 }
-              ]
-            }
-            var barChartCanvas2                   = $('#areaChart2').get(0).getContext('2d')
-            var barChart2                         = new Chart(barChartCanvas2)
-            var barChartData2                     = areaChartData2
-            barChartData2.datasets[1].fillColor   = '#296f99'
-            barChartData2.datasets[1].strokeColor = '#296f99'
-            barChartData2.datasets[1].pointColor  = '#296f99'
-            var barChartOptions2                  = {
-              //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-              scaleBeginAtZero        : true,
-              //Boolean - Whether grid lines are shown across the chart
-              scaleShowGridLines      : true,
-              //String - Colour of the grid lines
-              scaleGridLineColor      : 'rgba(0,0,0,.05)',
-              //Number - Width of the grid lines
-              scaleGridLineWidth      : 1,
-              //Boolean - Whether to show horizontal lines (except X axis)
-              scaleShowHorizontalLines: true,
-              //Boolean - Whether to show vertical lines (except Y axis)
-              scaleShowVerticalLines  : true,
-              //Boolean - If there is a stroke on each bar
-              barShowStroke           : true,
-              //Number - Pixel width of the bar stroke
-              barStrokeWidth          : 2,
-              //Number - Spacing between each of the X value sets
-              barValueSpacing         : 5,
-              //Number - Spacing between data sets within X values
-              barDatasetSpacing       : 1,
-              //String - A legend template
-              legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].fillColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
-              //Boolean - whether to make the chart responsive
-              responsive              : true,
-              maintainAspectRatio     : true
-            }
-
-            barChartOptions2.datasetFill = false
-            barChart2.Bar(barChartData2, barChartOptions2)
+            })
         })
     </script>
 </body>

@@ -16,7 +16,9 @@
                                         <h3 class="box-title">Budget - Realisasi Chart</h3>
                                     </div>
                                     <div class="box-body chart-responsive">
-                                        <div class="chart" id="bar-chart"></div>
+                                        <div class="chart">
+                                            <canvas id="areaChart" style="height: 250px"></canvas>
+                                        </div>
                                     </div>
                                     <!-- /.box-body -->
                                 </div>
@@ -63,23 +65,47 @@
     <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
     <script th:inline="javascript">
         $(document).ready(function(){
-            "use strict";
-            var bar = new Morris.Line({
-                element: 'bar-chart',
-                resize: true,
-                data: [
-                    /*[# th:each="dataRow: ${departmentSummaryDataList}"]*/
-                    {y: [[${dataRow.periode}]], a: [[${dataRow.nilai_budget}]], b: [[${dataRow.realisasi_budget}]]},
-                    /*[/]*/
-                ],
-                barColors: ['#00a65a', '#042af5'],
-                xkey: 'y',
-                ykeys: ['a','b'],
-                labels: ['Nilai Budget', 'Realisasi Budget'],
-                hideHover: 'auto'
-            });
+            var color = Chart.helpers.color;
+            var ctx = document.getElementById("areaChart")
+            var myChart = new Chart(ctx,{
+                type: 'line',
+                data: {
+                    labels  : [
+                        /*[# th:each="dataRow: ${departmentSummaryDataList}"]*/
+                        [[${dataRow.periode}]],
+                        /*[/]*/
+                    ],
+                    datasets:[{
+                        label: "Nilai Budget",
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                        data:[
+                            /*[# th:each="dataRow: ${departmentSummaryDataList}"]*/
+                            [[${dataRow.nilai_budget}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Realisasi Budget',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${departmentSummaryDataList}"]*/
+                            [[${dataRow.realisasi_budget}]],
+                            /*[/]*/
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
+                }
+            })
         })
-
     </script>
 </body>
 </html>
