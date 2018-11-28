@@ -50,6 +50,13 @@
                                                 <a th:href="@{'/budget_department/' + ${dataRow.periode}}">Detail</a>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td>Total</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right" th:text="${#numbers.formatDecimal(totalPercent, 1, 'POINT', 2, 'COMMA')}">0.00></td>
+                                            <td class="text-right"></td>
+                                        </tr>
                                         </tbody>
                                         </thead>
                                     </table>

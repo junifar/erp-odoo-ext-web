@@ -22,9 +22,34 @@ class DepartmentController{
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + "api/department_summary")
         val departmentSummaryDataList: List<DepartmentSummary> = objectMapper.readValue(url)
+        val totalDepartment = getTotal(departmentSummaryDataList)
+        val totalPercent = getTotalPercentDepartment(totalDepartment[1], totalDepartment[0])
+
         model.addAttribute("departmentSummaryDataList", departmentSummaryDataList.sortedByDescending { it.periode })
+        model.addAttribute("total",getTotal(departmentSummaryDataList))
+        model.addAttribute("totalPercent",totalPercent)
         return "department/index"
     }
+
+    fun getTotalDepartment(data:List<DepartmentSummary>,type: String): Long {
+        var total:Long =0
+        data.forEach {
+            when(type){
+                "totalBudget" -> it.nilai_budget?.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget?.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotal(data:List<DepartmentSummary>) = longArrayOf(
+            getTotalDepartment(data, "totalBudget"),
+            getTotalDepartment(data, "totalRealisasi")
+    )
+
+    fun getTotalPercentDepartment(data:Long, data1: Long) = floatArrayOf(
+            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    )
 
     @RequestMapping("/budget_department/{periode}")
     fun periodeDepartment(model: Model,@PathVariable("periode") periode:String):String{

@@ -76,6 +76,18 @@
                                                     <a th:href="@{'/project/' + ${dataRow.year_project}}">Detail</a>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td class="small" >Total</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[6], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[7], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                <td class="small" ></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

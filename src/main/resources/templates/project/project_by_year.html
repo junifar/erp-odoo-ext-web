@@ -88,6 +88,18 @@
                                                                     <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>Total</td>
+                                                                <td></td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercent, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right"></td>
+                                                            </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -119,6 +131,16 @@
                                                                     <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td>Total</td>
+                                                                <td></td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[0], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[1], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[2], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[3], 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercentBudget, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right"></td>
+                                                            </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -131,8 +153,8 @@
                                                                 <th class="text-center">Jumlah Site</th>
                                                                 <th class="text-center">Site Cancel</th>
                                                                 <th class="text-center">Laba Rugi</th>
-                                                                <th class="text-center">%</th>
-                                                                <th class="text-center">%</th>
+                                                                <th class="text-center">% profit-realisasi</th>
+                                                                <th class="text-center">% profit-po</th>
                                                                 <th class="text-center">Action</th>
                                                             </tr>
                                                             </thead>
@@ -149,6 +171,16 @@
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
                                                                     <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
                                                                 </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Total</td>
+                                                                <td></td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[0], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[1], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[2], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercentLabaRugiRealisasi, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercentLabaRugiPo, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right"></td>
                                                             </tr>
                                                             </tbody>
                                                         </table>

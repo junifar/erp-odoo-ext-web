@@ -180,6 +180,14 @@
                                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRowProject.estimate_po - dataRowProject.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRowProject.percent_po, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Total</td>
+                                                            <td></td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(totalPoBudget[0], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(totalPoBudget[1], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(grossMargin, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(percentPoBudget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -207,6 +215,16 @@
                                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRowProject.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">73%</td>
                                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRowProject.nilai_invoice - dataRowProject.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                             <td class="text-right" th:text="${#numbers.formatDecimal(dataRowProject.percent_labarugi, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(totalInvLabRug[0], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(totalInvLabRug[1], 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(totalInvLabRug[2], 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(grossMarginInvLabRug, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                            <td class="text-right" th:text="${#numbers.formatDecimal(percentInvLabRug, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                         </tr>
                                                         </tbody>
                                                     </table>

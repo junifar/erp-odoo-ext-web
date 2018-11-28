@@ -76,6 +76,18 @@
                                                 <a th:href="@{'/corrective/' + ${dataRow.year_project}}">Details</a>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <th class="text-center " >TOTAL</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalCorrective[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalCorrective[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentPenagihan, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalCorrective[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalCorrective[3], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalCorrective[4], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentLabaRugi, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                            <td class="text-right "></td>
+                                        </tr>
                                         </tbody>
                                         <tfoot>
                                         </tfoot>
@@ -98,7 +110,7 @@
                 type: 'line',
                 data: {
                     labels  : [
-                        /*[# th:each="dataRow: ${correctiveSummaryDataList}"]*/
+                        /*[# th:each="dataRow: ${correctiveSummaryDataListGraph}"]*/
                         [[${dataRow.year_project}]],
                         /*[/]*/
                     ],
@@ -108,7 +120,7 @@
                         borderColor: window.chartColors.red,
                         backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            /*[# th:each="dataRow: ${correctiveSummaryDataList}"]*/
+                            /*[# th:each="dataRow: ${correctiveSummaryDataListGraph}"]*/
                             [[${dataRow.nilai_po}]],
                             /*[/]*/
                         ]
@@ -119,7 +131,7 @@
                         borderColor: window.chartColors.blue,
                         backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                         data                : [
-                            /*[# th:each="dataRow: ${correctiveSummaryDataList}"]*/
+                            /*[# th:each="dataRow: ${correctiveSummaryDataListGraph}"]*/
                             [[${dataRow.nilai_inv}]],
                             /*[/]*/
                         ]
@@ -137,7 +149,7 @@
                 type: 'line',
                 data: {
                     labels  : [
-                        /*[# th:each="dataRow: ${correctiveSummaryDataList}"]*/
+                        /*[# th:each="dataRow: ${correctiveSummaryDataListGraph}"]*/
                         [[${dataRow.year_project}]],
                         /*[/]*/
                     ],
@@ -147,7 +159,7 @@
                         borderColor: window.chartColors.red,
                         backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            /*[# th:each="dataRow: ${correctiveSummaryDataList}"]*/
+                            /*[# th:each="dataRow: ${correctiveSummaryDataListGraph}"]*/
                             [[${dataRow.nilai_budget}]],
                             /*[/]*/
                         ]
@@ -158,7 +170,7 @@
                             borderColor: window.chartColors.blue,
                             backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                             data                : [
-                                /*[# th:each="dataRow: ${correctiveSummaryDataList}"]*/
+                                /*[# th:each="dataRow: ${correctiveSummaryDataListGraph}"]*/
                                 [[${dataRow.realisasi_budget}]],
                                 /*[/]*/
                             ]

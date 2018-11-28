@@ -2229,9 +2229,45 @@ class PreventiveController{
         val url = URL(BASE_URL + "api/preventive_summary")
 
         val preventiveSummaryDataList: List<PreventiveSummaryData> = objectMapper.readValue(url)
+        val totalPreventiveName = getTotal(preventiveSummaryDataList)
+        val totalPercentPenagihan = TotalPercent(totalPreventiveName[1], totalPreventiveName[0])
+        val totalPercentBudget = TotalPercent(totalPreventiveName[3], totalPreventiveName[2])
+        val totalPercentLabaRugi= TotalPercent(totalPreventiveName[3], totalPreventiveName[1])
+
         model.addAttribute("preventiveSummaryDataList", preventiveSummaryDataList)
+        model.addAttribute("totalPreventive",getTotal(preventiveSummaryDataList))
+        model.addAttribute("totalPercentPenagihan",totalPercentPenagihan)
+        model.addAttribute("totalPercentBudget",totalPercentBudget)
+        model.addAttribute("totalPercentLabaRugi",totalPercentLabaRugi)
         return "preventive/summary_preventive"
     }
+
+    fun getTotalPreventive(data: List<PreventiveSummaryData>, type: String):Long{
+        var total:Long =0
+        data.forEach {
+            when(type){
+                "totalPO" ->it.nilai_po?.let { total = total.plus(it) }
+                "totalPenagihan" ->it.nilai_penagihan?.let { total = total.plus(it) }
+                "totalBudget" ->it.nilai_budget?.let { total = total.plus(it) }
+                "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
+                "totalLabaRugi" ->it.laba_rugi?.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotal(data:List<PreventiveSummaryData>) = longArrayOf(
+            getTotalPreventive(data,"totalPO"),
+            getTotalPreventive(data,"totalPenagihan"),
+            getTotalPreventive(data,"totalBudget"),
+            getTotalPreventive(data,"totalRealisasi"),
+            getTotalPreventive(data,"totalLabaRugi")
+    )
+
+    fun TotalPercent(data:Long, data1: Long) = floatArrayOf(
+            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    )
+
 
     @RequestMapping("/preventive2")
     fun indexPreventive2(model:Model): String{
