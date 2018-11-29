@@ -28,7 +28,7 @@
                                 <!-- BAR CHART -->
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Budget - Realisasi</h3>
+                                        <h3 class="box-title">Budget - Realisasi, Top 5</h3>
                                     </div>
                                     <div class="box-body">
                                         <div class="chart">
@@ -49,17 +49,17 @@
                                     <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
                                         <thead>
                                             <tr>
-                                                <th class="small text-center">Customer</th>
-                                                <th class="small text-center">Jumlah Site</th>
-                                                <th class="small text-center">Nilai PO</th>
-                                                <th class="small text-center">Nilai Inv</th>
-                                                <th class="small text-center">%</th>
-                                                <th class="small text-center">Budget</th>
-                                                <th class="small text-center">Realisasi Budget</th>
-                                                <th class="small text-center">%</th>
-                                                <th class="small text-center">Laba / Rugi</th>
-                                                <th class="small text-center">%</th>
-                                                <th class="small text-center">Action</th>
+                                                <th class=" text-center">Customer</th>
+                                                <th class=" text-center">Jumlah Site</th>
+                                                <th class=" text-center">Nilai PO</th>
+                                                <th class=" text-center">Nilai Inv</th>
+                                                <th class=" text-center">%</th>
+                                                <th class=" text-center">Budget</th>
+                                                <th class=" text-center">Realisasi Budget</th>
+                                                <th class=" text-center">%</th>
+                                                <th class=" text-center">Laba / Rugi</th>
+                                                <th class=" text-center">%</th>
+                                                <th class=" text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -78,20 +78,22 @@
                                                     <a th:href="@{'/corrective/xls/' + ${tahun}}">Download</a> || <a th:href="@{'/corrective/' + ${dataRow.customer_id} + '/' + ${dataRow.year_project}}">Details</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <th class="small">Total</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(totalPercentInvPO, 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(totalPercentRealisasiBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right small" th:text="${#numbers.formatDecimal(totalPercentLabaRugiPO, 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-center small"><a th:href="@{'/corrective/xls/' + ${tahun}}">Download</a></th>
-                                            </tr>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="">Total</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentInvPO, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentRealisasiBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(totalPercentLabaRugiPO, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <th class="text-center "><a th:href="@{'/corrective/xls/' + ${tahun}}">Download</a></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

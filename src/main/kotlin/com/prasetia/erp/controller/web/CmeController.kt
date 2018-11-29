@@ -25,6 +25,8 @@ class CmeController{
         val cmeSummaryYearDataList: List<CmeSummaryYearData> = objectMapper.readValue(url)
         val totalCmeData = getTotal(cmeSummaryYearDataList)
         model.addAttribute("cmeSummaryYearDataList", cmeSummaryYearDataList)
+        model.addAttribute("cmeSummaryYearDataList1", cmeSummaryYearDataList.sortedByDescending { it.nilai_po }.take(5))
+        model.addAttribute("cmeSummaryYearDataList2", cmeSummaryYearDataList.sortedByDescending { it.nilai_budget }.take(5))
         model.addAttribute("total",getTotal(cmeSummaryYearDataList))
         return "project/index"
     }

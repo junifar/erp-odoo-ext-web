@@ -74,33 +74,35 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td th:text="${dataRow.project_type}">Colo</td>
-                                                                <td th:text="${dataRow.year_project}">2018</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.estimate_po, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_invoice, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.remaining_invoice, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right">
+                                                                <td class="text-right small"  th:text="${dataRow.project_type}">Colo</td>
+                                                                <td class="text-right small" th:text="${dataRow.year_project}">2018</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.estimate_po, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_invoice, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.percentage, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.remaining_invoice, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small">
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
                                                                     <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>Total</td>
-                                                                <td></td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercent, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right"></td>
-                                                            </tr>
                                                             </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Total</th>
+                                                                    <th></th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalPercent, 1, 'POINT', 2, 'COMMA')}">73%</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right"></th>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                     </div>
                                                     <div class="tab-pane" id="tab_2">
@@ -119,29 +121,31 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td th:text="${dataRow.project_type}">Colo</td>
-                                                                <td th:text="${dataRow.year_project}">2018</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage_realization, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right">
+                                                                <td class="text-right small" th:text="${dataRow.project_type}">Colo</td>
+                                                                <td class="text-right small" th:text="${dataRow.year_project}">2018</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.percentage_realization, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right small">
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
                                                                     <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>Total</td>
-                                                                <td></td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[0], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[1], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[2], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalBudget[3], 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercentBudget, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right"></td>
-                                                            </tr>
                                                             </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Total</th>
+                                                                    <th></th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalBudget[0], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalBudget[1], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalBudget[2], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalBudget[3], 1, 'POINT', 2, 'COMMA')}">73%</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalPercentBudget, 1, 'POINT', 2, 'COMMA')}">73%</th>
+                                                                    <th class="text-right"></th>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                     </div>
                                                     <div class="tab-pane" id="tab_3">
@@ -160,29 +164,31 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td th:text="${dataRow.project_type}">Colo</td>
-                                                                <td th:text="${dataRow.year_project}">2018</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.profit_loss, 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage_profit_realization, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRow.percentage_profit_po, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right">
+                                                                <td class="text-right small" th:text="${dataRow.project_type}">Colo</td>
+                                                                <td class="text-right small" th:text="${dataRow.year_project}">2018</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.profit_loss, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.percentage_profit_realization, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.percentage_profit_po, 1, 'POINT', 2, 'COMMA')}">73%</td>
+                                                                <td class="text-right small">
                                                                     <a th:href="@{'/project/download/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Download</a> ||
                                                                     <a th:href="@{'/project/' + ${dataRow.year_project} + '/' + ${dataRow.site_type_id}}">Details</a>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>Total</td>
-                                                                <td></td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[0], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[1], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[2], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercentLabaRugiRealisasi, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right" th:text="${#numbers.formatDecimal(totalPercentLabaRugiPo, 1, 'POINT', 2, 'COMMA')}">73%</td>
-                                                                <td class="text-right"></td>
-                                                            </tr>
                                                             </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th>Total</th>
+                                                                    <th></th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[0], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[1], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalLabaRugi[2], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalPercentLabaRugiRealisasi, 1, 'POINT', 2, 'COMMA')}">73%</th>
+                                                                    <th class="text-right" th:text="${#numbers.formatDecimal(totalPercentLabaRugiPo, 1, 'POINT', 2, 'COMMA')}">73%</th>
+                                                                    <th class="text-right"></th>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                     </div>
                                                 </div>
