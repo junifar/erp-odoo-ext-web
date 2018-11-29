@@ -13,7 +13,7 @@
                                 <!-- BAR CHART -->
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">PO - Invoice</h3>
+                                        <h3 class="box-title">PO - Invoice, Top 5</h3>
                                     </div>
                                     <div class="box-body chart-responsive">
                                         <div class="chart">
@@ -28,7 +28,7 @@
                                 <!-- BAR CHART -->
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">Invoice - Realisasi</h3>
+                                        <h3 class="box-title">Budget - Realisasi, Top 5</h3>
                                     </div>
                                     <div class="box-body chart-responsive">
                                         <div class="chart">
@@ -49,16 +49,16 @@
                                     <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
                                         <thead>
                                             <tr>
-                                                <th class="small text-center">Tahun</th>
-                                                <th class="small text-center">Jumlah Site</th>
-                                                <th class="small text-center">Site Cancel</th>
-                                                <th class="small text-center">Estimasi Nilai PO</th>
-                                                <th class="small text-center">Nilai PO</th>
-                                                <th class="small text-center">Nilai INV</th>
-                                                <th class="small text-center">Nilai Budget</th>
-                                                <th class="small text-center">Realisasi Budget</th>
-                                                <th class="small text-center">Laba Rugi</th>
-                                                <th class="small text-center">Action</th>
+                                                <th class=" text-center">Tahun</th>
+                                                <th class=" text-center">Jumlah Site</th>
+                                                <th class=" text-center">Site Cancel</th>
+                                                <th class=" text-center">Estimasi Nilai PO</th>
+                                                <th class=" text-center">Nilai PO</th>
+                                                <th class=" text-center">Nilai INV</th>
+                                                <th class=" text-center">Nilai Budget</th>
+                                                <th class=" text-center">Realisasi Budget</th>
+                                                <th class=" text-center">Laba Rugi</th>
+                                                <th class=" text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -76,19 +76,21 @@
                                                     <a th:href="@{'/project/' + ${dataRow.year_project}}">Detail</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td class="small" >Total</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[6], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[7], 1, 'POINT', 2, 'COMMA')}">999</td>
-                                                <td class="small" ></td>
-                                            </tr>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="" >Total</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[5], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[6], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="text-right " th:text="${#numbers.formatDecimal(total[7], 1, 'POINT', 2, 'COMMA')}">999</th>
+                                                <th class="" ></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -108,7 +110,7 @@
                 type: 'line',
                 data: {
                     labels  : [
-                        /*[# th:each="dataRow: ${cmeSummaryYearDataList}"]*/
+                        /*[# th:each="dataRow: ${cmeSummaryYearDataList1}"]*/
                         [[${dataRow.year_project}]],
                         /*[/]*/
                     ],
@@ -118,7 +120,7 @@
                         borderColor: window.chartColors.red,
                         backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            /*[# th:each="dataRow: ${cmeSummaryYearDataList}"]*/
+                            /*[# th:each="dataRow: ${cmeSummaryYearDataList1}"]*/
                             [[${dataRow.nilai_po}]],
                             /*[/]*/
                         ]
@@ -129,7 +131,7 @@
                         borderColor: window.chartColors.blue,
                         backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                         data                : [
-                            /*[# th:each="dataRow: ${cmeSummaryYearDataList}"]*/
+                            /*[# th:each="dataRow: ${cmeSummaryYearDataList1}"]*/
                             [[${dataRow.nilai_invoice}]],
                             /*[/]*/
                         ]
@@ -147,7 +149,7 @@
                 type: 'line',
                 data: {
                     labels  : [
-                        /*[# th:each="dataRow: ${cmeSummaryYearDataList}"]*/
+                        /*[# th:each="dataRow: ${cmeSummaryYearDataList2}"]*/
                         [[${dataRow.year_project}]],
                         /*[/]*/
                     ],
@@ -157,7 +159,7 @@
                         borderColor: window.chartColors.red,
                         backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            /*[# th:each="dataRow: ${cmeSummaryYearDataList}"]*/
+                            /*[# th:each="dataRow: ${cmeSummaryYearDataList2}"]*/
                             [[${dataRow.nilai_budget}]],
                             /*[/]*/
                         ]
@@ -168,7 +170,7 @@
                             borderColor: window.chartColors.blue,
                             backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                             data                : [
-                                /*[# th:each="dataRow: ${cmeSummaryYearDataList}"]*/
+                                /*[# th:each="dataRow: ${cmeSummaryYearDataList2}"]*/
                                 [[${dataRow.realisasi_budget}]],
                                 /*[/]*/
                             ]

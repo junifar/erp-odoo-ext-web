@@ -132,18 +132,20 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="dataRowPO : ${dataRow.sale_order}">
-                                                <td th:text="${dataRowPO.client_order_ref}">PO0000000</td>
-                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.i, 1, 'POINT', 2, 'COMMA')}">0,00</td>
-                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.i_inv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
-                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.i_inv_precentage, 1, 'POINT', 2, 'COMMA')}">0,00</td>
-                                            </tr>
-                                            <tr>
-                                                <th>TOTAL</th>
-                                                <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <td class="text-left " th:text="${dataRowPO.client_order_ref}">PO0000000</td>
+                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRowPO.i, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRowPO.i_inv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRowPO.i_inv_precentage, 1, 'POINT', 2, 'COMMA')}">0,00</td>
                                             </tr>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>TOTAL</th>
+                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                         <div class="row">
                                             <h4>Budget & Realisasi - Januari</h4>
@@ -316,18 +318,20 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="dataRowPO : ${dataRow.sale_order}">
-                                                <td th:text="${dataRowPO.client_order_ref}">PO0000000</td>
-                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.iii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
-                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.iii_inv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
-                                                <td class="text-right" th:text="${#numbers.formatDecimal(dataRowPO.iii_inv_precentage, 1, 'POINT', 2, 'COMMA')}">0,00</td>
-                                            </tr>
-                                            <tr>
-                                                <th>TOTAL</th>
-                                                <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                                <th class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                <td class="text-left " th:text="${dataRowPO.client_order_ref}">PO0000000</td>
+                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRowPO.iii, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRowPO.iii_inv, 1, 'POINT', 2, 'COMMA')}">0,00</td>
+                                                <td class="text-right " th:text="${#numbers.formatDecimal(dataRowPO.iii_inv_precentage, 1, 'POINT', 2, 'COMMA')}">0,00</td>
                                             </tr>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th >TOTAL</th>
+                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_po[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total_nilai_invoice[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                    <th class="text-right" th:text="${#numbers.formatDecimal(total_invoice_vs_nilai_po[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                         <div class="row">
                                             <h4>Budget & Realisasi - Maret</h4>

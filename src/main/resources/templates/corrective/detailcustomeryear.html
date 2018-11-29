@@ -163,11 +163,11 @@
                                                         <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
                                                             <thead>
                                                             <tr>
-                                                                <th class="small text-center">Nomor PO</th>
-                                                                <th class="small text-center">Project Name</th>
-                                                                <th class="small text-center">Nilai PO</th>
-                                                                <th class="small text-center">Nilai Invoice</th>
-                                                                <th class="small text-center">%</th>
+                                                                <th class=" text-center">Nomor PO</th>
+                                                                <th class=" text-center">Project Name</th>
+                                                                <th class=" text-center">Nilai PO</th>
+                                                                <th class=" text-center">Nilai Invoice</th>
+                                                                <th class=" text-center">%</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -178,14 +178,16 @@
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSO.nilai_invoice, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSO.persent_invoice, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="small">Total</td>
-                                                                <td > </td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(percent, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                            </tr>
                                                             </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th class="text-center">Total</th>
+                                                                    <th > </th>
+                                                                    <th class="text-right " th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                                    <th class="text-right " th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                                    <th class="text-right " th:text="${#numbers.formatDecimal(percent, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                     </div>
                                                     <!-- /.tab-pane -->
@@ -193,11 +195,11 @@
                                                         <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
                                                             <thead>
                                                             <tr>
-                                                                <th class="small text-center">Nomor Budget</th>
-                                                                <th class="small text-center">Project Name</th>
-                                                                <th class="small text-center">Nilai Budget</th>
-                                                                <th class="small text-center">Nilai Realisasi</th>
-                                                                <th class="small text-center">%</th>
+                                                                <th class=" text-center">Nomor Budget</th>
+                                                                <th class=" text-center">Project Name</th>
+                                                                <th class=" text-center">Nilai Budget</th>
+                                                                <th class=" text-center">Nilai Realisasi</th>
+                                                                <th class=" text-center">%</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -208,21 +210,20 @@
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowBudget.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowBudget.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="small">Total</td>
-                                                                <td class="small"></td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(totalBudget[0], 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(totalBudget[1], 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(percentBudget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                            </tr>
                                                             </tbody>
+                                                            <tfoot>
+                                                                <tr>
+                                                                    <th class="text-center">Total</th>
+                                                                    <th class=""></th>
+                                                                    <th class="text-right " th:text="${#numbers.formatDecimal(totalBudget[0], 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                                    <th class="text-right " th:text="${#numbers.formatDecimal(totalBudget[1], 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                                    <th class="text-right " th:text="${#numbers.formatDecimal(percentBudget, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                     </div>
-                                                    <!-- /.tab-pane -->
                                                 </div>
-                                                <!-- /.tab-content -->
                                             </div>
-                                            <!-- nav-tabs-custom -->
                                         </div>
                                     </div>
                                 </div>

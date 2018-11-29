@@ -218,7 +218,7 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
                             content.createCell(4).setCellValue(it.narration)
                             content.getCell(4).setCellStyle(styleTableContent)
                             it.budget_realisasi?.toDouble()?.let { it1 -> cell5.setCellValue(it1) }
-                            content.getCell(5).setCellStyle(styleTableContent)
+                            content.getCell(5).setCellStyle(styleTableContentNumber)
 
                         }
                     }
