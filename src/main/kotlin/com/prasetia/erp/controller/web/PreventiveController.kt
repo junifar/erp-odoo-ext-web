@@ -2169,8 +2169,8 @@ class PreventiveController{
     }
 
     //type : total_po, total_penagihan, total_budget, total_realisasi, total_laba_rugi
-    fun getTotalPreventiveCustomer(data:List<PreventiveCustomerYear>, type:String): Long{
-        var total: Long = 0
+    fun getTotalPreventiveCustomer(data:List<PreventiveCustomerYear>, type:String): Double{
+        var total = 0.0
         data.forEach {
             items->
             items.detail?.forEach {
@@ -2189,7 +2189,7 @@ class PreventiveController{
         return total
     }
 
-    fun getTotalPreventiveCustomer(data:List<PreventiveCustomerYear>) = longArrayOf(
+    fun getTotalPreventiveCustomer(data:List<PreventiveCustomerYear>) = doubleArrayOf(
             getTotalPreventiveCustomer(data, "total_po"),
             getTotalPreventiveCustomer(data, "total_penagihan"),
             getTotalPreventiveCustomer(data, "total_budget"),
@@ -2242,8 +2242,8 @@ class PreventiveController{
         return "preventive/summary_preventive"
     }
 
-    fun getTotalPreventive(data: List<PreventiveSummaryData>, type: String):Long{
-        var total:Long =0
+    fun getTotalPreventive(data: List<PreventiveSummaryData>, type: String):Double{
+        var total =0.0
         data.forEach {
             when(type){
                 "totalPO" ->it.nilai_po?.let { total = total.plus(it) }
@@ -2256,7 +2256,7 @@ class PreventiveController{
         return total
     }
 
-    fun getTotal(data:List<PreventiveSummaryData>) = longArrayOf(
+    fun getTotal(data:List<PreventiveSummaryData>) = doubleArrayOf(
             getTotalPreventive(data,"totalPO"),
             getTotalPreventive(data,"totalPenagihan"),
             getTotalPreventive(data,"totalBudget"),
@@ -2264,8 +2264,8 @@ class PreventiveController{
             getTotalPreventive(data,"totalLabaRugi")
     )
 
-    fun TotalPercent(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun TotalPercent(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0) data * 100 / data1 else (0.0)
     )
 
 
