@@ -6,11 +6,13 @@ class CorrectiveSOData(
         val site_name:String,
         val project_id:String,
         val no_po:String,
-        val nilai_po:Long,
-        val nilai_invoice:Long,
-        val persent_invoice:Float
+        val nilai_po:Double,
+        val nilai_invoice:Double,
+        val persent_invoice:Double
 ){
-    constructor(): this(0,0,"","","",0,0,0f)
+    constructor(): this(0,0,"",
+            "","",0.0,
+            0.0,0.0)
 }
 
 class CorrectiveBudgetData(
@@ -21,11 +23,14 @@ class CorrectiveBudgetData(
         val site_name:String?,
         val project_id:String?,
         val nomor_budget:String?,
-        val nilai_budget:Long?,
-        val realisasi_budget:Long?,
-        val persent_budget:Float?
+        val nilai_budget:Double?,
+        val realisasi_budget:Double?,
+        val persent_budget:Double?
 ){
-    constructor(): this(0,0,0,0,"","","",0,0,0f)
+    constructor(): this(0,0,0,
+            0,"","",
+            "",0.0,0.0,
+            0.0)
 }
 
 class CorrectiveDetailYearCustomerData(
@@ -34,17 +39,20 @@ class CorrectiveDetailYearCustomerData(
         val code:String,
         val jumlah_site: Long?,
         val year_project: String?,
-        val nilai_po: Long?,
-        val nilai_inv: Long?,
-        val realisasi_budget: Long?,
-        val nilai_budget: Long?,
-        val percentage:Float?,
-        val persent_budget:Float?,
-        val profit: Long?,
-        val profit_precentage: Float?,
+        val nilai_po: Double?,
+        val nilai_inv: Double?,
+        val realisasi_budget: Double?,
+        val nilai_budget: Double?,
+        val percentage:Double?,
+        val persent_budget:Double?,
+        val profit: Double?,
+        val profit_precentage: Double?,
         var sales_order: List<CorrectiveSOData>?,
         var budget: List<CorrectiveBudgetData>?
 ){
-    constructor(): this(0,0,"",0,"",0,
-            0,0,0,0f,0f,0,0f, null, null)
+    constructor(): this(0,0,"",
+            0,"",0.0,
+            0.0,0.0,0.0,
+            0.0,0.0,0.0,
+            0.0, null, null)
 }

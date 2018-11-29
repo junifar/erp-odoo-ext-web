@@ -224,7 +224,7 @@ class SheetCorrectiveYear(workbook: HSSFWorkbook, tahun: String, data:List<Corre
                     cash_advance.nilai_po?.toDouble()?.let {cell17.setCellValue(it)}
                     content.getCell(17).setCellStyle(styleTableContentNumber)
                     var noInvoice = ""
-                    var nilaiInvoice:Long = 0
+                    var nilaiInvoice = 0.0
                     var invoiceState = ""
                     cash_advance.advance_invoice!!.forEach {
                         noInvoice = it.no_inv
