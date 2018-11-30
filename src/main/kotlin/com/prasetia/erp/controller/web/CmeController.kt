@@ -23,7 +23,6 @@ class CmeController{
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year")
         val cmeSummaryYearDataList: List<CmeSummaryYearData> = objectMapper.readValue(url)
-        val totalCmeData = getTotal(cmeSummaryYearDataList)
         model.addAttribute("cmeSummaryYearDataList", cmeSummaryYearDataList)
         model.addAttribute("cmeSummaryYearDataList1", cmeSummaryYearDataList.sortedByDescending { it.nilai_po }.take(5))
         model.addAttribute("cmeSummaryYearDataList2", cmeSummaryYearDataList.sortedByDescending { it.nilai_budget }.take(5))
@@ -31,24 +30,24 @@ class CmeController{
         return "project/index"
     }
 
-    fun getTotalCme(data: List<CmeSummaryYearData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalCme(data: List<CmeSummaryYearData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalSiteCancel" ->it.site_cancel?.let { total = total.plus(it) }
-                "totalEstimasiPo" ->it.estimate_po?.let { total = total.plus(it) }
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
-                "totalInv" ->it.nilai_invoice?.let { total = total.plus(it) }
-                "totalBudget" ->it.nilai_budget?.let { total = total.plus(it) }
-                "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
-                "totalLabaRugi" ->it.profit_loss?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalEstimasiPo" -> it.estimate_po.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+                "totalInv" -> it.nilai_invoice.let { total = total.plus(it) }
+                "totalBudget" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalLabaRugi" -> it.profit_loss.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotal(data:List<CmeSummaryYearData>) = longArrayOf(
+    fun getTotal(data:List<CmeSummaryYearData>) = doubleArrayOf(
             getTotalCme(data,"totalSite"),
             getTotalCme(data,"totalSiteCancel"),
             getTotalCme(data,"totalEstimasiPo"),
@@ -86,22 +85,22 @@ class CmeController{
         return "project/project_by_year"
     }
 
-    fun getTotalCmeYear(data: List<CmeSummaryYearProjectTypeData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalCmeYear(data: List<CmeSummaryYearProjectTypeData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalSiteCancel" ->it.site_cancel?.let { total = total.plus(it) }
-                "totalEstimasiPo" ->it.estimate_po?.let { total = total.plus(it) }
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
-                "totalInv" ->it.nilai_invoice?.let { total = total.plus(it) }
-                "totalBelumTertagih" ->it.remaining_invoice?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalEstimasiPo" -> it.estimate_po.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+                "totalInv" -> it.nilai_invoice.let { total = total.plus(it) }
+                "totalBelumTertagih" -> it.remaining_invoice.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotalCmeYear(data:List<CmeSummaryYearProjectTypeData>) = longArrayOf(
+    fun getTotalCmeYear(data:List<CmeSummaryYearProjectTypeData>) = doubleArrayOf(
             getTotalCmeYear(data,"totalSite"),
             getTotalCmeYear(data,"totalSiteCancel"),
             getTotalCmeYear(data,"totalEstimasiPo"),
@@ -110,25 +109,25 @@ class CmeController{
             getTotalCmeYear(data,"totalBelumTertagih")
     )
 
-    fun getPrecent(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecent(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalCmeBudget(data: List<CmeSummaryYearProjectTypeData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalCmeBudget(data: List<CmeSummaryYearProjectTypeData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalSiteCancel" ->it.site_cancel?.let { total = total.plus(it) }
-                "totalBudget" ->it.nilai_budget?.let { total = total.plus(it) }
-                "totalRealisasiBudget" ->it.realisasi_budget?.let { total = total.plus(it) }
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalBudget" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasiBudget" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotalCmeYearBudget(data:List<CmeSummaryYearProjectTypeData>) = longArrayOf(
+    fun getTotalCmeYearBudget(data:List<CmeSummaryYearProjectTypeData>) = doubleArrayOf(
             getTotalCmeBudget(data,"totalSite"),
             getTotalCmeBudget(data,"totalSiteCancel"),
             getTotalCmeBudget(data,"totalBudget"),
@@ -136,25 +135,25 @@ class CmeController{
             getTotalCmeBudget(data,"totalPo")
     )
 
-    fun getPrecentBudget(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentBudget(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalCmeLabaRugi(data: List<CmeSummaryYearProjectTypeData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalCmeLabaRugi(data: List<CmeSummaryYearProjectTypeData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalSiteCancel" ->it.site_cancel?.let { total = total.plus(it) }
-                "totalLabaRugi" ->it.nilai_budget?.let { total = total.plus(it) }
-                "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalLabaRugi" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotalCmeLabaRugi(data:List<CmeSummaryYearProjectTypeData>) = longArrayOf(
+    fun getTotalCmeLabaRugi(data:List<CmeSummaryYearProjectTypeData>) = doubleArrayOf(
             getTotalCmeLabaRugi(data,"totalSite"),
             getTotalCmeLabaRugi(data,"totalSiteCancel"),
             getTotalCmeLabaRugi(data,"totalLabaRugi"),
@@ -162,8 +161,8 @@ class CmeController{
             getTotalCmeLabaRugi(data,"totalPo")
     )
 
-    fun getPrecentLabaRugi(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentLabaRugi(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/project/{tahun}/{type_id}")
@@ -193,21 +192,21 @@ class CmeController{
         return "project/project_by_year_customer"
     }
 
-    fun getTotalPoInv(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalPoInv(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalEstimasiPo" ->it.estimate_po?.let { total = total.plus(it) }
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
-                "totalInv" ->it.nilai_invoice?.let { total = total.plus(it) }
-                "totalBelumTertagih" ->it.remaining_invoice?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalEstimasiPo" -> it.estimate_po.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+                "totalInv" -> it.nilai_invoice.let { total = total.plus(it) }
+                "totalBelumTertagih" -> it.remaining_invoice.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotalPoInv(data:List<CmeSummaryYearProjectTypeCustData>) = longArrayOf(
+    fun getTotalPoInv(data:List<CmeSummaryYearProjectTypeCustData>) = doubleArrayOf(
             getTotalPoInv(data,"totalSite"),
             getTotalPoInv(data,"totalEstimasiPo"),
             getTotalPoInv(data,"totalPo"),
@@ -215,54 +214,54 @@ class CmeController{
             getTotalPoInv(data,"totalBelumTertagih")
     )
 
-    fun getPrecentPoInv(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentPoInv(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalBudgetRealisasi(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalBudgetRealisasi(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Double{
+        var total = 0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalBudget" ->it.nilai_budget?.let { total = total.plus(it) }
-                "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalBudget" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotalBudgetRealisasi(data:List<CmeSummaryYearProjectTypeCustData>) = longArrayOf(
+    fun getTotalBudgetRealisasi(data:List<CmeSummaryYearProjectTypeCustData>) = doubleArrayOf(
             getTotalBudgetRealisasi(data,"totalSite"),
             getTotalBudgetRealisasi(data,"totalBudget"),
             getTotalBudgetRealisasi(data,"totalRealisasi")
     )
 
-    fun getPrecentBudgetRealisasi(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentBudgetRealisasi(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalCustomerPo(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Long{
-        var total:Long =0
-        data.forEach {
+    fun getTotalCustomerPo(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Double{
+        var total = 0.0
+        data.forEach { it ->
             when(type){
-                "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalLabaRugi" ->it.nilai_budget?.let { total = total.plus(it) }
-                "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalLabaRugi" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
             }
         }
         return total
     }
 
-    fun getTotalCustomerPoInv(data:List<CmeSummaryYearProjectTypeCustData>) = longArrayOf(
+    fun getTotalCustomerPoInv(data:List<CmeSummaryYearProjectTypeCustData>) = doubleArrayOf(
             getTotalCustomerPo(data,"totalSite"),
             getTotalCustomerPo(data,"totalLabaRugi"),
             getTotalCustomerPo(data,"totalRealisasi"),
             getTotalCustomerPo(data,"totalPo")
     )
 
-    fun getPrecentCustomerPoInv(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentCustomerPoInv(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/project/{tahun}/{type_id}/{customer_id}")
@@ -271,11 +270,11 @@ class CmeController{
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearTypeCustDetailDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
         var cmeYearTypeCustProject: List<CmeYearProjectTypeCustProjectDetailData>? = mutableListOf()
-        cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id }.forEach{
+        cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id }.forEach{ it ->
             cmeYearTypeCustProject = it.project_list
             it.project_list?.forEach {
-                it.percent_po = if (it.estimate_po > 0)((it.estimate_po - it.nilai_budget) * 100f) / it.estimate_po else 0f
-                it.percent_labarugi = if (it.estimate_po > 0)((it.nilai_invoice - it.realisasi_budget) * 100f) / it.realisasi_budget else 0f
+                it.percent_po = if (it.estimate_po > 0)((it.estimate_po - it.nilai_budget) * 100f) / it.estimate_po else 0.0
+                it.percent_labarugi = if (it.estimate_po > 0)((it.nilai_invoice - it.realisasi_budget) * 100f) / it.realisasi_budget else 0.0
             }
         }
 
@@ -298,58 +297,58 @@ class CmeController{
         return "project/project_by_year_customer_detail"
     }
 
-    fun getTotalDetaiPoBudget(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Long{
-        var total:Long =0
+    fun getTotalDetaiPoBudget(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Double{
+        var total = 0.0
         data.forEach {
-            d1->d1.project_list?.forEach {
-                when(type){
-                    "totalEstimasiPo" ->it.estimate_po?.let { total = total.plus(it) }
-                    "totalBudget" ->it.nilai_budget?.let { total = total.plus(it) }
+            d1->d1.project_list?.forEach { it ->
+            when(type){
+                    "totalEstimasiPo" -> it.estimate_po.let { total = total.plus(it) }
+                    "totalBudget" -> it.nilai_budget.let { total = total.plus(it) }
                 }
         }
         }
         return total
     }
 
-    fun getTotalDetailPoBudget(data:List<CmeSummaryYearProjectTypeCustData>) = longArrayOf(
+    fun getTotalDetailPoBudget(data:List<CmeSummaryYearProjectTypeCustData>) = doubleArrayOf(
             getTotalDetaiPoBudget(data,"totalEstimasiPo"),
             getTotalDetaiPoBudget(data,"totalBudget")
     )
 
-    fun getGrossMargin(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() - data1 else(0).toFloat()
+    fun getGrossMargin(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data - data1 else(0.0)
     )
 
-    fun getPrecentDetailPoBudget(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentDetailPoBudget(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalDetaiInvLabRug(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Long{
-        var total:Long =0
+    fun getTotalDetaiInvLabRug(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Double{
+        var total =0.0
         data.forEach {
-            d1->d1.project_list?.forEach {
+            d1->d1.project_list?.forEach { it ->
             when(type){
-                "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
-                "totalInvoice" ->it.nilai_invoice?.let { total = total.plus(it) }
-                "totalRealisasiBudget" ->it.realisasi_budget?.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+                "totalInvoice" -> it.nilai_invoice.let { total = total.plus(it) }
+                "totalRealisasiBudget" -> it.realisasi_budget.let { total = total.plus(it) }
             }
         }
         }
         return total
     }
 
-    fun getTotalDetailInvLabRug(data:List<CmeSummaryYearProjectTypeCustData>) = longArrayOf(
+    fun getTotalDetailInvLabRug(data:List<CmeSummaryYearProjectTypeCustData>) = doubleArrayOf(
             getTotalDetaiInvLabRug(data,"totalPo"),
             getTotalDetaiInvLabRug(data,"totalInvoice"),
             getTotalDetaiInvLabRug(data,"totalRealisasiBudget")
     )
 
-    fun getGrossMarginInvLabRug(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() - data1 else(0).toFloat()
+    fun getGrossMarginInvLabRug(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data - data1 else(0.0)
     )
 
-    fun getPrecentInvLabRug(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getPrecentInvLabRug(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/project/download/{tahun}/{type_id}")
