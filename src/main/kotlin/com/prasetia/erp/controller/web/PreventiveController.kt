@@ -2231,8 +2231,8 @@ class PreventiveController{
         return "preventive/index"
     }
 
-    fun Percent(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun Percent(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/preventive")
