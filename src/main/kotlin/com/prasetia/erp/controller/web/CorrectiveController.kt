@@ -33,8 +33,8 @@ class CorrectiveController{
         return "corrective/summary_corrective"
     }
 
-    fun getTotalCorrective(data: List<CorrectiveCustomerSummaryData>, type: String):Long{
-        var total:Long =0
+    fun getTotalCorrective(data: List<CorrectiveCustomerSummaryData>, type: String):Double{
+        var total =0.0
         data.forEach {
             when(type){
                 "totalPO" ->it.nilai_po?.let { total = total.plus(it) }
@@ -47,7 +47,7 @@ class CorrectiveController{
         return total
     }
 
-    fun getTotal(data:List<CorrectiveCustomerSummaryData>) = longArrayOf(
+    fun getTotal(data:List<CorrectiveCustomerSummaryData>) = doubleArrayOf(
             getTotalCorrective(data,"totalPO"),
             getTotalCorrective(data,"totalPenagihan"),
             getTotalCorrective(data,"totalBudget"),
@@ -55,8 +55,8 @@ class CorrectiveController{
             getTotalCorrective(data,"totalLabaRugi")
     )
 
-    fun TotalPercent(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun TotalPercent(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/corrective1")
@@ -68,8 +68,8 @@ class CorrectiveController{
         return "corrective/index2"
     }
 
-    fun getTotalCorrectiveCustomer(data:List<CorrectiveYearData>, type:String): Long{
-        var total: Long = 0
+    fun getTotalCorrectiveCustomer(data:List<CorrectiveYearData>, type:String): Double{
+        var total= 0.0
         data.forEach {
             when (type){
                 "total_site" -> it.jumlah_site?.let { total = total.plus(it) }
@@ -83,7 +83,7 @@ class CorrectiveController{
         return total
     }
 
-    fun getTotalCorrectiveCustomer(data: List<CorrectiveYearData>) = longArrayOf(
+    fun getTotalCorrectiveCustomer(data: List<CorrectiveYearData>) = doubleArrayOf(
             getTotalCorrectiveCustomer(data, "total_site"),
             getTotalCorrectiveCustomer(data, "total_po"),
             getTotalCorrectiveCustomer(data, "total_inv"),
@@ -92,8 +92,8 @@ class CorrectiveController{
             getTotalCorrectiveCustomer(data, "total_laba_rugi")
     )
 
-    fun getDivisionPrecent(data:Long, data1: Long) = floatArrayOf(
-        if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getDivisionPrecent(data:Double, data1: Double) = doubleArrayOf(
+        if (data1 > 0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/corrective/{tahun}")
@@ -147,8 +147,8 @@ class CorrectiveController{
         return "corrective/detailcustomeryear"
     }
 
-    fun getTotalCorrectiveBudget(data:List<CorrectiveDetailYearCustomerData>,type: String): Long {
-        var total:Long =0
+    fun getTotalCorrectiveBudget(data:List<CorrectiveDetailYearCustomerData>,type: String): Double {
+        var total =0.0
         data.forEach{
             when(type){
                 "totalPo" -> it.nilai_po?.let { total = total.plus(it) }
@@ -158,17 +158,17 @@ class CorrectiveController{
         return total
     }
 
-    fun getTotalCorrectiveBudget(data:List<CorrectiveDetailYearCustomerData>) = longArrayOf(
+    fun getTotalCorrectiveBudget(data:List<CorrectiveDetailYearCustomerData>) = doubleArrayOf(
             getTotalCorrectiveBudget(data, "totalPo"),
             getTotalCorrectiveBudget(data, "totalInv")
     )
 
-    fun getTotalPercent1(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getTotalPercent1(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalCorrectiveDetail(data:List<CorrectiveDetailYearCustomerData>,type: String): Long {
-        var total:Long =0
+    fun getTotalCorrectiveDetail(data:List<CorrectiveDetailYearCustomerData>,type: String): Double {
+        var total =0.0
         data.forEach{
             d1->d1.budget?.forEach {
             when(type){
@@ -180,13 +180,13 @@ class CorrectiveController{
         return total
     }
 
-    fun getTotalCorrectivedetail1(data:List<CorrectiveDetailYearCustomerData>) = longArrayOf(
+    fun getTotalCorrectivedetail1(data:List<CorrectiveDetailYearCustomerData>) = doubleArrayOf(
             getTotalCorrectiveDetail(data, "totalBudget"),
             getTotalCorrectiveDetail(data, "totalRealisasi")
     )
 
-    fun getTotalPercent2(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getTotalPercent2(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/corrective/xls/{tahun}")

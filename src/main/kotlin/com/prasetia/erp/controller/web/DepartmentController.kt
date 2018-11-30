@@ -31,9 +31,9 @@ class DepartmentController{
         return "department/index"
     }
 
-    fun getTotalDepartment(data:List<DepartmentSummary>,type: String): Long {
-        var total:Long =0
-        data.forEach {
+    fun getTotalDepartment(data:List<DepartmentSummary>,type: String): Double {
+        var total =0.0
+        data.forEach { it ->
             when(type){
                 "totalBudget" -> it.nilai_budget?.let { total = total.plus(it) }
                 "totalRealisasi" -> it.realisasi_budget?.let { total = total.plus(it) }
@@ -42,13 +42,13 @@ class DepartmentController{
         return total
     }
 
-    fun getTotal(data:List<DepartmentSummary>) = longArrayOf(
+    fun getTotal(data:List<DepartmentSummary>) = doubleArrayOf(
             getTotalDepartment(data, "totalBudget"),
             getTotalDepartment(data, "totalRealisasi")
     )
 
-    fun getTotalPercentDepartment(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getTotalPercentDepartment(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
     @RequestMapping("/budget_department/{periode}")
@@ -67,9 +67,9 @@ class DepartmentController{
         return "department/departmen_by_periode"
     }
 
-    fun getTotalDepartmentBudget(data:List<DepartmentYearData>,type: String): Long {
-        var total:Long =0
-        data.forEach {
+    fun getTotalDepartmentBudget(data:List<DepartmentYearData>,type: String): Double {
+        var total =0.0
+        data.forEach { it ->
             when(type){
                 "totalBudget" -> it.nilai_budget?.let { total = total.plus(it) }
                 "totalRealisasi" -> it.realisasi_budget?.let { total = total.plus(it) }
@@ -78,13 +78,13 @@ class DepartmentController{
         return total
     }
 
-    fun getTotalDepartment(data:List<DepartmentYearData>) = longArrayOf(
+    fun getTotalDepartment(data:List<DepartmentYearData>) = doubleArrayOf(
             getTotalDepartmentBudget(data, "totalBudget"),
             getTotalDepartmentBudget(data, "totalRealisasi")
     )
 
-    fun getTotalPercent(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getTotalPercent(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
 
@@ -108,9 +108,9 @@ class DepartmentController{
     }
 
 
-    fun getTotalBudget(data:List<DepartmentBudgetYearData>, type:String): Long{
-        var total: Long = 0
-        data.forEach {
+    fun getTotalBudget(data:List<DepartmentBudgetYearData>, type:String): Double{
+        var total = 0.0
+        data.forEach { it ->
             when (type){
                 "total_budget" -> it.nilai_budget?.let { total = total.plus(it) }
                 "total_realisasi" -> it.realisasi_budget?.let { total = total.plus(it) }
@@ -123,11 +123,11 @@ class DepartmentController{
             getTotalRealisasi(data, "total_realisasi_detail")
             )
 
-    fun getDepartmentPrecent(data:Long, data1: Long) = floatArrayOf(
-            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    fun getDepartmentPrecent(data:Double, data1: Double) = doubleArrayOf(
+            if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
-    fun getTotalDepartmentCustomer(data:List<DepartmentBudgetYearData>) = longArrayOf(
+    fun getTotalDepartmentCustomer(data:List<DepartmentBudgetYearData>) = doubleArrayOf(
             getTotalBudget(data, "total_budget"),
             getTotalBudget(data, "total_realisasi")
     )
@@ -150,8 +150,7 @@ class DepartmentController{
     }
 
     fun departmentDetailDataListFilter(data:List<DepartmentBudgetYearData>, line_id: Long):List<DepartmentBudgetYearData>{
-        var departmentDetailDataList:List<DepartmentBudgetYearData> = data
-        var total:Long=0
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = data
         departmentDetailDataList.forEach {
             budgetYearData ->
             budgetYearData.department_budget?.forEach {
@@ -168,15 +167,15 @@ class DepartmentController{
     }
 
 
-    fun getTotalRealisasi(data: List<DepartmentBudgetYearData>,type: String):Long {
-        var total:Long=0
+    fun getTotalRealisasi(data: List<DepartmentBudgetYearData>,type: String):Double {
+        var total = 0.0
         data.forEach {
             budget_data ->
             budget_data.department_budget?.forEach {
                 budget_detail ->
                 budget_detail.budget_detail?.forEach {
                     budget_realisasi ->
-                    budget_realisasi.realisasi?.forEach {
+                    budget_realisasi.realisasi?.forEach { it ->
                         when(type){
                             "total_realisasi_detail" -> it.budget_realisasi?.let { total = total.plus(it) }
                         }

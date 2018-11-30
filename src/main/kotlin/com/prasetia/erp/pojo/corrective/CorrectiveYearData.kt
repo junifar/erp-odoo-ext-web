@@ -8,18 +8,21 @@ class CorrectiveYearData(
         val code:String,
         val jumlah_site: Long?,
         val year_project: String?,
-        val nilai_po: Long?,
-        val nilai_inv: Long?,
-        val nilai_budget: Long?,
-        val realisasi_budget: Long?,
-        val percentage: Float?,
-        val persent_budget: Float?,
-        val profit: Long?,
-        val profit_precentage: Float?,
+        val nilai_po: Double?,
+        val nilai_inv: Double?,
+        val nilai_budget: Double?,
+        val realisasi_budget: Double?,
+        val percentage: Double?,
+        val persent_budget: Double?,
+        val profit: Double?,
+        val profit_precentage: Double?,
         var projects : MutableList<CorrectiveProjectData>?
 ){
-    constructor(): this(0,  0, "",0, "", 0, 0, 0,
-            0,0f,0f,0,0f, null)
+    constructor(): this(0,  0, "",
+            0, "", 0.0,
+            0.0, 0.0,
+            0.0,0.0,0.0,
+            0.0,0.0, null)
 }
 
 class CorrectiveProjectData(
@@ -37,21 +40,22 @@ class CorrectiveBudgetUsedData(
         val id:Long,
         val year_project:String?,
         val project_id:Long,
-        val amount:Long,
+        val amount:Double,
         val narration:String?,
         val ref:String?,
         val pic:String?,
         val penerima_dana:String?,
         val tanggal: Date?
 ){
-    constructor(): this(0, "", 0, 0, "","", "", "", null)
+    constructor(): this(0, "", 0,
+            0.0, "","", "", "", null)
 }
 
 class CorrectiveAdvanceData(
         val id:Long,
         val year_project:String,
         val project_id:Long,
-        val amount:Long,
+        val amount:Double,
         val narration:String?,
         val ref:String,
         val pic:String,
@@ -60,18 +64,21 @@ class CorrectiveAdvanceData(
         val ca_id: Long,
         val no_mi: String?,
         val no_po:String?,
-        val nilai_po:Long?,
+        val nilai_po:Double?,
         var advance_invoice:List<CorrectiveAdvanceInvoiceData>?
 ){
-    constructor(): this(0, "", 0, 0, "","", "", "", null, 0, "", "", 0, null)
+    constructor(): this(0, "", 0,
+            0.0, "","",
+            "", "", null, 0,
+            "", "", 0.0, null)
 }
 
 class CorrectiveAdvanceInvoiceData(
         val id:Long,
-        val nilai_invoice:Long,
+        val nilai_invoice:Double,
         val invoice_state:String,
         val no_inv:String,
         val year_project:String
 ){
-    constructor(): this(0, 0, "", "","")
+    constructor(): this(0, 0.0, "", "","")
 }
