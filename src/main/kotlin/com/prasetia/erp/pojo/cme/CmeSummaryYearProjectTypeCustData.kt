@@ -1,5 +1,15 @@
 package com.prasetia.erp.pojo.cme
 
+class CmeInvoiceProjectData(
+        val id:Long,
+        val project_id:Long?,
+        val name:String?,
+        val state:String?,
+        val nilai_invoice:Long?
+){
+    constructor(): this(0,0,"","",0)
+}
+
 class CmeSummaryYearProjectTypeCustData(
         val id: Long,
         val year_project: Long,
@@ -43,8 +53,9 @@ class CmeYearProjectTypeCustProjectDetailData(
     val site_type_id: Long?,
     var percent_po : Float?,
     var percent_labarugi : Float?,
-    val area: String?
+    val area: String?,
+    var invoice_list:List<CmeInvoiceProjectData>?
 ){
     constructor(): this(0,"",0,"","",0,"",
-            0,0,0,0,"", 0, 0, 0f, 0f, "")
+            0,0,0,0,"", 0, 0, 0f, 0f, "",null)
 }

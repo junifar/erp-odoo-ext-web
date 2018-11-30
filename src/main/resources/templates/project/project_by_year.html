@@ -74,8 +74,8 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td class="text-right small"  th:text="${dataRow.project_type}">Colo</td>
-                                                                <td class="text-right small" th:text="${dataRow.year_project}">2018</td>
+                                                                <td class="text-left small"  th:text="${dataRow.project_type}">Colo</td>
+                                                                <td class="text-left small" th:text="${dataRow.year_project}">2018</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.estimate_po, 1, 'POINT', 2, 'COMMA')}">999</td>
@@ -121,8 +121,8 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td class="text-right small" th:text="${dataRow.project_type}">Colo</td>
-                                                                <td class="text-right small" th:text="${dataRow.year_project}">2018</td>
+                                                                <td class="text-left small" th:text="${dataRow.project_type}">Colo</td>
+                                                                <td class="text-left small" th:text="${dataRow.year_project}">2018</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
@@ -164,8 +164,8 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="dataRow: ${cmeSummaryYearProjectTypeDataList}">
-                                                                <td class="text-right small" th:text="${dataRow.project_type}">Colo</td>
-                                                                <td class="text-right small" th:text="${dataRow.year_project}">2018</td>
+                                                                <td class="text-left small" th:text="${dataRow.project_type}">Colo</td>
+                                                                <td class="text-left small" th:text="${dataRow.year_project}">2018</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.jumlah_site, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.site_cancel, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.profit_loss, 1, 'POINT', 2, 'COMMA')}">999</td>

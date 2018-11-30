@@ -2216,12 +2216,24 @@ class PreventiveController{
         preventiveDataList.forEach {
             preventiveDataListDetail = it.detail
         }
+        val totalPreventive = getTotalPreventiveCustomer(preventiveDataList)
+        val totalPercentPenagihan = Percent(totalPreventive[1], totalPreventive[0])
+        val totalPercentRealisasi = Percent(totalPreventive[3], totalPreventive[2])
+        val totalPercentLabRug = Percent(totalPreventive[4], totalPreventive[2])
+
         model.addAttribute("total", getTotalPreventiveCustomer(preventiveDataList))
+        model.addAttribute("totalPenagihan",totalPercentPenagihan)
+        model.addAttribute("totalRealisasi",totalPercentRealisasi)
+        model.addAttribute("totalLabRug",totalPercentLabRug)
         model.addAttribute("preventiveDataList", preventiveDataList)
         model.addAttribute("preventiveDataListGraph", preventiveDataListDetail?.sortedByDescending { it.nilai_po }?.take(5))
         model.addAttribute("preventiveDataListGraph1", preventiveDataListDetail?.sortedByDescending { it.nilai_budget }?.take(5))
         return "preventive/index"
     }
+
+    fun Percent(data:Long, data1: Long) = floatArrayOf(
+            if (data1 > 0) data.toFloat() * 100 / data1 else (0).toFloat()
+    )
 
     @RequestMapping("/preventive")
     fun summaryPreventive(model:Model):String{
@@ -2232,7 +2244,7 @@ class PreventiveController{
         val totalPreventiveName = getTotal(preventiveSummaryDataList)
         val totalPercentPenagihan = TotalPercent(totalPreventiveName[1], totalPreventiveName[0])
         val totalPercentBudget = TotalPercent(totalPreventiveName[3], totalPreventiveName[2])
-        val totalPercentLabaRugi= TotalPercent(totalPreventiveName[3], totalPreventiveName[1])
+        val totalPercentLabaRugi= TotalPercent(totalPreventiveName[4], totalPreventiveName[1])
 
         model.addAttribute("preventiveSummaryDataList", preventiveSummaryDataList)
         model.addAttribute("totalPreventive",getTotal(preventiveSummaryDataList))

@@ -196,8 +196,6 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
 
         var content: HSSFRow
         var numRow = this.numRow
-        var firstRowNum = true
-        var format = ""
 
 
         data.forEach { d1 ->

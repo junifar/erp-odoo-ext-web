@@ -146,7 +146,7 @@ class CmeController{
             when(type){
                 "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
                 "totalSiteCancel" ->it.site_cancel?.let { total = total.plus(it) }
-                "totalLabaRugi" ->it.nilai_budget?.let { total = total.plus(it) }
+                "totalLabaRugi" ->it.profit_loss?.let { total = total.plus(it) }
                 "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
                 "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
             }
@@ -246,7 +246,7 @@ class CmeController{
         data.forEach {
             when(type){
                 "totalSite" ->it.jumlah_site?.let { total = total.plus(it) }
-                "totalLabaRugi" ->it.nilai_budget?.let { total = total.plus(it) }
+                "totalLabaRugi" ->it.profit_loss?.let { total = total.plus(it) }
                 "totalRealisasi" ->it.realisasi_budget?.let { total = total.plus(it) }
                 "totalPo" ->it.nilai_po?.let { total = total.plus(it) }
             }

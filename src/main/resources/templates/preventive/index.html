@@ -111,12 +111,12 @@
                                                     <th class="small font-weight-bold">TOTAL</th>
                                                     <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                                     <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
-                                                    <th class="text-right small font-weight-bold">-</th>
+                                                    <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(totalPenagihan, 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                                     <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
                                                     <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(total[3], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
-                                                    <th class="text-right small font-weight-bold">-</th>
+                                                    <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(totalRealisasi, 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                                     <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(total[4], 1, 'POINT', 2, 'COMMA')}" >0,00</th>
-                                                    <th class="text-right small font-weight-bold">-</th>
+                                                    <th class="text-right small font-weight-bold" th:text="${#numbers.formatDecimal(totalLabRug, 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                                 </tr>
                                             </tfoot>
                                         </table>

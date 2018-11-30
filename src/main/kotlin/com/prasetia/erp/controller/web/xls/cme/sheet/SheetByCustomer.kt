@@ -1,5 +1,6 @@
 package com.prasetia.erp.controller.web.xls.cme.sheet
 
+import com.prasetia.erp.pojo.cme.CmeSummaryYearProjectTypeCustData
 import com.prasetia.erp.pojo.cme.CmeYearProjectTypeCustProjectDetailData
 import org.apache.poi.hssf.usermodel.*
 import org.apache.poi.hssf.util.HSSFColor
@@ -8,7 +9,7 @@ import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.HorizontalAlignment
 
-class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String, data:List<CmeYearProjectTypeCustProjectDetailData>?){
+class SheetByCustomer(workbook: HSSFWorkbook, customer_id: Long, customer: String, data: List<CmeYearProjectTypeCustProjectDetailData>?, forEach: Unit?, it: CmeSummaryYearProjectTypeCustData){
     var sheet: HSSFSheet = workbook.createSheet("$customer_id-$customer")
     private var numRow:Int = 6
 
@@ -117,10 +118,10 @@ class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String,
     init {
         setColWidth(sheet)
         createHeaderXls(workbook, sheet)
-        createDataXls(workbook, sheet, data)
+        createDataXls(workbook, sheet, data,it)
     }
 
-    private fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data: List<CmeYearProjectTypeCustProjectDetailData>?) {
+    private fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data: List<CmeYearProjectTypeCustProjectDetailData>?, it: CmeSummaryYearProjectTypeCustData) {
         val styleTableContent = styleTableContent(workbook)
         val styleTableContentNumber = styleTableContentNumber(workbook)
         val styleTableHeader = styleTableHeader(workbook)
@@ -132,44 +133,72 @@ class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String,
         var numRow = this.numRow
         var rowNumber = 1
         data?.forEach {
-            content = sheet.createRow(numRow++)
-            val cell8 = content.createCell(8)
-            val cell9 = content.createCell(9)
-            val cell10 = content.createCell(10)
-            cell10.setCellType(CellType.FORMULA)
-            val cell11 = content.createCell(11)
-            cell11.setCellType(CellType.FORMULA)
-            val cell12 = content.createCell(12)
-            val cell14 = content.createCell(14)
+            d1->
+            var isSame = false
+            d1.invoice_list?.forEach {
+              d2 ->
+                content = sheet.createRow(numRow++)
+                val cell8 = content.createCell(8)
+                val cell9 = content.createCell(9)
+                val cell10 = content.createCell(10)
+                if(!isSame) cell10.setCellType(CellType.FORMULA)
+                val cell11 = content.createCell(11)
+                if(!isSame) cell11.setCellType(CellType.FORMULA)
+                val cell12 = content.createCell(12)
+                val cell14 = content.createCell(14)
+                val cell16 = content.createCell(16)
+                val cell17 = content.createCell(17)
+                val cell18 = content.createCell(18)
+                if(!isSame) cell18.setCellType(CellType.FORMULA)
+                val cell19 = content.createCell(19)
+                if(!isSame) cell19.setCellType(CellType.FORMULA)
+                val cell21 = content.createCell(21)
+                if(!isSame) cell21.setCellType(CellType.FORMULA)
 
-            content.createCell(1).setCellValue(rowNumber++.toDouble())
-            content.getCell(1).setCellStyle(styleTableContent)
-            content.createCell(2).setCellValue(it.name)
-            content.getCell(2).setCellStyle(styleTableContent)
-            content.createCell(3).setCellValue("")
-            content.getCell(3).setCellStyle(styleTableContent)
-            content.createCell(4).setCellValue("")
-            content.getCell(4).setCellStyle(styleTableContent)
-            content.createCell(5).setCellValue(it.project_type)
-            content.getCell(5).setCellStyle(styleTableContent)
-            content.createCell(6).setCellValue(it.project_id)
-            content.getCell(6).setCellStyle(styleTableContent)
-            content.createCell(7).setCellValue(it.area)
-            content.getCell(7).setCellStyle(styleTableContent)
-            it.estimate_po.toDouble().let { it1-> cell8.setCellValue(it1)}
-            content.getCell(8).setCellStyle(styleTableContentNumber)
-            it.nilai_budget.toDouble().let { it1-> cell9.setCellValue(it1)}
-            content.getCell(9).setCellStyle(styleTableContentNumber)
-            cell10.cellFormula = "I$numRow-J$numRow"
-            content.getCell(10).setCellStyle(styleTableContentNumber)
-            cell11.cellFormula = "K$numRow/i$numRow"
-            content.getCell(11).setCellStyle(styleTableContentPercent)
-            it.realisasi_budget.toDouble().let { it1-> cell12.setCellValue(it1)}
-            content.getCell(12).setCellStyle(styleTableContentNumber)
-            content.createCell(13).setCellValue(it.no_po)
-            content.getCell(13).setCellStyle(styleTableContent)
-            it.nilai_po.toDouble().let { it1-> cell14.setCellValue(it1)}
-            content.getCell(14).setCellStyle(styleTableContentNumber)
+                content.createCell(1).setCellValue(rowNumber++.toDouble())
+                content.getCell(1).setCellStyle(styleTableContent)
+                content.createCell(2).setCellValue(if(!isSame) d2.name else "")
+                content.getCell(2).setCellStyle(styleTableContent)
+                content.createCell(3).setCellValue("")
+                content.getCell(3).setCellStyle(styleTableContent)
+                content.createCell(4).setCellValue("")
+                content.getCell(4).setCellStyle(styleTableContent)
+                content.createCell(5).setCellValue(if(!isSame) d1.project_type else "")
+                content.getCell(5).setCellStyle(styleTableContent)
+                content.createCell(6).setCellValue(if(!isSame) d1.project_id else "")
+                content.getCell(6).setCellStyle(styleTableContent)
+                content.createCell(7).setCellValue(if(!isSame) d1.area else "")
+                content.getCell(7).setCellStyle(styleTableContent)
+                if (!isSame) d1.estimate_po.toDouble().let { it1->  cell8.setCellValue(it1)}
+                content.getCell(8).setCellStyle(styleTableContentNumber)
+                if(!isSame) d1.nilai_budget.toDouble().let { it1-> cell9.setCellValue(it1)}
+                content.getCell(9).setCellStyle(styleTableContentNumber)
+                if(!isSame) cell10.cellFormula = "I$numRow-J$numRow" else null
+                content.getCell(10).setCellStyle(styleTableContentNumber)
+                if(!isSame) cell11.cellFormula = "K$numRow/i$numRow"
+                content.getCell(11).setCellStyle(styleTableContentPercent)
+                if(!isSame) d1.realisasi_budget.toDouble().let { it1-> cell12.setCellValue(it1)}
+                content.getCell(12).setCellStyle(styleTableContentNumber)
+                content.createCell(13).setCellValue(if(!isSame) d1.no_po else "")
+                content.getCell(13).setCellStyle(styleTableContent)
+                if(!isSame) d1.nilai_po.toDouble().let { it1-> cell14.setCellValue(it1)}
+                content.getCell(14).setCellStyle(styleTableContentNumber)
+                content.createCell(15).setCellValue(d2.name)
+                content.getCell(15).setCellStyle(styleTableContent)
+                content.getCell(16).setCellStyle(styleTableContentNumber)
+                d2.nilai_invoice?.toDouble().let { it1-> it1?.let { it2 -> cell16.setCellValue(it2) } }
+                content.getCell(17).setCellStyle(styleTableContentNumber)
+                if(!isSame) d1.nilai_invoice?.toDouble().let { it1-> cell17.setCellValue(it1)}
+                content.getCell(18).setCellStyle(styleTableContentNumber)
+                if(!isSame) cell18.cellFormula = "R$numRow-M$numRow"
+                content.getCell(19).setCellStyle(styleTableContentNumber)
+                if(!isSame) cell19.cellFormula = "S$numRow/R$numRow"
+                content.createCell(20).setCellValue(d2.state)
+                content.getCell(20).setCellStyle(styleTableContent)
+                content.getCell(21).setCellStyle(styleTableContentNumber)
+                if(!isSame) cell21.cellFormula="R$numRow/O$numRow"
+                isSame = true
+        }
         }
     }
 
@@ -214,14 +243,16 @@ class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String,
         header.getCell(15).setCellStyle(styleTableHeader)
         header.createCell(16).setCellValue("Nilai INV")
         header.getCell(16).setCellStyle(styleTableHeader)
-        header.createCell(17).setCellValue("Laba / Rugi")
+        header.createCell(17).setCellValue("Total Inv")
         header.getCell(17).setCellStyle(styleTableHeader)
-        header.createCell(18).setCellValue("%")
+        header.createCell(18).setCellValue("Laba / Rugi")
         header.getCell(18).setCellStyle(styleTableHeader)
-        header.createCell(19).setCellValue("Status INV")
+        header.createCell(19).setCellValue("%")
         header.getCell(19).setCellStyle(styleTableHeader)
-        header.createCell(20).setCellValue("% Penagihan")
+        header.createCell(20).setCellValue("Status INV")
         header.getCell(20).setCellStyle(styleTableHeader)
+        header.createCell(21).setCellValue("% Penagihan")
+        header.getCell(21).setCellStyle(styleTableHeader)
 
         header = sheet.createRow(5)
         header.createCell(1).setCellValue("")
@@ -264,14 +295,16 @@ class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String,
         header.getCell(19).setCellStyle(styleTableHeader)
         header.createCell(20).setCellValue("")
         header.getCell(20).setCellStyle(styleTableHeader)
+        header.createCell(21).setCellValue("")
+        header.getCell(21).setCellStyle(styleTableHeader)
     }
 
     private fun setColWidth(sheet: HSSFSheet): HSSFSheet {
         sheet.setColumnWidth(0, 520)
         sheet.setColumnWidth(1, 1300)
         sheet.setColumnWidth(2, 6500)
-        sheet.setColumnWidth(3, 3380)
-        sheet.setColumnWidth(4, 2340)
+        sheet.setColumnWidth(3, 6500)
+        sheet.setColumnWidth(4, 4940)
         sheet.setColumnWidth(5, 4940)
         sheet.setColumnWidth(6, 2860)
         sheet.setColumnWidth(7, 3380)
@@ -284,10 +317,11 @@ class SheetByCustomer(workbook: HSSFWorkbook, customer_id:Long, customer:String,
         sheet.setColumnWidth(14, 3640)
         sheet.setColumnWidth(15, 5980)
         sheet.setColumnWidth(16, 3900)
-        sheet.setColumnWidth(17, 4420)
-        sheet.setColumnWidth(18, 2340)
+        sheet.setColumnWidth(17, 3900)
+        sheet.setColumnWidth(18, 3900)
         sheet.setColumnWidth(19, 2600)
-        sheet.setColumnWidth(20, 2600)
+        sheet.setColumnWidth(20, 3700)
+        sheet.setColumnWidth(21, 3900)
         return sheet
     }
 }

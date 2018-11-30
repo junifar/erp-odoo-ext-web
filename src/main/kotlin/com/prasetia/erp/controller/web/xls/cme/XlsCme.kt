@@ -11,7 +11,7 @@ class XlsCme(response:HttpServletResponse, tahun: String, type_id: Int, data:Lis
     init {
         SheetSummary(workbook, data)
         data.forEach {
-            it.customer?.let { it1 -> it.customer_id?.let { it2 -> SheetByCustomer(workbook, it2, it1, it.project_list) } }
+            it.customer?.let { it1 -> it.customer_id?.let { it2 -> SheetByCustomer(workbook, it2, it1, it.project_list,it.project_list?.forEach { it.invoice_list },it) } }
         }
 
         val out = response.outputStream
