@@ -2221,6 +2221,7 @@ class PreventiveController{
         val totalPercentRealisasi = Percent(totalPreventive[3], totalPreventive[2])
         val totalPercentLabRug = Percent(totalPreventive[4], totalPreventive[2])
 
+        model.addAttribute("tahun", tahun)
         model.addAttribute("total", getTotalPreventiveCustomer(preventiveDataList))
         model.addAttribute("totalPenagihan",totalPercentPenagihan)
         model.addAttribute("totalRealisasi",totalPercentRealisasi)

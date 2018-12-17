@@ -100,7 +100,7 @@ class DepartmentController{
 
         model.addAttribute("departmentDetailDataList",departmentDetailDataList)
         model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
-//        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
         model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
         model.addAttribute("department_id",department_id)
         model.addAttribute("periode",periode)

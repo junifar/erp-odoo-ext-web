@@ -8,9 +8,9 @@
             <div class="box-body">
                 <div class="my-3 p-3 bg-white rounded shadow-sm">
                     <div class="col-md-12" th:each="dataRow : ${preventiveDetailDataList}">
-                        <div class="row col-md-12">
+                        <div class="row">
                             <div class="col-md-12">
-                                <h3 >Maintenance Preventive Projects Report Detail</h3>
+                                <h3 th:inline="text">Maintenance Preventive [[${tahun}]] Customer [[${dataRow.customer_name}]]</h3>
                             </div>
                         </div>
                         <div class="row">&nbsp;</div>

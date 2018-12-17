@@ -9,8 +9,10 @@
                 <div class="my-3 p-3 bg-white rounded shadow-sm">
                     <div class="col-md-12" th:each="dataRow : ${departmentDetailDataList}">
                         <div class="row col-md-12">
-                            <div class="col-md-12">
-                                <h3 >Department Budget Report Detail</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 th:inline="text">Budget Department [[${dataRow.department_name}]] [[${periode}]]</h3>
+                                </div>
                             </div>
                             <div class="row">&nbsp;</div>
                             <div class="box col-md-12" >

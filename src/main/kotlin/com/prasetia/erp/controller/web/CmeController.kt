@@ -189,7 +189,16 @@ class CmeController{
         model.addAttribute("totalBudgetRealisasi",getTotalBudgetRealisasi(cmeSummaryYearProjectTypeCustDataList))
         model.addAttribute("percentBudgetRealisasi",totalPercent)
         model.addAttribute("year_project", tahun)
+        model.addAttribute("project_type", getProjectType(cmeSummaryYearProjectTypeCustDataList))
         return "project/project_by_year_customer"
+    }
+
+    fun getProjectType(data:List<CmeSummaryYearProjectTypeCustData>):String{
+        return if(data.isNotEmpty()) data[0].project_type else ""
+    }
+
+    fun getCustomerName(data:List<CmeSummaryYearProjectTypeCustData>): String? {
+        return if(data.isNotEmpty()) data[0].customer else ""
     }
 
     fun getTotalPoInv(data: List<CmeSummaryYearProjectTypeCustData>, type: String):Double{
@@ -294,6 +303,8 @@ class CmeController{
         model.addAttribute("percentInvLabRug",totalPercentInvLabRug)
         model.addAttribute("grossMarginInvLabRug",totalGrossMarginInvLabRug)
         model.addAttribute("tahun", tahun)
+        model.addAttribute("project_type", getProjectType(cmeSummaryYearTypeCustDetailDataList))
+        model.addAttribute("customer_name", getCustomerName(cmeSummaryYearTypeCustDetailDataList))
         return "project/project_by_year_customer_detail"
     }
 

@@ -10,9 +10,9 @@
                     <div class="col-md-12" th:each="dataRow: ${correctiveDataList}">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="row col-md-12">
+                                <div class="row">
                                     <div class="col-md-12">
-                                        <h3 >Maintenance Preventive Projects Report Detail</h3>
+                                        <h3 th:inline="text">Maintenance Corrective [[${dataRow.year_project}]] Customer [[${dataRow.code}]]</h3>
                                     </div>
                                 </div>
                                 <div class="row">&nbsp;</div>
