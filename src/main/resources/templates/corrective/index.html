@@ -151,6 +151,17 @@
                     legend: {
                         position: 'bottom'
                     },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString();
+                                },
+                                suggestedMax: 5000000000
+                            }
+                        }]
+                    }
                 }
             })
 
@@ -190,6 +201,17 @@
                     legend: {
                         position: 'bottom'
                     },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString();
+                                },
+                                suggestedMax: 5000000000
+                            }
+                        }]
+                    }
                 }
             })
         })
