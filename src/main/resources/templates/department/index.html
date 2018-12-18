@@ -117,6 +117,13 @@
                     legend: {
                         position: 'bottom'
                     },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.datasets[tooltipItems.datasetIndex].label + ": " + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {

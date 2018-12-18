@@ -287,6 +287,13 @@
                     legend: {
                         position: 'bottom'
                     },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.labels[tooltipItems.index] + ": " + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -336,6 +343,13 @@
                     responsive: true,
                     legend: {
                         position: 'bottom'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.labels[tooltipItems.index] + ": " + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
                     },
                     scales: {
                         yAxes: [{

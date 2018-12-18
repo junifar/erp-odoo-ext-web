@@ -82,7 +82,9 @@
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSubDetail.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSubDetail.persent_budget, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSubDetail.laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
-                                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSubDetail.persent_laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                                <!--<td class="text-right small" th:text="${#numbers.formatDecimal(dataRowSubDetail.persent_laba_rugi, 1, 'POINT', 2, 'COMMA')}">0.00</td>-->
+                                                                <td class="text-right small" th:if="${dataRowSubDetail.nilai_penagihan != 0}" th:text="${#numbers.formatDecimal(dataRowSubDetail.laba_rugi/dataRowSubDetail.nilai_penagihan*100, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                                <th class="text-right" th:if="${dataRowSubDetail.nilai_penagihan == 0}">0.00</th>
                                                                 <td class="text-right small">
                                                                     <a th:href="@{'/preventive/download/xls/' + ${dataRowDetail.customer_id} + '/' + ${dataRow.tahun} + '/' + ${dataRowSubDetail.area_id}}">Download</a> ||
                                                                     <a th:href="@{'/preventive/details/' + ${dataRowDetail.customer_id} + '/' + ${dataRow.tahun} + '/' + ${dataRowSubDetail.area_id}}">Details</a>
@@ -90,6 +92,23 @@
                                                             </tr>
                                                         </span>
                                                     </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th>Subtotal</th>
+                                                            <th class="text-right" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_penagihan, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:if="${dataRowDetail.nilai_po != 0}" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_penagihan/dataRowDetail.nilai_po*100, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:if="${dataRowDetail.nilai_po == 0}">0.00</th>
+                                                            <th class="text-right" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_budget, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:text="${#numbers.formatDecimal(dataRowDetail.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:if="${dataRowDetail.nilai_budget != 0}" th:text="${#numbers.formatDecimal(dataRowDetail.realisasi_budget/dataRowDetail.nilai_budget*100, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:if="${dataRowDetail.nilai_budget == 0}">0.00</th>
+                                                            <th class="text-right" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_penagihan-dataRowDetail.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:if="${dataRowDetail.nilai_penagihan != 0}" th:text="${#numbers.formatDecimal((dataRowDetail.nilai_penagihan-dataRowDetail.realisasi_budget)/dataRowDetail.nilai_penagihan*100, 1, 'POINT', 2, 'COMMA')}">0.00</th>
+                                                            <th class="text-right" th:if="${dataRowDetail.nilai_penagihan == 0}">0.00</th>
+                                                            <th class="text-right">-</th>
+                                                        </tr>
+                                                    </tfoot>
                                                 </table>
                                             </div>
                                         </span>
@@ -179,6 +198,13 @@
                     legend: {
                         position: 'bottom'
                     },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.labels[tooltipItems.index] + ": " + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -228,6 +254,13 @@
                     responsive: true,
                     legend: {
                         position: 'bottom'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.labels[tooltipItems.index] + ": " + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
                     },
                     scales: {
                         yAxes: [{
