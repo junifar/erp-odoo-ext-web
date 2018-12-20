@@ -278,8 +278,9 @@ class CmeController{
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearTypeCustDetailDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
+        val cmeSummaryYearTypeCustDetailDataListFilter = cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id }
         var cmeYearTypeCustProject: List<CmeYearProjectTypeCustProjectDetailData>? = mutableListOf()
-        cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id }.forEach{ it ->
+        cmeSummaryYearTypeCustDetailDataListFilter.forEach{ it ->
             cmeYearTypeCustProject = it.project_list
             it.project_list?.forEach {
                 it.percent_po = if (it.estimate_po > 0)((it.estimate_po - it.nilai_budget) * 100f) / it.estimate_po else 0.0
@@ -287,24 +288,25 @@ class CmeController{
             }
         }
 
-        val totalPoBudget = getTotalDetailPoBudget(cmeSummaryYearTypeCustDetailDataList)
+        val totalPoBudget = getTotalDetailPoBudget(cmeSummaryYearTypeCustDetailDataListFilter)
         val totalPercentPoBudget = getPrecentDetailPoBudget(totalPoBudget[1],totalPoBudget[0])
         val totalGrossMargin = getGrossMargin(totalPoBudget[0],totalPoBudget[1])
-        val totalInvLabRug = getTotalDetailInvLabRug(cmeSummaryYearTypeCustDetailDataList)
+        val totalInvLabRug = getTotalDetailInvLabRug(cmeSummaryYearTypeCustDetailDataListFilter)
         val totalPercentInvLabRug  = getPrecentInvLabRug(totalInvLabRug[1],totalInvLabRug[0])
         val totalGrossMarginInvLabRug  = getGrossMarginInvLabRug(totalInvLabRug[0],totalInvLabRug[1])
 
-        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id })
+//        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id })
+        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataListFilter)
         model.addAttribute("cmeYearTypeCustProjectGraph1", cmeYearTypeCustProject?.take(5))
-        model.addAttribute("totalPoBudget",getTotalDetailPoBudget(cmeSummaryYearTypeCustDetailDataList))
+        model.addAttribute("totalPoBudget",getTotalDetailPoBudget(cmeSummaryYearTypeCustDetailDataListFilter))
         model.addAttribute("percentPoBudget",totalPercentPoBudget)
         model.addAttribute("grossMargin",totalGrossMargin)
-        model.addAttribute("totalInvLabRug",getTotalDetailInvLabRug(cmeSummaryYearTypeCustDetailDataList))
+        model.addAttribute("totalInvLabRug",getTotalDetailInvLabRug(cmeSummaryYearTypeCustDetailDataListFilter))
         model.addAttribute("percentInvLabRug",totalPercentInvLabRug)
         model.addAttribute("grossMarginInvLabRug",totalGrossMarginInvLabRug)
         model.addAttribute("tahun", tahun)
-        model.addAttribute("project_type", getProjectType(cmeSummaryYearTypeCustDetailDataList))
-        model.addAttribute("customer_name", getCustomerName(cmeSummaryYearTypeCustDetailDataList))
+        model.addAttribute("project_type", getProjectType(cmeSummaryYearTypeCustDetailDataListFilter))
+        model.addAttribute("customer_name", getCustomerName(cmeSummaryYearTypeCustDetailDataListFilter))
         return "project/project_by_year_customer_detail"
     }
 

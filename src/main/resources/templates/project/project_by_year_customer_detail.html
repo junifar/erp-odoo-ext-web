@@ -172,7 +172,8 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr th:each="dataRowProject: ${dataRow.project_list}" th:if="${dataRowProject.estimate_po != 0}">
+                                                        <!--<tr th:each="dataRowProject: ${dataRow.project_list}" th:if="${dataRowProject.estimate_po != 0}">-->
+                                                        <tr th:each="dataRowProject: ${dataRow.project_list}">
                                                             <td class="text-left small" th:text="${dataRowProject.project_id + ' - ' + dataRowProject.name}">Colo</td>
                                                             <td class="text-left small" th:text="${dataRowProject.area}">Colo</td>
                                                             <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowProject.estimate_po, 1, 'POINT', 2, 'COMMA')}">999</td>
@@ -208,7 +209,8 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr th:each="dataRowProject: ${dataRow.project_list}" th:if="${dataRowProject.estimate_po != 0}">
+                                                        <!--<tr th:each="dataRowProject: ${dataRow.project_list}" th:if="${dataRowProject.estimate_po != 0}">-->
+                                                        <tr th:each="dataRowProject: ${dataRow.project_list}">
                                                             <td class="text-left small" th:text="${dataRowProject.project_id + ' - ' + dataRowProject.name}">Colo</td>
                                                             <td class="text-left small" th:text="${dataRowProject.area}">Colo</td>
                                                             <td class="text-left small" th:text="${dataRowProject.no_po}">Colo</td>
