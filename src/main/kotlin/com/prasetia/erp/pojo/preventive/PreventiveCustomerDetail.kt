@@ -1,5 +1,8 @@
 package com.prasetia.erp.pojo.preventive
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import org.springframework.web.bind.annotation.Mapping
+
 class PreventiveCustomerDetailHeader(
         val id:Long,
         val customer_id:Long?,
