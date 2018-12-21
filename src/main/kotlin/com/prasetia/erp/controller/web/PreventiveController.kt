@@ -73,7 +73,7 @@ class PreventiveController{
         // 1:260
         sheet.setColumnWidth(0, 520)
         sheet.setColumnWidth(1, 1300)
-        sheet.setColumnWidth(2, 5980)
+        sheet.setColumnWidth(2  , 5980)
 //        sheet.setColumnWidth(3, 3120)
         sheet.setColumnWidth(3, 0)
         sheet.setColumnWidth(4, 4420)
