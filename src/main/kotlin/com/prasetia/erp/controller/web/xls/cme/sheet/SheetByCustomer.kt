@@ -134,70 +134,153 @@ class SheetByCustomer(workbook: HSSFWorkbook, customer_id: Long, customer: Strin
         var rowNumber = 1
         data?.forEach {
             d1->
-            var isSame = false
+//            var isSame = false
+
+            if (d1.invoice_list?.count() == 0){
+                content = sheet.createRow(numRow++)
+                val cell8 = content.createCell(8)
+                val cell9 = content.createCell(9)
+                val cell10 = content.createCell(10)
+                cell10.setCellType(CellType.FORMULA)
+                val cell11 = content.createCell(11)
+                cell11.setCellType(CellType.FORMULA)
+                val cell12 = content.createCell(12)
+                val cell14 = content.createCell(14)
+                val cell16 = content.createCell(16)
+                val cell17 = content.createCell(17)
+                val cell18 = content.createCell(18)
+                cell18.setCellType(CellType.FORMULA)
+                val cell19 = content.createCell(19)
+                cell19.setCellType(CellType.FORMULA)
+                val cell21 = content.createCell(21)
+                cell21.setCellType(CellType.FORMULA)
+
+                content.createCell(1).setCellValue(rowNumber++.toDouble())
+                content.getCell(1).setCellStyle(styleTableContent)
+                content.createCell(2).setCellValue(d1.name)
+                content.getCell(2).setCellStyle(styleTableContent)
+                content.createCell(3).setCellValue("")
+                content.getCell(3).setCellStyle(styleTableContent)
+                content.createCell(4).setCellValue("")
+                content.getCell(4).setCellStyle(styleTableContent)
+                content.createCell(5).setCellValue(d1.project_type)
+                content.getCell(5).setCellStyle(styleTableContent)
+                content.createCell(6).setCellValue(d1.project_id)
+                content.getCell(6).setCellStyle(styleTableContent)
+                content.createCell(7).setCellValue(d1.area)
+                content.getCell(7).setCellStyle(styleTableContent)
+                d1.estimate_po.let { it1->  cell8.setCellValue(it1)}
+                content.getCell(8).setCellStyle(styleTableContentNumber)
+                d1.nilai_budget.toDouble().let { it1-> cell9.setCellValue(it1)}
+                content.getCell(9).setCellStyle(styleTableContentNumber)
+                cell10.cellFormula = "I$numRow-J$numRow"
+                content.getCell(10).setCellStyle(styleTableContentNumber)
+                cell11.cellFormula = "K$numRow/i$numRow"
+                content.getCell(11).setCellStyle(styleTableContentPercent)
+                d1.realisasi_budget.let { it1-> cell12.setCellValue(it1)}
+                content.getCell(12).setCellStyle(styleTableContentNumber)
+                content.createCell(13).setCellValue(d1.no_po)
+                content.getCell(13).setCellStyle(styleTableContent)
+                d1.nilai_po.let { it1-> cell14.setCellValue(it1)}
+                content.getCell(14).setCellStyle(styleTableContentNumber)
+                content.createCell(15)
+                content.getCell(15).setCellStyle(styleTableContent)
+                content.getCell(16).setCellStyle(styleTableContentNumber)
+                content.getCell(17).setCellStyle(styleTableContentNumber)
+                d1.nilai_invoice.let { it1-> cell17.setCellValue(it1)}
+                content.getCell(18).setCellStyle(styleTableContentNumber)
+                cell18.cellFormula = "R$numRow-M$numRow"
+                content.getCell(19).setCellStyle(styleTableContentNumber)
+                cell19.cellFormula = "S$numRow/R$numRow"
+                content.createCell(20)
+                content.getCell(20).setCellStyle(styleTableContent)
+                content.getCell(21).setCellStyle(styleTableContentNumber)
+                cell21.cellFormula="R$numRow/O$numRow"
+            }
+
             d1.invoice_list?.forEach {
               d2 ->
                 content = sheet.createRow(numRow++)
                 val cell8 = content.createCell(8)
                 val cell9 = content.createCell(9)
                 val cell10 = content.createCell(10)
-                if(!isSame) cell10.setCellType(CellType.FORMULA)
+//                if(!isSame) cell10.setCellType(CellType.FORMULA)
+                cell10.setCellType(CellType.FORMULA)
                 val cell11 = content.createCell(11)
-                if(!isSame) cell11.setCellType(CellType.FORMULA)
+//                if(!isSame) cell11.setCellType(CellType.FORMULA)
+                cell11.setCellType(CellType.FORMULA)
                 val cell12 = content.createCell(12)
                 val cell14 = content.createCell(14)
                 val cell16 = content.createCell(16)
                 val cell17 = content.createCell(17)
                 val cell18 = content.createCell(18)
-                if(!isSame) cell18.setCellType(CellType.FORMULA)
+//                if(!isSame) cell18.setCellType(CellType.FORMULA)
+                cell18.setCellType(CellType.FORMULA)
                 val cell19 = content.createCell(19)
-                if(!isSame) cell19.setCellType(CellType.FORMULA)
+//                if(!isSame) cell19.setCellType(CellType.FORMULA)
+                cell19.setCellType(CellType.FORMULA)
                 val cell21 = content.createCell(21)
-                if(!isSame) cell21.setCellType(CellType.FORMULA)
+//                if(!isSame) cell21.setCellType(CellType.FORMULA)
+                cell21.setCellType(CellType.FORMULA)
 
                 content.createCell(1).setCellValue(rowNumber++.toDouble())
                 content.getCell(1).setCellStyle(styleTableContent)
-                content.createCell(2).setCellValue(if(!isSame) d2.name else "")
+//                content.createCell(2).setCellValue(if(!isSame) d2.name else "")
+                content.createCell(2).setCellValue(d1.name)
                 content.getCell(2).setCellStyle(styleTableContent)
                 content.createCell(3).setCellValue("")
                 content.getCell(3).setCellStyle(styleTableContent)
                 content.createCell(4).setCellValue("")
                 content.getCell(4).setCellStyle(styleTableContent)
-                content.createCell(5).setCellValue(if(!isSame) d1.project_type else "")
+//                content.createCell(5).setCellValue(if(!isSame) d1.project_type else "")
+                content.createCell(5).setCellValue(d1.project_type)
                 content.getCell(5).setCellStyle(styleTableContent)
-                content.createCell(6).setCellValue(if(!isSame) d1.project_id else "")
+//                content.createCell(6).setCellValue(if(!isSame) d1.project_id else "")
+                content.createCell(6).setCellValue(d1.project_id)
                 content.getCell(6).setCellStyle(styleTableContent)
-                content.createCell(7).setCellValue(if(!isSame) d1.area else "")
+//                content.createCell(7).setCellValue(if(!isSame) d1.area else "")
+                content.createCell(7).setCellValue(d1.area)
                 content.getCell(7).setCellStyle(styleTableContent)
-                if (!isSame) d1.estimate_po.toDouble().let { it1->  cell8.setCellValue(it1)}
+//                if (!isSame) d1.estimate_po.let { it1->  cell8.setCellValue(it1)}
+                d1.estimate_po.let { it1->  cell8.setCellValue(it1)}
                 content.getCell(8).setCellStyle(styleTableContentNumber)
-                if(!isSame) d1.nilai_budget.toDouble().let { it1-> cell9.setCellValue(it1)}
+//                if(!isSame) d1.nilai_budget.toDouble().let { it1-> cell9.setCellValue(it1)}
+                d1.nilai_budget.toDouble().let { it1-> cell9.setCellValue(it1)}
                 content.getCell(9).setCellStyle(styleTableContentNumber)
-                if(!isSame) cell10.cellFormula = "I$numRow-J$numRow" else null
+//                if(!isSame) cell10.cellFormula = "I$numRow-J$numRow" else null
+                cell10.cellFormula = "I$numRow-J$numRow"
                 content.getCell(10).setCellStyle(styleTableContentNumber)
-                if(!isSame) cell11.cellFormula = "K$numRow/i$numRow"
+//                if(!isSame) cell11.cellFormula = "K$numRow/i$numRow"
+                cell11.cellFormula = "K$numRow/i$numRow"
                 content.getCell(11).setCellStyle(styleTableContentPercent)
-                if(!isSame) d1.realisasi_budget.toDouble().let { it1-> cell12.setCellValue(it1)}
+//                if(!isSame) d1.realisasi_budget.let { it1-> cell12.setCellValue(it1)}
+                d1.realisasi_budget.let { it1-> cell12.setCellValue(it1)}
                 content.getCell(12).setCellStyle(styleTableContentNumber)
-                content.createCell(13).setCellValue(if(!isSame) d1.no_po else "")
+//                content.createCell(13).setCellValue(if(!isSame) d1.no_po else "")
+                content.createCell(13).setCellValue(d1.no_po)
                 content.getCell(13).setCellStyle(styleTableContent)
-                if(!isSame) d1.nilai_po.toDouble().let { it1-> cell14.setCellValue(it1)}
+//                if(!isSame) d1.nilai_po.let { it1-> cell14.setCellValue(it1)}
+                d1.nilai_po.let { it1-> cell14.setCellValue(it1)}
                 content.getCell(14).setCellStyle(styleTableContentNumber)
                 content.createCell(15).setCellValue(d2.name)
                 content.getCell(15).setCellStyle(styleTableContent)
                 content.getCell(16).setCellStyle(styleTableContentNumber)
-                d2.nilai_invoice?.toDouble().let { it1-> it1?.let { it2 -> cell16.setCellValue(it2) } }
+                d2.nilai_invoice.let { it1-> it1?.let { it2 -> cell16.setCellValue(it2) } }
                 content.getCell(17).setCellStyle(styleTableContentNumber)
-                if(!isSame) d1.nilai_invoice?.toDouble().let { it1-> cell17.setCellValue(it1)}
+//                if(!isSame) d1.nilai_invoice.let { it1-> cell17.setCellValue(it1)}
+                d1.nilai_invoice.let { it1-> cell17.setCellValue(it1)}
                 content.getCell(18).setCellStyle(styleTableContentNumber)
-                if(!isSame) cell18.cellFormula = "R$numRow-M$numRow"
+//                if(!isSame) cell18.cellFormula = "R$numRow-M$numRow"
+                cell18.cellFormula = "R$numRow-M$numRow"
                 content.getCell(19).setCellStyle(styleTableContentNumber)
-                if(!isSame) cell19.cellFormula = "S$numRow/R$numRow"
+//                if(!isSame) cell19.cellFormula = "S$numRow/R$numRow"
+                cell19.cellFormula = "S$numRow/R$numRow"
                 content.createCell(20).setCellValue(d2.state)
                 content.getCell(20).setCellStyle(styleTableContent)
                 content.getCell(21).setCellStyle(styleTableContentNumber)
-                if(!isSame) cell21.cellFormula="R$numRow/O$numRow"
-                isSame = true
+//                if(!isSame) cell21.cellFormula="R$numRow/O$numRow"
+                cell21.cellFormula="R$numRow/O$numRow"
+//                isSame = true
         }
         }
     }
