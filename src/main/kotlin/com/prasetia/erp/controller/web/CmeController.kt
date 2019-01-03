@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.controller.web.xls.cme.XlsCme
-import com.prasetia.erp.pojo.cme.CmeSummaryYearData
-import com.prasetia.erp.pojo.cme.CmeSummaryYearProjectTypeCustData
-import com.prasetia.erp.pojo.cme.CmeSummaryYearProjectTypeData
-import com.prasetia.erp.pojo.cme.CmeYearProjectTypeCustProjectDetailData
+import com.prasetia.erp.pojo.cme.*
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
@@ -85,6 +82,33 @@ class CmeController{
         return "project/project_by_year"
     }
 
+    @RequestMapping("/project_customer/{tahun}")
+    fun yearCMECustomer(model: Model, @PathVariable("tahun") tahun: String): String{
+        val objectMapper = ObjectMapper()
+        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year_customer/$tahun")
+        val cmeSummaryYearCustomerDataList: List<CmeSummaryYearCustomerData> = objectMapper.readValue(url)
+        val totalCmeName = getTotalCmeCustomerYear(cmeSummaryYearCustomerDataList)
+        val totalPercentPo = getPrecent(totalCmeName[4], totalCmeName[3])
+        val totalCmeBudget = getTotalCmeYearCustomerBudget(cmeSummaryYearCustomerDataList)
+        val totalPercentBudget = getPrecentBudget(totalCmeBudget[3], totalCmeBudget[2])
+        val totalCmeLabaRugi = getTotalCmeCustomerLabaRugi(cmeSummaryYearCustomerDataList)
+        val totalPercentLabaRugi = getPrecentLabaRugi(totalCmeLabaRugi[2], totalCmeLabaRugi[3])
+        val totalPercentCmePo = getPrecentLabaRugi(totalCmeLabaRugi[2], totalCmeLabaRugi[4])
+
+        model.addAttribute("cmeSummaryYearProjectTypeDataList", cmeSummaryYearCustomerDataList)
+        model.addAttribute("cmeSummaryYearProjectTypeDataList1", cmeSummaryYearCustomerDataList.sortedByDescending { it.nilai_po }.take(5))
+        model.addAttribute("cmeSummaryYearProjectTypeDataList2", cmeSummaryYearCustomerDataList.sortedByDescending { it.realisasi_budget }.take(5))
+        model.addAttribute("total",getTotalCmeCustomerYear(cmeSummaryYearCustomerDataList))
+        model.addAttribute("totalPercent",totalPercentPo)
+        model.addAttribute("year_project", tahun)
+        model.addAttribute("totalBudget",getTotalCmeYearCustomerBudget(cmeSummaryYearCustomerDataList))
+        model.addAttribute("totalPercentBudget",totalPercentBudget)
+        model.addAttribute("totalLabaRugi",getTotalCmeCustomerLabaRugi(cmeSummaryYearCustomerDataList))
+        model.addAttribute("totalPercentLabaRugiRealisasi",totalPercentLabaRugi)
+        model.addAttribute("totalPercentLabaRugiPo",totalPercentCmePo)
+        return "project/project_by_customer"
+    }
+
     fun getTotalCmeYear(data: List<CmeSummaryYearProjectTypeData>, type: String):Double{
         var total =0.0
         data.forEach { it ->
@@ -99,6 +123,30 @@ class CmeController{
         }
         return total
     }
+
+    fun getTotalCmeCustomerYear(data: List<CmeSummaryYearCustomerData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
+            when(type){
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalEstimasiPo" -> it.estimate_po.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+                "totalInv" -> it.nilai_invoice.let { total = total.plus(it) }
+                "totalBelumTertagih" -> it.remaining_invoice.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotalCmeCustomerYear(data:List<CmeSummaryYearCustomerData>) = doubleArrayOf(
+            getTotalCmeCustomerYear(data,"totalSite"),
+            getTotalCmeCustomerYear(data,"totalSiteCancel"),
+            getTotalCmeCustomerYear(data,"totalEstimasiPo"),
+            getTotalCmeCustomerYear(data,"totalPo"),
+            getTotalCmeCustomerYear(data,"totalInv"),
+            getTotalCmeCustomerYear(data,"totalBelumTertagih")
+    )
 
     fun getTotalCmeYear(data:List<CmeSummaryYearProjectTypeData>) = doubleArrayOf(
             getTotalCmeYear(data,"totalSite"),
@@ -127,12 +175,34 @@ class CmeController{
         return total
     }
 
+    fun getTotalCmeCustomerBudget(data: List<CmeSummaryYearCustomerData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
+            when(type){
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalBudget" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasiBudget" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
     fun getTotalCmeYearBudget(data:List<CmeSummaryYearProjectTypeData>) = doubleArrayOf(
             getTotalCmeBudget(data,"totalSite"),
             getTotalCmeBudget(data,"totalSiteCancel"),
             getTotalCmeBudget(data,"totalBudget"),
             getTotalCmeBudget(data,"totalRealisasiBudget"),
             getTotalCmeBudget(data,"totalPo")
+    )
+
+    fun getTotalCmeYearCustomerBudget(data:List<CmeSummaryYearCustomerData>) = doubleArrayOf(
+            getTotalCmeCustomerBudget(data,"totalSite"),
+            getTotalCmeCustomerBudget(data,"totalSiteCancel"),
+            getTotalCmeCustomerBudget(data,"totalBudget"),
+            getTotalCmeCustomerBudget(data,"totalRealisasiBudget"),
+            getTotalCmeCustomerBudget(data,"totalPo")
     )
 
     fun getPrecentBudget(data:Double, data1: Double) = doubleArrayOf(
@@ -159,6 +229,28 @@ class CmeController{
             getTotalCmeLabaRugi(data,"totalLabaRugi"),
             getTotalCmeLabaRugi(data,"totalRealisasi"),
             getTotalCmeLabaRugi(data,"totalPo")
+    )
+
+    fun getTotalCmeCustomerLabaRugi(data: List<CmeSummaryYearCustomerData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
+            when(type){
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalSiteCancel" -> it.site_cancel.let { total = total.plus(it) }
+                "totalLabaRugi" -> it.profit_loss.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotalCmeCustomerLabaRugi(data:List<CmeSummaryYearCustomerData>) = doubleArrayOf(
+            getTotalCmeCustomerLabaRugi(data,"totalSite"),
+            getTotalCmeCustomerLabaRugi(data,"totalSiteCancel"),
+            getTotalCmeCustomerLabaRugi(data,"totalLabaRugi"),
+            getTotalCmeCustomerLabaRugi(data,"totalRealisasi"),
+            getTotalCmeCustomerLabaRugi(data,"totalPo")
     )
 
     fun getPrecentLabaRugi(data:Double, data1: Double) = doubleArrayOf(
@@ -193,8 +285,45 @@ class CmeController{
         return "project/project_by_year_customer"
     }
 
+    @RequestMapping("/project_customer/{tahun}/{customer_id}")
+    fun yearSiteTypeCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("customer_id") customer_id: Int): String{
+        val objectMapper = ObjectMapper()
+        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year_customer/$tahun/$customer_id")
+        val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearCustomerProjectTypeData> = objectMapper.readValue(url)
+        val totalPoInv = getTotalPoInvCustomer(cmeSummaryYearProjectTypeCustDataList)
+        val totalPercentPoInv = getPrecentPoInv(totalPoInv[3],totalPoInv[2])
+        val totalBudgetRealisasi = getTotalBudgetCustomerRealisasi(cmeSummaryYearProjectTypeCustDataList)
+        val totalPercent = getPrecentBudgetRealisasi(totalBudgetRealisasi[2],totalBudgetRealisasi[1])
+        val totalLabaRugi = getTotalCustomerPoInvCustomer(cmeSummaryYearProjectTypeCustDataList)
+        val totalPercentProfitRealisasi = getPrecentCustomerPoInv(totalLabaRugi[1], totalLabaRugi[2])
+        val totalPercentProfitPo = getPrecentCustomerPoInv(totalLabaRugi[1], totalLabaRugi[3])
+
+        model.addAttribute("cmeSummaryYearProjectTypeCustDataList", cmeSummaryYearProjectTypeCustDataList.sortedByDescending { it.nilai_po })
+        model.addAttribute("cmeSummaryYearProjectTypeCustGraph", cmeSummaryYearProjectTypeCustDataList.sortedByDescending { it.nilai_po }.take(5))
+        model.addAttribute("cmeSummaryYearProjectTypeCustGraph2", cmeSummaryYearProjectTypeCustDataList.sortedByDescending { it.nilai_budget }.take(5))
+        model.addAttribute("total",getTotalCustomerPoInvCustomer(cmeSummaryYearProjectTypeCustDataList))
+        model.addAttribute("percentLabRugRealisasi",totalPercentProfitRealisasi)
+        model.addAttribute("percentLabRugPo",totalPercentProfitPo)
+        model.addAttribute("totalPoInv",getTotalPoInvCustomer(cmeSummaryYearProjectTypeCustDataList))
+        model.addAttribute("percentPoInv",totalPercentPoInv)
+        model.addAttribute("totalBudgetRealisasi",getTotalBudgetCustomerRealisasi(cmeSummaryYearProjectTypeCustDataList))
+        model.addAttribute("percentBudgetRealisasi",totalPercent)
+        model.addAttribute("year_project", tahun)
+        model.addAttribute("project_type", getProjectTypeCustomer(cmeSummaryYearProjectTypeCustDataList))
+        model.addAttribute("customer", getCustomer(cmeSummaryYearProjectTypeCustDataList))
+        return "project/project_by_site_type"
+    }
+
     fun getProjectType(data:List<CmeSummaryYearProjectTypeCustData>):String{
         return if(data.isNotEmpty()) data[0].project_type else ""
+    }
+
+    fun getProjectTypeCustomer(data:List<CmeSummaryYearCustomerProjectTypeData>):String{
+        return if(data.isNotEmpty()) data[0].project_type else ""
+    }
+
+    fun getCustomer(data:List<CmeSummaryYearCustomerProjectTypeData>): String? {
+        return if(data.isNotEmpty()) data[0].customer else ""
     }
 
     fun getCustomerName(data:List<CmeSummaryYearProjectTypeCustData>): String? {
@@ -223,6 +352,29 @@ class CmeController{
             getTotalPoInv(data,"totalBelumTertagih")
     )
 
+
+    fun getTotalPoInvCustomer(data: List<CmeSummaryYearCustomerProjectTypeData>, type: String):Double{
+        var total =0.0
+        data.forEach { it ->
+            when(type){
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalEstimasiPo" -> it.estimate_po.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+                "totalInv" -> it.nilai_invoice.let { total = total.plus(it) }
+                "totalBelumTertagih" -> it.remaining_invoice.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotalPoInvCustomer(data:List<CmeSummaryYearCustomerProjectTypeData>) = doubleArrayOf(
+            getTotalPoInvCustomer(data,"totalSite"),
+            getTotalPoInvCustomer(data,"totalEstimasiPo"),
+            getTotalPoInvCustomer(data,"totalPo"),
+            getTotalPoInvCustomer(data,"totalInv"),
+            getTotalPoInvCustomer(data,"totalBelumTertagih")
+    )
+
     fun getPrecentPoInv(data:Double, data1: Double) = doubleArrayOf(
             if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
@@ -243,6 +395,24 @@ class CmeController{
             getTotalBudgetRealisasi(data,"totalSite"),
             getTotalBudgetRealisasi(data,"totalBudget"),
             getTotalBudgetRealisasi(data,"totalRealisasi")
+    )
+
+    fun getTotalBudgetCustomerRealisasi(data: List<CmeSummaryYearCustomerProjectTypeData>, type: String):Double{
+        var total = 0.0
+        data.forEach { it ->
+            when(type){
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalBudget" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotalBudgetCustomerRealisasi(data:List<CmeSummaryYearCustomerProjectTypeData>) = doubleArrayOf(
+            getTotalBudgetCustomerRealisasi(data,"totalSite"),
+            getTotalBudgetCustomerRealisasi(data,"totalBudget"),
+            getTotalBudgetCustomerRealisasi(data,"totalRealisasi")
     )
 
     fun getPrecentBudgetRealisasi(data:Double, data1: Double) = doubleArrayOf(
@@ -267,6 +437,26 @@ class CmeController{
             getTotalCustomerPo(data,"totalLabaRugi"),
             getTotalCustomerPo(data,"totalRealisasi"),
             getTotalCustomerPo(data,"totalPo")
+    )
+
+    fun getTotalCustomerPoCustomer(data: List<CmeSummaryYearCustomerProjectTypeData>, type: String):Double{
+        var total = 0.0
+        data.forEach { it ->
+            when(type){
+                "totalSite" -> it.jumlah_site.let { total = total.plus(it) }
+                "totalLabaRugi" -> it.nilai_budget.let { total = total.plus(it) }
+                "totalRealisasi" -> it.realisasi_budget.let { total = total.plus(it) }
+                "totalPo" -> it.nilai_po.let { total = total.plus(it) }
+            }
+        }
+        return total
+    }
+
+    fun getTotalCustomerPoInvCustomer(data:List<CmeSummaryYearCustomerProjectTypeData>) = doubleArrayOf(
+            getTotalCustomerPoCustomer(data,"totalSite"),
+            getTotalCustomerPoCustomer(data,"totalLabaRugi"),
+            getTotalCustomerPoCustomer(data,"totalRealisasi"),
+            getTotalCustomerPoCustomer(data,"totalPo")
     )
 
     fun getPrecentCustomerPoInv(data:Double, data1: Double) = doubleArrayOf(
