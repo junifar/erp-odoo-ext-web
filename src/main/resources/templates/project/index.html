@@ -78,7 +78,7 @@
                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.profit_loss, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                 <td class="text-right small">
-                                                    <a th:href="@{'/project/' + ${dataRow.year_project}}">Detail</a>
+                                                    <a th:href="@{'/project_customer/' + ${dataRow.year_project}}">Detail</a>
                                                 </td>
                                             </tr>
                                         </tbody>

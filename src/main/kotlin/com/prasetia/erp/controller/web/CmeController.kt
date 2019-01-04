@@ -95,7 +95,7 @@ class CmeController{
         val totalPercentLabaRugi = getPrecentLabaRugi(totalCmeLabaRugi[2], totalCmeLabaRugi[3])
         val totalPercentCmePo = getPrecentLabaRugi(totalCmeLabaRugi[2], totalCmeLabaRugi[4])
 
-        model.addAttribute("cmeSummaryYearProjectTypeDataList", cmeSummaryYearCustomerDataList)
+        model.addAttribute("cmeSummaryYearProjectTypeDataList", cmeSummaryYearCustomerDataList.sortedByDescending { it.nilai_po })
         model.addAttribute("cmeSummaryYearProjectTypeDataList1", cmeSummaryYearCustomerDataList.sortedByDescending { it.nilai_po }.take(5))
         model.addAttribute("cmeSummaryYearProjectTypeDataList2", cmeSummaryYearCustomerDataList.sortedByDescending { it.realisasi_budget }.take(5))
         model.addAttribute("total",getTotalCmeCustomerYear(cmeSummaryYearCustomerDataList))
