@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping
 class HomeController{
     @RequestMapping("")
     fun home(model:Model): String{
-        return "home"
-//        return "prasetia_home"
+//        return "home"
+        return "prasetia_home"
     }
 
     @RequestMapping("/sample")
