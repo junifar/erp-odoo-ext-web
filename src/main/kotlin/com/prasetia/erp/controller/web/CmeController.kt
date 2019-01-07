@@ -486,8 +486,8 @@ class CmeController{
         val totalGrossMarginInvLabRug  = getGrossMarginInvLabRug(totalInvLabRug[0],totalInvLabRug[1])
 
 //        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id })
-        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataListFilter)
-        model.addAttribute("cmeYearTypeCustProjectGraph1", cmeYearTypeCustProject?.take(5))
+        model.addAttribute("cmeSummaryYearTypeCustDetailDataList", cmeSummaryYearTypeCustDetailDataListFilter.sortedByDescending { it.nilai_po })
+        model.addAttribute("cmeYearTypeCustProjectGraph1", cmeYearTypeCustProject?.sortedByDescending { it.nilai_po }?.take(5))
         model.addAttribute("totalPoBudget",getTotalDetailPoBudget(cmeSummaryYearTypeCustDetailDataListFilter))
         model.addAttribute("percentPoBudget",totalPercentPoBudget)
         model.addAttribute("grossMargin",totalGrossMargin)
