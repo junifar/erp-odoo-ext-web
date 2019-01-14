@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{lte/header :: lte_header}"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <div th:replace="~{lte/header :: lte_main_header}"></div>
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="box">
+                    <div class="box-body">
+                        <div class="my-3 p-3 bg-white rounded shadow-sm">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 th:inline="text">Budget Department [[${periode}]]</h3>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <!-- BAR CHART -->
+                                        <div class="box box-success">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Budget - Realisasi, Top 5</h3>
+                                            </div>
+                                            <div class="box-body chart-responsive">
+                                                <div class="chart">
+                                                    <canvas id="areaChart" style="height: 250px"></canvas>
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+                                        <!-- /.box -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Summary Department Periode <span th:text="${periode}"></span></h3>
+                                            </div>
+                                            <div class="box-body">
+                                                <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered
+                                        display nowrap border border-dark table-condensed">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="text-center">Department Name</th>
+                                                        <th class="text-center">Nilai Budget</th>
+                                                        <th class=" text-center">Realisasi Budget</th>
+                                                        <th class=" text-center">Persent Budget</th>
+                                                        <th class=" text-center">Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="dataRow: ${departmentPeriodeTypeDataList}">
+                                                        <td class="text-left small" th:text="${dataRow.department_name}">Colo</td>
+                                                        <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                        <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                        <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
+                                                        <td class="text-right small">
+                                                            <a th:href="@{'/budget_department/' + ${periode} + '/' + ${dataRow.department_id}}">Detail</a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                    <tr>
+                                                        <th class="text-center " >TOTAL</th>
+                                                        <th class="text-right " th:text="${#numbers.formatDecimal(totalDepartment[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                        <th class="text-right " th:text="${#numbers.formatDecimal(totalDepartment[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                        <th class="text-right " th:text="${#numbers.formatDecimal(totalPercent, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                                        <td class="text-right "></td>
+                                                    </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div th:replace="~{lte/footer :: lte_footer}"></div>
+    </div>
+    <div th:replace="~{lte/footer :: lte_script}"></div>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var color = Chart.helpers.color;
+            var ctx = document.getElementById("areaChart")
+            var myChart = new Chart(ctx,{
+                type: 'bar',
+                data: {
+                    labels  : [
+                        /*[# th:each="dataRow: ${departmentPeriodeTypeDataListGraph}"]*/
+                        [[${dataRow.department_name}]],
+                        /*[/]*/
+                    ],
+                    datasets:[{
+                        label: "Nilai Budget",
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.blue,
+                        backgroundColor: color(window.chartColors.green).alpha(20).rgbString(),
+                        data:[
+                            /*[# th:each="dataRow: ${departmentPeriodeTypeDataListGraph}"]*/
+                            [[${dataRow.nilai_budget}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Realisasi Budget',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        backgroundColor: color(window.chartColors.blue).alpha(5).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${departmentPeriodeTypeDataListGraph}"]*/
+                            [[${dataRow.realisasi_budget}]],
+                            /*[/]*/
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.labels[tooltipItems.index] + ": " + data.datasets[0].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString();
+                                }
+                            }
+                        }]
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+</html>

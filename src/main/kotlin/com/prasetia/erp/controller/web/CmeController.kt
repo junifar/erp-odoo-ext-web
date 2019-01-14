@@ -286,7 +286,7 @@ class CmeController{
     }
 
     @RequestMapping("/project_customer/{tahun}/{customer_id}")
-    fun yearSiteTypeCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("customer_id") customer_id: Int): String{
+    fun yearSiteTypeCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("customer_id") customer_id: String): String{
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year_customer/$tahun/$customer_id")
         val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearCustomerProjectTypeData> = objectMapper.readValue(url)
