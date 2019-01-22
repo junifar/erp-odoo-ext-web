@@ -87,6 +87,83 @@ class DepartmentController{
             if (data1 > 0.0) data * 100 / data1 else (0.0)
     )
 
+    @RequestMapping("/budget_department_map/{periode}/{department_id}")
+    fun detailDepartmentBudget(model: Model,@PathVariable("periode")periode: Int,
+                               @PathVariable("department_id")department_id:Int):String{
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
+
+
+        model.addAttribute("departmentDetailDataList",departmentDetailDataList)
+        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
+        model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
+        model.addAttribute("department_id",department_id)
+        model.addAttribute("periode",periode)
+        return "department/detail_department_map"
+    }
+
+    @RequestMapping("/budget_department_map/{periode}/{department_id}/{budget_id}")
+    fun detailDepartmentBudgetRealisasi(model: Model,@PathVariable("periode")periode: Int,
+                        @PathVariable("department_id")department_id: Int,
+                        @PathVariable("budget_id")budget_id:Long): String {
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
+
+        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilterMap(departmentDetailDataList,budget_id))
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
+        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
+        return "department/detail_department_map"
+    }
+
+    @RequestMapping("/budget_department_map/{periode}/{department_id}/{budget_id}/{line_id}")
+    fun detailDepartmentBudgetLineRealisasi(model: Model,@PathVariable("periode")periode: Int,
+                                        @PathVariable("department_id")department_id: Int,
+                                        @PathVariable("budget_id")budget_id:Long, @PathVariable("line_id")line_id: Long): String {
+        val objectMapper = ObjectMapper()
+        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
+
+        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilterMap(departmentDetailDataList,budget_id, line_id))
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
+        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
+        return "department/detail_department_map"
+    }
+
+    fun departmentDetailDataListFilterMap(data:List<DepartmentBudgetYearData>, budget_id: Long):List<DepartmentBudgetYearData>{
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = data
+        departmentDetailDataList.forEach {
+            budgetYearData ->
+            val data = budgetYearData.department_budget?.filter { it.id == budget_id }
+            budgetYearData.department_budget = data as MutableList<DepartmentBudgetData>?
+        }
+        return departmentDetailDataList
+    }
+
+    fun departmentDetailDataListFilterMap(data:List<DepartmentBudgetYearData>, budget_id: Long, line_id: Long):List<DepartmentBudgetYearData>{
+        val departmentDetailDataList:List<DepartmentBudgetYearData> = data
+        departmentDetailDataList.forEach {
+            budgetYearData ->
+            val data = budgetYearData.department_budget?.filter { it.id == budget_id }
+            budgetYearData.department_budget = data as MutableList<DepartmentBudgetData>?
+            budgetYearData.department_budget?.forEach { budget_detail->
+                val data1 = budget_detail.budget_detail?.filter { it.line_id == line_id }
+                budget_detail.budget_detail = data1 as MutableList<DepartmentBudgetDetailData>?
+            }
+        }
+        return departmentDetailDataList
+    }
+
 
     @RequestMapping("/budget_department/{periode}/{department_id}")
     fun detailDepartment(model: Model,@PathVariable("periode")periode: Int,
