@@ -130,12 +130,13 @@ class DepartmentController{
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
-        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val departmentDetailDataListFilter = departmentDetailDataListFilterMap(departmentDetailDataList,budget_id, line_id)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataListFilter)
         val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
 
-        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilterMap(departmentDetailDataList,budget_id, line_id))
-        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
-        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilter)
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataListFilter))
+        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataListFilter))
         model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
         return "department/detail_department_map"
     }

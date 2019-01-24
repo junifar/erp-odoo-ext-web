@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header_prasetia}"></head>
+<body class="bg-gray">
+    <nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+    <main role="main" class="container">
+        <div class="box">
+            <div class="box-body">
+                <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Report Pajak Periode [[${periode}]]</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Budget Department Summary</h3>
+                                    </div>
+                                    <div class="box-body">
+                                        <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
+                                            <thead>
+                                            <tr>
+                                                <th class="text-center small">Tanggal Invoice</th>
+                                                <th class="text-center small">Nomor Faktur</th>
+                                                <th class="text-center small">Nomor Invoice</th>
+                                                <th class="text-center small">Customer</th>
+                                                <th class="text-center small">Status</th>
+                                                <th class="text-center small">Nilai Pembayaran</th>
+                                                <th class="text-center small">Nilai Pajak</th>
+                                                <th class="text-center small">Pajak</th>
+                                                <th class="text-center small">Ref</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="dataRow: ${taxInfoDataList}">
+                                                <td class="text-left small text-nowrap" th:text="${#dates.format(dataRow.tanggal_pembayaran, 'dd-MMM-yyyy')}">2018</td>
+                                                <td class="text-left small text-nowrap" th:text="${dataRow.nomor_faktur}">-</td>
+                                                <td class="text-left small text-nowrap" th:text="${dataRow.invoice_no}">-</td>
+                                                <td class="text-left small" th:text="${dataRow.customer_name}">-</td>
+                                                <td class="text-left small" th:text="${dataRow.state}">-</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.subtotal, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.tax_amount, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-left small text-nowrap" th:text="${dataRow.name}">-</td>
+                                                <td class="text-left small text-nowrap" th:text="${dataRow.ref}">-</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
