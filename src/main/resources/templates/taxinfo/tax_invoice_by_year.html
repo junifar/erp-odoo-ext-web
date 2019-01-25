@@ -20,7 +20,14 @@
                                         <h3 class="box-title">Budget Department Summary</h3>
                                     </div>
                                     <div class="box-body">
-                                        <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
+                                        <div class="row col-md-12">
+                                            <a th:href="@{'/taxinfo/download/' + ${periode}}" class="btn btn-primary pull-right">Download</a>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            &nbsp;
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
                                             <thead>
                                             <tr>
                                                 <th class="text-center small">Tanggal Invoice</th>
@@ -29,6 +36,7 @@
                                                 <th class="text-center small">Customer</th>
                                                 <th class="text-center small">Status</th>
                                                 <th class="text-center small">Nilai Pembayaran</th>
+                                                <th class="text-center small">%tax</th>
                                                 <th class="text-center small">Nilai Pajak</th>
                                                 <th class="text-center small">Pajak</th>
                                                 <th class="text-center small">Ref</th>
@@ -42,12 +50,14 @@
                                                 <td class="text-left small" th:text="${dataRow.customer_name}">-</td>
                                                 <td class="text-left small" th:text="${dataRow.state}">-</td>
                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.subtotal, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                <td class="text-left small text-nowrap" th:text="${dataRow.tax_percentage}">-</td>
                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.tax_amount, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                 <td class="text-left small text-nowrap" th:text="${dataRow.name}">-</td>
                                                 <td class="text-left small text-nowrap" th:text="${dataRow.ref}">-</td>
                                             </tr>
                                             </tbody>
                                         </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
