@@ -80,7 +80,9 @@ class SheetTax(workbook: HSSFWorkbook, tahun:String, data: List<TaxInvoiceData>)
         sheet.setColumnWidth(6, 5200)
         sheet.setColumnWidth(7, 5200)
         sheet.setColumnWidth(8, 5980)
-        sheet.setColumnWidth(9, 5200)
+        sheet.setColumnWidth(9, 6500)
+        sheet.setColumnWidth(10, 6500)
+        sheet.setColumnWidth(11, 5200)
         return sheet
     }
 
@@ -93,7 +95,7 @@ class SheetTax(workbook: HSSFWorkbook, tahun:String, data: List<TaxInvoiceData>)
         header.getCell(0).setCellStyle(styleHeader)
 
         header = sheet.createRow(3)
-        header.createCell(0).setCellValue("Tanggal Pembayaran")
+        header.createCell(0).setCellValue("Tanggal Invoice")
         header.getCell(0).setCellStyle(styleTableHeader)
         header.createCell(1).setCellValue("Nomor Faktur")
         header.getCell(1).setCellStyle(styleTableHeader)
@@ -111,8 +113,12 @@ class SheetTax(workbook: HSSFWorkbook, tahun:String, data: List<TaxInvoiceData>)
         header.getCell(7).setCellStyle(styleTableHeader)
         header.createCell(8).setCellValue("Pajak")
         header.getCell(8).setCellStyle(styleTableHeader)
-        header.createCell(9).setCellValue("Ref")
+        header.createCell(9).setCellValue("Tanggal Pembayaran")
         header.getCell(9).setCellStyle(styleTableHeader)
+        header.createCell(10).setCellValue("Bank")
+        header.getCell(10).setCellStyle(styleTableHeader)
+        header.createCell(11).setCellValue("Ref")
+        header.getCell(11).setCellStyle(styleTableHeader)
     }
 
     fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data:List<TaxInvoiceData>){
@@ -128,7 +134,7 @@ class SheetTax(workbook: HSSFWorkbook, tahun:String, data: List<TaxInvoiceData>)
             val cell6 = content.createCell(6)
             val cell7 = content.createCell(7)
 
-            content.createCell(0).setCellValue(toSimpleDate(it.tanggal_pembayaran))
+            content.createCell(0).setCellValue(toSimpleDate(it.date_invoice))
             content.getCell(0).setCellStyle(styleTableContent)
             content.createCell(1).setCellValue(it.nomor_faktur)
             content.getCell(1).setCellStyle(styleTableContent)
@@ -146,8 +152,12 @@ class SheetTax(workbook: HSSFWorkbook, tahun:String, data: List<TaxInvoiceData>)
             it.tax_amount?.toDouble()?.let {  it1-> cell7.setCellValue(it1)}
             content.createCell(8).setCellValue(it.name)
             content.getCell(8).setCellStyle(styleTableContent)
-            content.createCell(9).setCellValue(it.ref)
+            content.createCell(9).setCellValue(toSimpleDate(it.tanggal_pembayaran))
             content.getCell(9).setCellStyle(styleTableContent)
+            content.createCell(10).setCellValue(it.bank)
+            content.getCell(10).setCellStyle(styleTableContent)
+            content.createCell(11).setCellValue(it.ref)
+            content.getCell(11).setCellStyle(styleTableContent)
         }
     }
 

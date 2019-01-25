@@ -5,6 +5,7 @@ import java.util.*
 class TaxInvoiceData(
         val id:Long,
         val invoice_id:Long?,
+        val date_invoice:Date?,
         val nomor_faktur:String?,
         val invoice_no:String?,
         val customer_name:String?,
@@ -20,6 +21,6 @@ class TaxInvoiceData(
         val ref:String?,
         val voucher_id:Long?
 ){
-    constructor(): this(0, 0, "", "","","",0f,
+    constructor(): this(0, 0, null, "", "","","",0f,
             "", 0f,0f, 0f, 0f, null, "", "", 0)
 }
