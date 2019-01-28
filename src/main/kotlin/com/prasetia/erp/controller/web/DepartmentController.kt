@@ -113,12 +113,13 @@ class DepartmentController{
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
-        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
+        val departmentDetailDataListFilter = departmentDetailDataListFilterMap(departmentDetailDataList,budget_id)
+        val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataListFilter)
         val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
 
-        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilterMap(departmentDetailDataList,budget_id))
-        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataList))
-        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataList))
+        model.addAttribute("departmentDetailDataList",departmentDetailDataListFilter)
+        model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataListFilter))
+        model.addAttribute("total", getTotalDepartmentMap(departmentDetailDataListFilter))
         model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
         return "department/detail_department_map"
     }
@@ -139,6 +140,20 @@ class DepartmentController{
         model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataListFilter))
         model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
         return "department/detail_department_map"
+    }
+
+    fun getTotalDepartmentMap(data:List<DepartmentBudgetYearData>):DoubleArray{
+        var nilai_budget = 0.0
+        var realisasi_budget = 0.0
+        data.forEach {line->
+            line.department_budget?.forEach { line1->
+                nilai_budget += line1.nilai_budget ?: 0.00
+                line1.budget_detail?.forEach {
+                    realisasi_budget += it.realisasi_budget ?: 0.00
+                }
+            }
+        }
+        return doubleArrayOf(nilai_budget, realisasi_budget)
     }
 
     fun departmentDetailDataListFilterMap(data:List<DepartmentBudgetYearData>, budget_id: Long):List<DepartmentBudgetYearData>{
@@ -188,7 +203,7 @@ class DepartmentController{
 
     fun getTotalBudget(data:List<DepartmentBudgetYearData>, type:String): Double{
         var total = 0.0
-        data.forEach { it ->
+        data.forEach {
             when (type){
                 "total_budget" -> it.nilai_budget?.let { total = total.plus(it) }
                 "total_realisasi" -> it.realisasi_budget?.let { total = total.plus(it) }
