@@ -55,7 +55,7 @@
                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                 <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.persent_budget, 1, 'POINT', 2, 'COMMA')}">999</td>
                                                 <td class="text-right small">
-                                                    <a th:href="@{'/budget_department/' + ${periode} + '/' + ${dataRow.department_id}}">Detail</a>
+                                                    <a th:href="@{'/budget_department_map/' + ${periode} + '/' + ${dataRow.department_id}}">Detail</a>
                                                 </td>
                                             </tr>
                                             </tbody>
