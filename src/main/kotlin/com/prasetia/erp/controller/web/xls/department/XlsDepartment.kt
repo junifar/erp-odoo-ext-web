@@ -2,6 +2,7 @@ package com.prasetia.erp.controller.web.xls.department
 
 import com.prasetia.erp.controller.web.xls.department.sheet.SheetByDate
 import com.prasetia.erp.controller.web.xls.department.sheet.SheetSummary
+import com.prasetia.erp.controller.web.xls.department.sheet.SheetSummaryBudget
 import com.prasetia.erp.pojo.department.*
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
 import javax.servlet.http.HttpServletResponse
@@ -10,6 +11,8 @@ class XlsDepartment(response: HttpServletResponse, periode: String, department_i
     private var workbook: HSSFWorkbook = HSSFWorkbook()
 
     init {
+        SheetSummaryBudget(workbook, data)
+
         SheetSummary(workbook, data, periode)
 
         SheetByDate(workbook,1,data)

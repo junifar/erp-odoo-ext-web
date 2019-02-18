@@ -9,7 +9,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment
 import org.apache.poi.ss.util.CellRangeAddress
 
 class SheetSummary(workbook: HSSFWorkbook, data: List<DepartmentBudgetYearData>, periode: String) {
-    var sheet: HSSFSheet = workbook.createSheet("Summary")
+    var sheet: HSSFSheet = workbook.createSheet("Summary Detail")
     private var numRow: Int = 5
 
     fun setColWidth(sheet: HSSFSheet): HSSFSheet {

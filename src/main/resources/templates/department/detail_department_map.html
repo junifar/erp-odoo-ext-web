@@ -66,6 +66,8 @@
                                         <thead>
                                         <tr>
                                             <th class=" text-center">No Budget</th>
+                                            <th class=" text-center">Notes</th>
+                                            <th class=" text-center">Periode</th>
                                             <th class=" text-center">Nilai Budget</th>
                                             <th class=" text-center">Realisasi Budget</th>
                                             <th class=" text-center"> action </th>
@@ -75,6 +77,8 @@
                                         <span th:each="dataRowDetail: ${dataRow.department_budget}">
                                             <tr>
                                                     <td class="text-left small" th:text="${dataRowDetail.name}"></td>
+                                                    <td class="text-left small" th:text="${dataRowDetail.notes}"></td>
+                                                    <td class="text-left small" th:text="${#dates.format(dataRowDetail.periode_start, 'dd-MMM-yyyy') + ' s.d ' + #dates.format(dataRowDetail.periode_end, 'dd-MMM-yyyy')}"></td>
                                                     <td class="text-right small" th:text="${#numbers.formatDecimal(#aggregates.sum(dataRowDetail.budget_detail.![nilai_budget]), 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small" th:text="${#numbers.formatDecimal(#aggregates.sum(dataRowDetail.budget_detail.![realisasi_budget]), 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small">
@@ -85,7 +89,7 @@
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <th class="text-center " >TOTAL</th>
+                                            <th class="text-center " colspan="3" >TOTAL</th>
                                             <th class="text-right" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                             <th class="text-right" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                             <td class="text-right">
