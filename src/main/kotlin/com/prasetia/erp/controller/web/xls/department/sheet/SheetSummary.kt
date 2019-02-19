@@ -1,6 +1,7 @@
 package com.prasetia.erp.controller.web.xls.department.sheet
 
 import com.prasetia.erp.pojo.department.*
+import com.prasetia.erp.utils.toSimpleString
 import org.apache.poi.hssf.usermodel.*
 import org.apache.poi.hssf.util.HSSFColor
 import org.apache.poi.ss.usermodel.BorderStyle
@@ -21,6 +22,18 @@ class SheetSummary(workbook: HSSFWorkbook, data: List<DepartmentBudgetYearData>,
         sheet.setColumnWidth(4, 4420)
         sheet.setColumnWidth(5, 4420)
         sheet.setColumnWidth(6, 4420)
+        sheet.setColumnWidth(7, 4160)
+        sheet.setColumnWidth(8, 4160)
+        sheet.setColumnWidth(9, 4160)
+        sheet.setColumnWidth(10, 4160)
+        sheet.setColumnWidth(11, 4160)
+        sheet.setColumnWidth(12, 4160)
+        sheet.setColumnWidth(13, 4160)
+        sheet.setColumnWidth(14, 4160)
+        sheet.setColumnWidth(15, 4160)
+        sheet.setColumnWidth(16, 4160)
+        sheet.setColumnWidth(17, 4160)
+        sheet.setColumnWidth(18, 4160)
         return sheet
     }
 
@@ -147,6 +160,30 @@ class SheetSummary(workbook: HSSFWorkbook, data: List<DepartmentBudgetYearData>,
         header.getCell(5).setCellStyle(styleTableHeader)
         header.createCell(6)
         header.getCell(6).setCellStyle(styleTableHeader)
+        header.createCell(7).setCellValue("Periode")
+        header.getCell(7).setCellStyle(styleTableHeader)
+        header.createCell(8)
+        header.getCell(8).setCellStyle(styleTableHeader)
+        header.createCell(9)
+        header.getCell(9).setCellStyle(styleTableHeader)
+        header.createCell(10)
+        header.getCell(10).setCellStyle(styleTableHeader)
+        header.createCell(11)
+        header.getCell(11).setCellStyle(styleTableHeader)
+        header.createCell(12)
+        header.getCell(12).setCellStyle(styleTableHeader)
+        header.createCell(13)
+        header.getCell(13).setCellStyle(styleTableHeader)
+        header.createCell(14)
+        header.getCell(14).setCellStyle(styleTableHeader)
+        header.createCell(15)
+        header.getCell(15).setCellStyle(styleTableHeader)
+        header.createCell(16)
+        header.getCell(16).setCellStyle(styleTableHeader)
+        header.createCell(17)
+        header.getCell(17).setCellStyle(styleTableHeader)
+        header.createCell(18)
+        header.getCell(18).setCellStyle(styleTableHeader)
 
         header = sheet.createRow(4)
         header.createCell(1).setCellValue("No Budget")
@@ -161,11 +198,41 @@ class SheetSummary(workbook: HSSFWorkbook, data: List<DepartmentBudgetYearData>,
         header.getCell(5).setCellStyle(styleTableHeader)
         header.createCell(6).setCellValue("%")
         header.getCell(6).setCellStyle(styleTableHeader)
+        header.createCell(7).setCellValue("Jan")
+        header.getCell(7).setCellStyle(styleTableHeader)
+        header.createCell(8).setCellValue("Feb")
+        header.getCell(8).setCellStyle(styleTableHeader)
+        header.createCell(9).setCellValue("Mar")
+        header.getCell(9).setCellStyle(styleTableHeader)
+        header.createCell(10).setCellValue("Apr")
+        header.getCell(10).setCellStyle(styleTableHeader)
+        header.createCell(11).setCellValue("Mei")
+        header.getCell(11).setCellStyle(styleTableHeader)
+        header.createCell(12).setCellValue("Jun")
+        header.getCell(12).setCellStyle(styleTableHeader)
+        header.createCell(13).setCellValue("Jul")
+        header.getCell(13).setCellStyle(styleTableHeader)
+        header.createCell(14).setCellValue("Agu")
+        header.getCell(14).setCellStyle(styleTableHeader)
+        header.createCell(15).setCellValue("Sep")
+        header.getCell(15).setCellStyle(styleTableHeader)
+        header.createCell(16).setCellValue("Okt")
+        header.getCell(16).setCellStyle(styleTableHeader)
+        header.createCell(17).setCellValue("Nov")
+        header.getCell(17).setCellStyle(styleTableHeader)
+        header.createCell(18).setCellValue("Des")
+        header.getCell(18).setCellStyle(styleTableHeader)
 
         sheet.addMergedRegion(CellRangeAddress(3, 3, 1, 6))
+        sheet.addMergedRegion(CellRangeAddress(3, 3, 7, 18))
     }
 
-    fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data: List<DepartmentBudgetYearData>) {
+    fun getSumRealisasi(data:List<DepartmentBudgetRealisasiData>?, month:Int):Double{
+
+        return data?.filter { toSimpleString(it.date) == month.toString()}?.sumByDouble { it.budget_realisasi?:0.00 }?:0.00
+    }
+
+    private fun createDataXls(workbook: HSSFWorkbook, sheet: HSSFSheet, data: List<DepartmentBudgetYearData>) {
         val styleTableContent = styleTableContent(workbook)
         val styleTableContentNumber = styleTableContentNumber(workbook)
         val styleTableHeader = styleTableHeader(workbook)
@@ -196,6 +263,19 @@ class SheetSummary(workbook: HSSFWorkbook, data: List<DepartmentBudgetYearData>,
                     val cell6 = content.createCell(6)
                     val cell5 = content.createCell(5)
 
+                    val cell7 = content.createCell(7)
+                    val cell8 = content.createCell(8)
+                    val cell9 = content.createCell(9)
+                    val cell10 = content.createCell(10)
+                    val cell11 = content.createCell(11)
+                    val cell12 = content.createCell(12)
+                    val cell13 = content.createCell(13)
+                    val cell14 = content.createCell(14)
+                    val cell15 = content.createCell(15)
+                    val cell16 = content.createCell(16)
+                    val cell17 = content.createCell(17)
+                    val cell18 = content.createCell(18)
+
                     content.createCell(1).setCellValue(data2.name)
                     content.getCell(1).setCellStyle(styleTableContent)
                     content.createCell(2).setCellValue(data3.code)
@@ -208,6 +288,31 @@ class SheetSummary(workbook: HSSFWorkbook, data: List<DepartmentBudgetYearData>,
                     content.getCell(5).setCellStyle(styleTableContentNumber)
                     data3.persent_budget?.toDouble()?.let { it1 -> cell6.setCellValue(it1) }
                     content.getCell(6).setCellStyle(styleTableContentNumber)
+
+                    cell7.setCellValue(getSumRealisasi(DetailDepartment3,1))
+                    content.getCell(7).setCellStyle(styleTableContentNumber)
+                    cell8.setCellValue(getSumRealisasi(DetailDepartment3,2))
+                    content.getCell(8).setCellStyle(styleTableContentNumber)
+                    cell9.setCellValue(getSumRealisasi(DetailDepartment3,3))
+                    content.getCell(9).setCellStyle(styleTableContentNumber)
+                    cell10.setCellValue(getSumRealisasi(DetailDepartment3,4))
+                    content.getCell(10).setCellStyle(styleTableContentNumber)
+                    cell11.setCellValue(getSumRealisasi(DetailDepartment3,5))
+                    content.getCell(11).setCellStyle(styleTableContentNumber)
+                    cell12.setCellValue(getSumRealisasi(DetailDepartment3,6))
+                    content.getCell(12).setCellStyle(styleTableContentNumber)
+                    cell13.setCellValue(getSumRealisasi(DetailDepartment3,7))
+                    content.getCell(13).setCellStyle(styleTableContentNumber)
+                    cell14.setCellValue(getSumRealisasi(DetailDepartment3,8))
+                    content.getCell(14).setCellStyle(styleTableContentNumber)
+                    cell15.setCellValue(getSumRealisasi(DetailDepartment3,9))
+                    content.getCell(15).setCellStyle(styleTableContentNumber)
+                    cell16.setCellValue(getSumRealisasi(DetailDepartment3,10))
+                    content.getCell(16).setCellStyle(styleTableContentNumber)
+                    cell17.setCellValue(getSumRealisasi(DetailDepartment3,11))
+                    content.getCell(17).setCellStyle(styleTableContentNumber)
+                    cell18.setCellValue(getSumRealisasi(DetailDepartment3,12))
+                    content.getCell(18).setCellStyle(styleTableContentNumber)
                 }
             }
 

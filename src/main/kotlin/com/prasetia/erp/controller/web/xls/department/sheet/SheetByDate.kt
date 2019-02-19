@@ -36,10 +36,11 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
         //1:260
         sheet.setColumnWidth(0, 2340)
         sheet.setColumnWidth(1, 8320)
-        sheet.setColumnWidth(2, 5980)
-        sheet.setColumnWidth(3, 8320)
-        sheet.setColumnWidth(4, 25740)
-        sheet.setColumnWidth(5,4420)
+        sheet.setColumnWidth(2, 8320)
+        sheet.setColumnWidth(3, 5980)
+        sheet.setColumnWidth(4, 8320)
+        sheet.setColumnWidth(5, 25740)
+        sheet.setColumnWidth(6,4420)
         return sheet
     }
 
@@ -89,21 +90,25 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
         header.getCell(4).setCellStyle(styleTableHeader)
         header.createCell(5)
         header.getCell(5).setCellStyle(styleTableHeader)
+        header.createCell(6)
+        header.getCell(6).setCellStyle(styleTableHeader)
 
         header = sheet.createRow(4)
         header.createCell(1).setCellValue("No Budget")
         header.getCell(1).setCellStyle(styleTableHeader)
-        header.createCell(2).setCellValue("Date")
+        header.createCell(2).setCellValue("No Budget Item")
         header.getCell(2).setCellStyle(styleTableHeader)
-        header.createCell(3).setCellValue("Ref")
+        header.createCell(3).setCellValue("Date")
         header.getCell(3).setCellStyle(styleTableHeader)
-        header.createCell(4).setCellValue("Description")
+        header.createCell(4).setCellValue("Ref")
         header.getCell(4).setCellStyle(styleTableHeader)
-        header.createCell(5).setCellValue("Total")
+        header.createCell(5).setCellValue("Description")
         header.getCell(5).setCellStyle(styleTableHeader)
+        header.createCell(6).setCellValue("Total")
+        header.getCell(6).setCellStyle(styleTableHeader)
 
 
-        sheet.addMergedRegion(CellRangeAddress(3, 3, 1, 5))
+        sheet.addMergedRegion(CellRangeAddress(3, 3, 1, 6))
     }
 
     fun fontCalibriTableContent(workbook: HSSFWorkbook): HSSFFont {
@@ -205,18 +210,20 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
                         if (toSimpleString(it.date) == bulan.toString()) {
 
                             content = sheet.createRow(numRow++)
-                            val cell5 = content.createCell(5)
+                            val cell6 = content.createCell(6)
 
                             content.createCell(1).setCellValue(d2.name)
                             content.getCell(1).setCellStyle(styleTableContent)
-                            content.createCell(2).setCellValue(toSimpleDate(it.date))
+                            content.createCell(2).setCellValue(d3.code)
                             content.getCell(2).setCellStyle(styleTableContent)
-                            content.createCell(3).setCellValue(it.ref)
+                            content.createCell(3).setCellValue(toSimpleDate(it.date))
                             content.getCell(3).setCellStyle(styleTableContent)
-                            content.createCell(4).setCellValue(it.narration)
+                            content.createCell(4).setCellValue(it.ref)
                             content.getCell(4).setCellStyle(styleTableContent)
-                            it.budget_realisasi?.toDouble()?.let { it1 -> cell5.setCellValue(it1) }
-                            content.getCell(5).setCellStyle(styleTableContentNumber)
+                            content.createCell(5).setCellValue(it.narration)
+                            content.getCell(5).setCellStyle(styleTableContent)
+                            it.budget_realisasi?.toDouble()?.let { it1 -> cell6.setCellValue(it1) }
+                            content.getCell(6).setCellStyle(styleTableContentNumber)
 
                         }
                     }
@@ -224,7 +231,7 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
             }
         }
                     content = sheet.createRow(numRow)
-                    val cell5 = content.createCell(5)
+                    val cell6 = content.createCell(6)
                     content.createCell(1).setCellValue("Total")
                     content.getCell(1).setCellStyle(styleTableHeader)
                     content.createCell(2).setCellValue("")
@@ -233,8 +240,10 @@ class SheetByDate (workbook: HSSFWorkbook, bulan: Int, data: List<DepartmentBudg
                     content.getCell(3).setCellStyle(styleTableHeader)
                     content.createCell(4).setCellValue("")
                     content.getCell(4).setCellStyle(styleTableHeader)
-                    cell5.cellFormula = "SUM(F${this.numRow+1}:F$numRow)"
-                    content.getCell(5).setCellStyle(styleTableHeaderNumber)
+                    content.createCell(5).setCellValue("")
+                    content.getCell(5).setCellStyle(styleTableHeader)
+                    cell6.cellFormula = "SUM(F${this.numRow+1}:F$numRow)"
+                    content.getCell(6).setCellStyle(styleTableHeaderNumber)
                     numRow += 1
 
     }
