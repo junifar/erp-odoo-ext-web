@@ -137,7 +137,7 @@ class DepartmentController{
 
         model.addAttribute("departmentDetailDataList",departmentDetailDataListFilter)
         model.addAttribute("total_realisasi_detail",getTotalRealisasiData(departmentDetailDataListFilter))
-        model.addAttribute("total", getTotalDepartmentCustomer(departmentDetailDataListFilter))
+        model.addAttribute("total", getTotalDepartmentMap(departmentDetailDataListFilter, line_id))
         model.addAttribute("totalPercentRealisasiBudget", totalPercentRealisasiBudget)
         return "department/detail_department_map"
     }
@@ -145,6 +145,7 @@ class DepartmentController{
     fun getTotalDepartmentMap(data:List<DepartmentBudgetYearData>):DoubleArray{
         var nilai_budget = 0.0
         var realisasi_budget = 0.0
+        var persent_budget = 0.00
         data.forEach {line->
             line.department_budget?.forEach { line1->
                 nilai_budget += line1.nilai_budget ?: 0.00
@@ -153,7 +154,25 @@ class DepartmentController{
                 }
             }
         }
-        return doubleArrayOf(nilai_budget, realisasi_budget)
+        return doubleArrayOf(nilai_budget, realisasi_budget, realisasi_budget/nilai_budget*100)
+    }
+
+    fun getTotalDepartmentMap(data:List<DepartmentBudgetYearData>, line_id: Long):DoubleArray{
+        var nilai_budget = 0.0
+        var realisasi_budget = 0.0
+        var persent_budget = 0.00
+        data.forEach {line->
+            line.department_budget?.forEach { line1->
+//                nilai_budget += line1.nilai_budget ?: 0.00
+                line1.budget_detail?.forEach {
+                    if(it.line_id == line_id){
+                        nilai_budget += it.nilai_budget ?: 0.00
+                        realisasi_budget += it.realisasi_budget ?: 0.00
+                    }
+                }
+            }
+        }
+        return doubleArrayOf(nilai_budget, realisasi_budget, realisasi_budget/nilai_budget*100)
     }
 
     fun departmentDetailDataListFilterMap(data:List<DepartmentBudgetYearData>, budget_id: Long):List<DepartmentBudgetYearData>{
@@ -222,7 +241,8 @@ class DepartmentController{
 
     fun getTotalDepartmentCustomer(data:List<DepartmentBudgetYearData>) = doubleArrayOf(
             getTotalBudget(data, "total_budget"),
-            getTotalBudget(data, "total_realisasi")
+            getTotalBudget(data, "total_realisasi"),
+            getTotalBudget(data, "total_realisasi")/getTotalBudget(data, "total_budget")*100
     )
 
     @RequestMapping("/budget_department/{periode}/{department_id}/{line_id}")

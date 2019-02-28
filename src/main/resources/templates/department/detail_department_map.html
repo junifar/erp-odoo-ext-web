@@ -44,15 +44,18 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label>Nilai Budget</label>
-                                                <input type="text" class="form-control" placeholder="Nilai Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">
+                                                <!--<input type="text" class="form-control" placeholder="Nilai Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.nilai_budget, 1, 'POINT', 2, 'COMMA')}">-->
+                                                <input type="text" class="form-control" placeholder="Nilai Budget" disabled="" th:value="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">
                                             </div>
                                             <div class="form-group">
                                                 <label>Realisasi Budget</label>
-                                                <input type="text" class="form-control" placeholder="Realisasi Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">
+                                                <!--<input type="text" class="form-control" placeholder="Realisasi Budget" disabled="" th:value="${#numbers.formatDecimal(dataRow.realisasi_budget, 1, 'POINT', 2, 'COMMA')}">-->
+                                                <input type="text" class="form-control" placeholder="Realisasi Budget" disabled="" th:value="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">
                                             </div>
                                             <div class="form-group">
                                                 <label>% Department</label>
-                                                <input type="text" class="form-control" placeholder="Persentase" disabled="" th:value="${dataRow.persent_budget}">
+                                                <!--<input type="text" class="form-control" placeholder="Persentase" disabled="" th:value="${dataRow.persent_budget}">-->
+                                                <input type="text" class="form-control" placeholder="Persentase" disabled="" th:value="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +141,8 @@
                                         <th class="text-left" ></th>
                                         <th class="text-right" th:text="${#numbers.formatDecimal(total[0], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                         <th class="text-right" th:text="${#numbers.formatDecimal(total[1], 1, 'POINT', 2, 'COMMA')}">0,00</th>
-                                        <th class="text-right" th:text="${#numbers.formatDecimal(totalPercentRealisasiBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>
+                                        <!--<th class="text-right" th:text="${#numbers.formatDecimal(totalPercentRealisasiBudget, 1, 'POINT', 2, 'COMMA')}">0,00</th>-->
+                                        <th class="text-right" th:text="${#numbers.formatDecimal(total[2], 1, 'POINT', 2, 'COMMA')}">0,00</th>
                                         <td class="text-right">
                                             <a th:href="@{'/budget_department_map/' + ${periode} +'/'+${department_id}}">Show All</a>
                                         </td>
