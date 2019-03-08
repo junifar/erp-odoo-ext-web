@@ -17,8 +17,17 @@ class RevenueController{
         return "revenue/revenue_by_year"
     }
 
-    @RequestMapping("/revenue/{tahun}/{project_type}")
-    fun revenueByYearType(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("project_type") project_type:String):String{
+    @RequestMapping("/revenue/project_type/{tahun}/{project_type}")
+    fun revenueByYearType(model: Model,
+                          @PathVariable("tahun") tahun: String,
+                          @PathVariable("project_type") project_type:String):String{
         return "revenue/revenue_by_year_project_type"
+    }
+
+    @RequestMapping("/revenue/customer/{tahun}/{customer_id}")
+    fun revenueByYearCustomer(model: Model,
+                              @PathVariable("tahun") tahun: String,
+                              @PathVariable("customer_id") customer_id:String):String{
+        return "revenue/revenue_by_year_customer"
     }
 }

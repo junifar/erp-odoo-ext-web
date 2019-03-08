@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/header :: header_prasetia}"></head>
+<body class="bg-gray">
+<nav th:replace="~{fragments/navbar :: navbar_prasetia}"></nav>
+<main role="main" class="container">
+    <div class="box">
+        <div class="box-body">
+            <div class="my-3 p-3 bg-white rounded shadow-sm">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Revenue Report Year 2019 Project Sitac CME</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-success">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Company Revenue by Years </h3>
+                                </div>
+                                <div class="box-body with-border">
+                                    <div class="chart">
+                                        <canvas id="areaChart" style="height: 250px"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Revenue Summary Information</h3>
+                                </div>
+                                <table class="box-body table-responsive no-padding table table-striped table-sm table-hover table-bordered display nowrap border border-dark">
+                                    <thead>
+                                    <tr>
+                                        <th class=" text-center">Customer</th>
+                                        <th class=" text-center">Nilai PO</th>
+                                        <th class=" text-center">Invoiced</th>
+                                        <th class=" text-center">Paid</th>
+                                        <th class=" text-center">Target</th>
+                                        <th class=" text-center">% Achieve</th>
+                                        <th class=" text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>TBG</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">
+                                            <a href="#">Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>DMT</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">
+                                            <a href="#">Details</a>
+                                        </td>
+                                    </tr><tr>
+                                        <td>TSEL</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">
+                                            <a href="#">Details</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th class="text-center " >TOTAL</th>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right small">0.00</td>
+                                        <td class="text-right "></td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        var color = Chart.helpers.color;
+        var ctx = document.getElementById("areaChart");
+        var myChart = new Chart(ctx,{
+            type: 'bar',
+            data: {
+                labels  : [
+                    "TBG",
+                    "DMT",
+                    "TSEL"
+                ],
+                datasets:[{
+                    label: "Nilai PO",
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                    data:[
+                        4000000000,
+                        3000000000,
+                        2000000000
+                    ]
+                },
+                    {
+                        label               : 'Nilai Invoice',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            2000000000,
+                            3000000000,
+                            4000000000
+                        ]
+                    }]
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom'
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return data.datasets[tooltipItems.datasetIndex].label + ": " + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].toLocaleString();
+                        }
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false,
+                            callback: function(value, index, values) {
+                                return value.toLocaleString();
+                            },
+                            suggestedMax: 8000000000
+                        }
+                    }]
+                }
+            }
+        })
+    });
+
+</script>
+</body>
+</html>
