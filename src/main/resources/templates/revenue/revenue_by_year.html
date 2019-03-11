@@ -15,12 +15,12 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="box box-success">
                                             <div class="box-header with-border">
-                                            <h3 class="box-title">Company Revenue by Project Type </h3>
+                                            <h3 class="box-title">Company Revenue by Customer </h3>
                                             </div>
                                             <div class="box-body with-border">
                                                 <div class="chart">
@@ -48,47 +48,26 @@
                                                     <th class=" text-center">Action</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>Sitac CME</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">
-                                                        <a href="/revenue/project_type/2021/1">Details</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Maintenance</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
+                                                <tbody th:each="dataRow: ${revenueYearHeaderData}">
+                                                <tr th:each="dataRowDetail: ${dataRow.revenue_year_detail}">
+                                                    <td th:text="${dataRowDetail.code}" class="small">Sitac CME</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.invoiced, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.paid, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small">0.00</td>
                                                     <td class="text-right small">
-                                                        <a href="/revenue/project_type/2021/1">Details</a>
-                                                    </td>
-                                                </tr><tr>
-                                                    <td>Others Project</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">
-                                                        <a href="/revenue/project_type/2021/1">Details</a>
+                                                        <a th:href="@{'/revenue/project_type/' + ${dataRow.tahun}} + '/' + ${dataRowDetail.customer_id}">Details</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
                                                     <th class="text-center " >TOTAL</th>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearHeaderData.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearHeaderData.invoiced, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearHeaderData.paid, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearHeaderData.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small">0.00</td>
                                                     <td class="text-right "></td>
                                                 </tr>
@@ -98,12 +77,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="box box-success">
                                             <div class="box-header with-border">
-                                            <h3 class="box-title">Company Revenue by Customer </h3>
+                                            <h3 class="box-title">Company Revenue by Project Type </h3>
                                             </div>
                                             <div class="box-body with-border">
                                                 <div class="chart">

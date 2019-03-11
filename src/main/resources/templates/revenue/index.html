@@ -47,56 +47,25 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="text-center">2018</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">
-                                                <a href="/revenue/2019">Details</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">2019</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
+                                        <tr th:each="dataRow: ${revenueYearDataList}">
+                                            <td th:text="${dataRow.tahun}" class="text-center">2018</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.invoiced, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.paid, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(dataRow.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                             <td class="text-right small">0.00</td>
                                             <td class="text-right small">
-                                                <a href="/revenue/2018">Details</a>
-                                            </td>
-                                        </tr><tr>
-                                            <td class="text-center">2020</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">
-                                                <a href="/revenue/2020">Details</a>
-                                            </td>
-                                        </tr><tr>
-                                            <td class="text-center">2021</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">
-                                                <a href="/revenue/2021">Details</a>
+                                                <a th:href="@{'/revenue/' + ${dataRow.tahun}}">Details</a>
                                             </td>
                                         </tr>
                                         </tbody>
                                         <tfoot>
                                         <tr>
                                             <th class="text-center " >TOTAL</th>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
-                                            <td class="text-right small">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(summaryrevenueYearData.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(summaryrevenueYearData.invoiced, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(summaryrevenueYearData.paid, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                            <td class="text-right small" th:text="${#numbers.formatDecimal(summaryrevenueYearData.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                             <td class="text-right small">0.00</td>
                                             <td class="text-right "></td>
                                         </tr>
@@ -119,10 +88,9 @@
                 type: 'bar',
                 data: {
                     labels  : [
-                        "2018",
-                        "2019",
-                        "2020",
-                        "2021"
+                        /*[# th:each="dataRow: ${revenueYearDataList}"]*/
+                        [[${dataRow.tahun}]],
+                        /*[/]*/
                     ],
                     datasets:[{
                         label: "Nilai PO",
@@ -130,24 +98,33 @@
                         borderColor: window.chartColors.red,
                         // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            4000000000,
-                            3000000000,
-                            2000000000,
-                            1000000000
+                            /*[# th:each="dataRow: ${revenueYearDataList}"]*/
+                            [[${dataRow.nilai_po}]],
+                            /*[/]*/
                         ]
                     },
-                        {
-                            label               : 'Nilai Invoice',
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                2000000000,
-                                3000000000,
-                                4000000000,
-                                5000000000
-                            ]
-                        }]
+                    {
+                        label               : 'Nilai Invoice',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${revenueYearDataList}"]*/
+                            [[${dataRow.invoiced}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'paid',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${revenueYearDataList}"]*/
+                            [[${dataRow.paid}]],
+                            /*[/]*/
+                        ]
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -168,7 +145,7 @@
                                 callback: function(value, index, values) {
                                     return value.toLocaleString();
                                 },
-                                suggestedMax: 8000000000
+                                suggestedMax: 30000000000
                             }
                         }]
                     }
