@@ -156,9 +156,11 @@
                 type: 'bar',
                 data: {
                     labels  : [
-                        "Sitac CME",
-                        "Maintenance",
-                        "Other Projects"
+                        /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                        /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail}"]*/
+                        [[${dataRowDetail.code}]],
+                        /*[/]*/
+                        /*[/]*/
                     ],
                     datasets:[{
                         label: "Nilai PO",
@@ -166,22 +168,39 @@
                         borderColor: window.chartColors.red,
                         // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            4000000000,
-                            3000000000,
-                            2000000000
+                            /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                            /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail}"]*/
+                            [[${dataRowDetail.nilai_po}]],
+                            /*[/]*/
+                            /*[/]*/
                         ]
                     },
-                        {
-                            label               : 'Nilai Invoice',
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                2000000000,
-                                3000000000,
-                                4000000000
-                            ]
-                        }]
+                    {
+                        label               : 'Nilai Invoice',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                            /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail}"]*/
+                            [[${dataRowDetail.invoiced}]],
+                            /*[/]*/
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Paid',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                            /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail}"]*/
+                            [[${dataRowDetail.paid}]],
+                            /*[/]*/
+                            /*[/]*/
+                        ]
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -213,9 +232,11 @@
                 type: 'bar',
                 data: {
                     labels  : [
-                        "Sitac CME",
-                        "Maintenance",
-                        "Other Projects"
+                        /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                        /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail_site_type}"]*/
+                        [[${dataRowDetail.site_type}]],
+                        /*[/]*/
+                        /*[/]*/
                     ],
                     datasets:[{
                         label: "Nilai PO",
@@ -223,22 +244,39 @@
                         borderColor: window.chartColors.red,
                         // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            4000000000,
-                            3000000000,
-                            2000000000
+                            /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                            /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail_site_type}"]*/
+                            [[${dataRowDetail.nilai_po}]],
+                            /*[/]*/
+                            /*[/]*/
                         ]
                     },
-                        {
-                            label               : 'Nilai Invoice',
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                2000000000,
-                                3000000000,
-                                4000000000
-                            ]
-                        }]
+                    {
+                        label               : 'Nilai Invoice',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                            /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail_site_type}"]*/
+                            [[${dataRowDetail.invoiced}]],
+                            /*[/]*/
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Paid',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${revenueYearHeaderData}"]*/
+                            /*[# th:each="dataRowDetail: ${dataRow.revenue_year_detail_site_type}"]*/
+                            [[${dataRowDetail.paid}]],
+                            /*[/]*/
+                            /*[/]*/
+                        ]
+                    }]
                 },
                 options: {
                     responsive: true,
