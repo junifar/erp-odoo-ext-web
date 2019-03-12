@@ -57,7 +57,7 @@
                                                     <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small">0.00</td>
                                                     <td class="text-right small">
-                                                        <a th:href="@{'/revenue/project_type/' + ${dataRow.tahun}} + '/' + ${dataRowDetail.customer_id}">Details</a>
+                                                        <a th:href="@{'/revenue/customer/' + ${dataRow.tahun}} + '/' + ${dataRowDetail.customer_id}">Details</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
@@ -110,49 +110,26 @@
                                                     <th class=" text-center">Action</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-
-                                                <tr>
-                                                    <td>TBG</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">
-                                                        <a href="/revenue/customer/2021/1">Details</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>DMT</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
+                                                <tbody th:each="dataRow: ${revenueYearHeaderData}">
+                                                <tr th:each="dataRowDetail: ${dataRow.revenue_year_detail_site_type}">
+                                                    <td class="small" th:text="${dataRowDetail.site_type}">TBG</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.invoiced, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.paid, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(dataRowDetail.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small">0.00</td>
                                                     <td class="text-right small">
-                                                        <a href="/revenue/customer/2021/1">Details</a>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Internux</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">
-                                                        <a href="/revenue/customer/2021/1">Details</a>
+                                                        <a th:href="@{'/revenue/project_type/' + ${dataRow.tahun}} + '/' + ${dataRowDetail.site_type_id}">Details</a>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>
                                                     <th class="text-center " >TOTAL</th>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
-                                                    <td class="text-right small">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearSiteTypeHeaderData.nilai_po, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearSiteTypeHeaderData.invoiced, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearSiteTypeHeaderData.paid, 1, 'POINT', 2, 'COMMA')}">0.00</td>
+                                                    <td class="text-right small" th:text="${#numbers.formatDecimal(summaryRevenueYearSiteTypeHeaderData.target, 1, 'POINT', 2, 'COMMA')}">0.00</td>
                                                     <td class="text-right small">0.00</td>
                                                     <td class="text-right "></td>
                                                 </tr>

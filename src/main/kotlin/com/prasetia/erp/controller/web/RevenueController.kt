@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.pojo.revenue.RevenueYearData
 import com.prasetia.erp.pojo.revenue.RevenueYearDetailData
+import com.prasetia.erp.pojo.revenue.RevenueYearDetailSiteTypeData
 import com.prasetia.erp.pojo.revenue.RevenueYearHeaderData
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -44,15 +45,27 @@ class RevenueController{
         val revenueYearHeaderData: List<RevenueYearHeaderData> = objectMapper.readValue(url)
 
         var revenueYearDetailData: List<RevenueYearDetailData>? = mutableListOf()
+        var revenueYearDetailSiteTypeData: List<RevenueYearDetailSiteTypeData>? = mutableListOf()
 
         revenueYearHeaderData.forEach {
             revenueYearDetailData = it.revenue_year_detail
+            revenueYearDetailSiteTypeData = it.revenue_year_detail_site_type
         }
 
         model.addAttribute("revenueYearHeaderData", revenueYearHeaderData)
         model.addAttribute("summaryRevenueYearHeaderData", getTotalRevenueByYearByCustomer(revenueYearDetailData!!))
+        model.addAttribute("summaryRevenueYearSiteTypeHeaderData", getTotalRevenueByYearBySiteType(revenueYearDetailSiteTypeData!!))
         return "revenue/revenue_by_year"
     }
+
+    fun getTotalRevenueByYearBySiteType(data:List<RevenueYearDetailSiteTypeData>): RevenueYearDetailSiteTypeData = RevenueYearDetailSiteTypeData(
+            0, 0, "",
+            data.sumBy { it.jumlah_site }, 0,
+            data.sumByDouble { it.nilai_po?:0.0 },
+            data.sumByDouble { it.invoiced?:0.0 },
+            data.sumByDouble { it.paid?:0.0 },
+            data.sumByDouble { it.total?:0.0 },
+            data.sumByDouble { it.target?:0.0 })
 
     fun getTotalRevenueByYearByCustomer(data:List<RevenueYearDetailData>): RevenueYearDetailData = RevenueYearDetailData(
             0, 0, "",
