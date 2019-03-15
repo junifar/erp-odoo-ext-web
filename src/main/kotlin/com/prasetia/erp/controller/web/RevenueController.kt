@@ -53,6 +53,8 @@ class RevenueController{
         }
 
         model.addAttribute("revenueYearHeaderData", revenueYearHeaderData)
+        model.addAttribute("revenueYearDetailDataChart", revenueYearDetailData?.take(5))
+        model.addAttribute("revenueYearDetailSiteTypeDataChart", revenueYearDetailSiteTypeData?.take(5))
         model.addAttribute("summaryRevenueYearHeaderData", getTotalRevenueByYearByCustomer(revenueYearDetailData!!))
         model.addAttribute("summaryRevenueYearSiteTypeHeaderData", getTotalRevenueByYearBySiteType(revenueYearDetailSiteTypeData!!))
         return "revenue/revenue_by_year"

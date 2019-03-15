@@ -7,21 +7,141 @@
         <div class="box">
             <div class="box-body">
                 <div class="my-3 p-3 bg-white rounded shadow-sm">
-                    <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Project Recap Summary</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
                         <div class="row">
                             <div class="col-md-12">
-                                <h3>Project Recap Summary</h3>
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">PO Project Vs BAST Vs Invoice Vs Paid ( Qty )</h3>
+                                    </div>
+                                    <div class="box-body with-border">
+                                        <div class="chart">
+                                            <canvas id="ProjectQtyChart" style="height: 250px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="box box-success">
                                     <div class="box-header with-border">
-                                        <h3 class="box-title">PO - Invoice, Top 5</h3>
+                                        <h3 class="box-title">PO Vs Realisasi Vs Invoice Vs Paid</h3>
                                     </div>
                                     <div class="box-body with-border">
-                                        Test
+                                        <div class="chart">
+                                            <canvas id="ProjectPaidChart" style="height: 250px"></canvas>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box box-success">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Total PO based on Aging</h3>
+                                    </div>
+                                    <div class="box-body with-border">
+                                        <div class="chart">
+                                            <canvas id="ProjectAgingChart" style="height: 250px"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="box box-success with-border">
+                            <div class="box-header with-border">
+                                Filter By
+                            </div>
+                            <div class="box-body with-border">
+                                <div class="row">
+                                    <div class="box no-border">
+                                        <div class="box-header">
+                                            Site Type
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        New Site
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Collocation
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Maintenance Preventive
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        Maintenance Corrective
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="box no-border">
+                                        <div class="box-header">
+                                            Tahun
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        2019
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        2018
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        2017
+                                                    </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox">
+                                                        2016
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <a href="#" class="btn btn-primary col-md-12">Apply Filter</a>
                                 </div>
                             </div>
                         </div>
@@ -30,5 +150,219 @@
             </div>
         </div>
     </main>
+
+    <footer th:replace="~{fragments/header :: footer_prasetia}"></footer>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var color = Chart.helpers.color;
+
+            var ctx = document.getElementById("ProjectQtyChart");
+            var myChart = new Chart(ctx,{
+                type: 'bar',
+                data: {
+                    labels  : [
+                        "2019",
+                        "2018",
+                        "2017"
+                    ],
+                    datasets:[{
+                        label: "Nilai PO",
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                        data:[
+                            1000,
+                            2000,
+                            3000
+                        ]
+                    },
+                        {
+                            label               : 'Nilai Invoice',
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.blue,
+                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                            data                : [
+                                3000,
+                                3000,
+                                3000
+                            ]
+                        },
+                        {
+                            label               : 'paid',
+                            backgroundColor: window.chartColors.green,
+                            borderColor: window.chartColors.green,
+                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                            data                : [
+                                5000,
+                                5000,
+                                5000
+                            ]
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.datasets[tooltipItems.datasetIndex].label + ": " + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString();
+                                },
+                                suggestedMax: 1000
+                            }
+                        }]
+                    }
+                }
+            })
+
+            var ctxPaid = document.getElementById("ProjectPaidChart");
+            var myChartPaid = new Chart(ctxPaid,{
+                type: 'bar',
+                data: {
+                    labels  : [
+                        "2019",
+                        "2018",
+                        "2017"
+                    ],
+                    datasets:[{
+                        label: "Nilai PO",
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                        data:[
+                            1000,
+                            2000,
+                            3000
+                        ]
+                    },
+                        {
+                            label               : 'Nilai Invoice',
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.blue,
+                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                            data                : [
+                                1000,
+                                2000,
+                                3000
+                            ]
+                        },
+                        {
+                            label               : 'paid',
+                            backgroundColor: window.chartColors.green,
+                            borderColor: window.chartColors.green,
+                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                            data                : [
+                                1000,
+                                2000,
+                                3000
+                            ]
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.datasets[tooltipItems.datasetIndex].label + ": " + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString();
+                                },
+                                suggestedMax: 1000
+                            }
+                        }]
+                    }
+                }
+            })
+
+            var ctxAging = document.getElementById("ProjectAgingChart");
+            var myChartAging = new Chart(ctxAging,{
+                type: 'bar',
+                data: {
+                    labels  : [
+                        "2019",
+                        "2018",
+                        "2017"
+                    ],
+                    datasets:[{
+                        label: "Nilai PO",
+                        backgroundColor: window.chartColors.red,
+                        borderColor: window.chartColors.red,
+                        // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                        data:[
+                            1000,
+                            2000,
+                            3000
+                        ]
+                    },
+                        {
+                            label               : 'Nilai Invoice',
+                            backgroundColor: window.chartColors.blue,
+                            borderColor: window.chartColors.blue,
+                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                            data                : [
+                                1000,
+                                2000,
+                                3000
+                            ]
+                        },
+                        {
+                            label               : 'paid',
+                            backgroundColor: window.chartColors.green,
+                            borderColor: window.chartColors.green,
+                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                            data                : [
+                                1000,
+                                2000,
+                                3000
+                            ]
+                        }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItems, data) {
+                                return data.datasets[tooltipItems.datasetIndex].label + ": " + data.datasets[tooltipItems.datasetIndex].data[tooltipItems.index].toLocaleString();
+                            }
+                        }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                callback: function(value, index, values) {
+                                    return value.toLocaleString();
+                                },
+                                suggestedMax: 1000
+                            }
+                        }]
+                    }
+                }
+            })
+        });
+    </script>
 </body>
 </html>
