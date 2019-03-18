@@ -161,43 +161,54 @@
                 type: 'bar',
                 data: {
                     labels  : [
-                        "2019",
-                        "2018",
-                        "2017"
+                        /*[# th:each="dataRow: ${projectRecapDataList}"]*/
+                        [[${dataRow.site_type}]],
+                        /*[/]*/
                     ],
                     datasets:[{
-                        label: "Nilai PO",
+                        label: "PO",
                         backgroundColor: window.chartColors.red,
                         borderColor: window.chartColors.red,
                         // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            1000,
-                            2000,
-                            3000
+                            /*[# th:each="dataRow: ${projectRecapDataList}"]*/
+                            [[${dataRow.po}]],
+                            /*[/]*/
                         ]
                     },
-                        {
-                            label               : 'Nilai Invoice',
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                3000,
-                                3000,
-                                3000
-                            ]
-                        },
-                        {
-                            label               : 'paid',
-                            backgroundColor: window.chartColors.green,
-                            borderColor: window.chartColors.green,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                5000,
-                                5000,
-                                5000
-                            ]
-                        }]
+                    {
+                        label               : 'BAST',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${projectRecapDataList}"]*/
+                            [[${dataRow.bast}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Invoiced',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${projectRecapDataList}"]*/
+                            [[${dataRow.invoiced}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Paid',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${projectRecapDataList}"]*/
+                            [[${dataRow.paid}]],
+                            /*[/]*/
+                        ]
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -217,8 +228,7 @@
                                 beginAtZero: false,
                                 callback: function(value, index, values) {
                                     return value.toLocaleString();
-                                },
-                                suggestedMax: 1000
+                                }
                             }
                         }]
                     }
@@ -230,9 +240,9 @@
                 type: 'bar',
                 data: {
                     labels  : [
-                        "2019",
-                        "2018",
-                        "2017"
+                        /*[# th:each="dataRow: ${projectRecapByValueDataList}"]*/
+                        [[${dataRow.site_type}]],
+                        /*[/]*/
                     ],
                     datasets:[{
                         label: "Nilai PO",
@@ -240,33 +250,44 @@
                         borderColor: window.chartColors.red,
                         // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            1000,
-                            2000,
-                            3000
+                            /*[# th:each="dataRow: ${projectRecapByValueDataList}"]*/
+                            [[${dataRow.nilai_po}]],
+                            /*[/]*/
                         ]
                     },
-                        {
-                            label               : 'Nilai Invoice',
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                1000,
-                                2000,
-                                3000
-                            ]
-                        },
-                        {
-                            label               : 'paid',
-                            backgroundColor: window.chartColors.green,
-                            borderColor: window.chartColors.green,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                1000,
-                                2000,
-                                3000
-                            ]
-                        }]
+                    {
+                        label               : 'Realisasi Budget',
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${projectRecapByValueDataList}"]*/
+                            [[${dataRow.realisasi_budget}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Invoice Open',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${projectRecapByValueDataList}"]*/
+                            [[${dataRow.invoice_open}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label               : 'Invoice Paid',
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
+                        data                : [
+                            /*[# th:each="dataRow: ${projectRecapByValueDataList}"]*/
+                            [[${dataRow.invoice_paid}]],
+                            /*[/]*/
+                        ]
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -299,43 +320,43 @@
                 type: 'bar',
                 data: {
                     labels  : [
-                        "2019",
-                        "2018",
-                        "2017"
+                        /*[# th:each="dataRow: ${projectRecapAgingDataList}"]*/
+                        [[${dataRow.site_type}]],
+                        /*[/]*/
                     ],
                     datasets:[{
-                        label: "Nilai PO",
+                        label: "< 30",
                         backgroundColor: window.chartColors.red,
                         borderColor: window.chartColors.red,
                         // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
                         data:[
-                            1000,
-                            2000,
-                            3000
+                            /*[# th:each="dataRow: ${projectRecapAgingDataList}"]*/
+                            [[${dataRow.less_30}]],
+                            /*[/]*/
                         ]
                     },
-                        {
-                            label               : 'Nilai Invoice',
-                            backgroundColor: window.chartColors.blue,
-                            borderColor: window.chartColors.blue,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                1000,
-                                2000,
-                                3000
-                            ]
-                        },
-                        {
-                            label               : 'paid',
-                            backgroundColor: window.chartColors.green,
-                            borderColor: window.chartColors.green,
-                            // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
-                            data                : [
-                                1000,
-                                2000,
-                                3000
-                            ]
-                        }]
+                    {
+                        label: "30 - 60",
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                        data:[
+                            /*[# th:each="dataRow: ${projectRecapAgingDataList}"]*/
+                            [[${dataRow.between_30_60}]],
+                            /*[/]*/
+                        ]
+                    },
+                    {
+                        label: "> 60",
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        // backgroundColor: color(window.chartColors.red).alpha(0.2).rgbString(),
+                        data:[
+                            /*[# th:each="dataRow: ${projectRecapAgingDataList}"]*/
+                            [[${dataRow.greater_60}]],
+                            /*[/]*/
+                        ]
+                    }]
                 },
                 options: {
                     responsive: true,
@@ -355,8 +376,7 @@
                                 beginAtZero: false,
                                 callback: function(value, index, values) {
                                     return value.toLocaleString();
-                                },
-                                suggestedMax: 1000
+                                }
                             }
                         }]
                     }
