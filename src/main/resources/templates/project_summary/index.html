@@ -61,6 +61,7 @@
                             <div class="box-header with-border">
                                 Filter By
                             </div>
+                            <form method="post" action="/project/recap">
                             <div class="box-body with-border">
                                 <div class="row">
                                     <div class="box no-border">
@@ -70,30 +71,59 @@
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        New Site
-                                                    </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="2"
+                                                               th:checked="${site_type_filter_value[0]}">
                                                         Collocation
                                                     </label>
                                                 </div>
-
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="80"
+                                                               th:checked="${site_type_filter_value[1]}">
+                                                        Construction Building
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="10"
+                                                               th:checked="${site_type_filter_value[2]}">
+                                                        Fiber Optic
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="8"
+                                                               th:checked="${site_type_filter_value[3]}">
+                                                        Maintenance Corrective
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="7"
+                                                               th:checked="${site_type_filter_value[4]}">
                                                         Maintenance Preventive
                                                     </label>
                                                 </div>
-
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
-                                                        Maintenance Corrective
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="3"
+                                                               th:checked="${site_type_filter_value[5]}">
+                                                        Miscellanous
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="1"
+                                                               th:checked="${site_type_filter_value[6]}">
+                                                        New Site
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="site_type_filter[]" value="5"
+                                                               th:checked="${site_type_filter_value[7]}">
+                                                        Sitac
                                                     </label>
                                                 </div>
                                             </div>
@@ -109,29 +139,30 @@
                                         <div class="box-body">
                                             <div class="form-group">
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="year_filter[]" value="2019"
+                                                               th:checked="${year_filter_value[0]}">
                                                         2019
                                                     </label>
                                                 </div>
-
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="year_filter[]" value="2018"
+                                                               th:checked="${year_filter_value[1]}">
                                                         2018
                                                     </label>
                                                 </div>
-
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="year_filter[]" value="2017"
+                                                               th:checked="${year_filter_value[2]}">
                                                         2017
                                                     </label>
                                                 </div>
-
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox">
+                                                    <label class="small">
+                                                        <input type="checkbox" name="year_filter[]" value="2016"
+                                                               th:checked="${year_filter_value[3]}">
                                                         2016
                                                     </label>
                                                 </div>
@@ -141,9 +172,11 @@
                                 </div>
 
                                 <div class="row">
-                                    <a href="#" class="btn btn-primary col-md-12">Apply Filter</a>
+                                    <!--<a href="#" class="btn btn-primary col-md-12">Apply Filter</a>-->
+                                    <button type="submit" value="Submit" class="btn btn-primary col-md-12">Apply Filter</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
