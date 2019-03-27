@@ -61,7 +61,8 @@
                             <div class="box-header with-border">
                                 Filter By
                             </div>
-                            <form method="post" action="/project/recap">
+                            <form method="post" action="/prasetia_erp/project/recap">
+                            <!--<form method="post" action="/project/recap">-->
                             <div class="box-body with-border">
                                 <div class="row">
                                     <div class="box no-border">
@@ -222,8 +223,8 @@
                     },
                     {
                         label               : 'Invoiced',
-                        backgroundColor: window.chartColors.green,
-                        borderColor: window.chartColors.green,
+                        backgroundColor: window.chartColors.yellow,
+                        borderColor: window.chartColors.yellow,
                         // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                         data                : [
                             /*[# th:each="dataRow: ${projectRecapDataList}"]*/
@@ -301,8 +302,8 @@
                     },
                     {
                         label               : 'Invoice Open',
-                        backgroundColor: window.chartColors.green,
-                        borderColor: window.chartColors.green,
+                        backgroundColor: window.chartColors.yellow,
+                        borderColor: window.chartColors.yellow,
                         // backgroundColor: color(window.chartColors.blue).alpha(0.2).rgbString(),
                         data                : [
                             /*[# th:each="dataRow: ${projectRecapByValueDataList}"]*/

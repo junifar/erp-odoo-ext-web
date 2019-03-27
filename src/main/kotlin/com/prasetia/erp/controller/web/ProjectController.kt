@@ -70,18 +70,19 @@ class ProjectController{
 //        model.addAttribute("year_filter", year_filter)
 
         model.addAttribute("projectRecapDataList", projectRecapDataList
-                .filter { it.site_type != "Maintenance Corrective" }
-                .filter { it.site_type != "Maintenance Preventive" }
+//                .filter { it.site_type != "Maintenance Corrective" }
+//                .filter { it.site_type != "Maintenance Preventive" }
                 .sortedByDescending { it.po })
 
         model.addAttribute("projectRecapByValueDataList", projectRecapDataList
-                .filter { it.site_type != "Maintenance Corrective" }
-                .filter { it.site_type != "Maintenance Preventive" }
+//                .filter { it.site_type != "Maintenance Corrective" }
+//                .filter { it.site_type != "Maintenance Preventive" }
                 .sortedByDescending { it.nilai_po })
 
         model.addAttribute("projectRecapAgingDataList", projectRecapAgingDataList
-                .filter { it.site_type != "Maintenance Corrective" }
-                .filter { it.site_type != "Maintenance Preventive" })
+//                .filter { it.site_type != "Maintenance Corrective" }
+//                .filter { it.site_type != "Maintenance Preventive" }
+        )
 
         model.addAttribute("site_type_filter_value", siteTypeFilterValue)
         model.addAttribute("year_filter_value", yearFilterValue)
@@ -102,18 +103,19 @@ class ProjectController{
         val yearFilterValue = intArrayOf(1,1,1,1)
 
         model.addAttribute("projectRecapDataList", projectRecapDataList
-                .filter { it.site_type != "Maintenance Corrective" }
-                .filter { it.site_type != "Maintenance Preventive" }
+//                .filter { it.site_type != "Maintenance Corrective" }
+//                .filter { it.site_type != "Maintenance Preventive" }
                 .sortedByDescending { it.po })
 
         model.addAttribute("projectRecapByValueDataList", projectRecapDataList
-                .filter { it.site_type != "Maintenance Corrective" }
-                .filter { it.site_type != "Maintenance Preventive" }
+//                .filter { it.site_type != "Maintenance Corrective" }
+//                .filter { it.site_type != "Maintenance Preventive" }
                 .sortedByDescending { it.nilai_po })
 
         model.addAttribute("projectRecapAgingDataList", projectRecapAgingDataList
-                .filter { it.site_type != "Maintenance Corrective" }
-                .filter { it.site_type != "Maintenance Preventive" })
+//                .filter { it.site_type != "Maintenance Corrective" }
+//                .filter { it.site_type != "Maintenance Preventive" }
+        )
 
         model.addAttribute("site_type_filter_value", siteTypeFilterValue)
         model.addAttribute("year_filter_value", yearFilterValue)
