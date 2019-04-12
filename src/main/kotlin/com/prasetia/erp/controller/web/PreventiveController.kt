@@ -2,7 +2,9 @@ package com.prasetia.erp.controller.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_MAINTENANCE_URL
 import com.prasetia.erp.pojo.PreventiveCustomerGroup
 import com.prasetia.erp.pojo.PreventiveCustomerYear
 import com.prasetia.erp.pojo.preventive.PreventiveCustomerDetailHeader
@@ -2136,7 +2138,7 @@ class PreventiveController{
                       @PathVariable("area_id") area_id: String){
 
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
         val preventiveDetailDataList:List<PreventiveCustomerDetailHeader> = objectMapper.readValue(url)
 
         response.contentType = "application/vnd.ms-excel"
@@ -2211,7 +2213,7 @@ class PreventiveController{
     @RequestMapping("/preventive/{tahun}")
     fun indexPreventiveByYear(model:Model, @PathVariable("tahun") tahun:String): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/preventive_customer/$tahun")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_customer/$tahun")
         val preventiveDataList: List<PreventiveCustomerYear> = objectMapper.readValue(url)
         var preventiveDataListDetail:List<PreventiveCustomerGroup>? = mutableListOf()
         preventiveDataList.forEach {
@@ -2240,7 +2242,7 @@ class PreventiveController{
     @RequestMapping("/preventive")
     fun summaryPreventive(model:Model):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/preventive_summary")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_summary")
 
         val preventiveSummaryDataList: List<PreventiveSummaryData> = objectMapper.readValue(url)
         val totalPreventiveName = getTotal(preventiveSummaryDataList)
@@ -2286,7 +2288,7 @@ class PreventiveController{
     @RequestMapping("/preventive2")
     fun indexPreventive2(model:Model): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/preventive_customer")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_customer")
         val preventiveDataList: List<PreventiveCustomerYear> = objectMapper.readValue(url)
         model.addAttribute("total", getTotalPreventiveCustomer(preventiveDataList))
         model.addAttribute("preventiveDataList", preventiveDataList)
@@ -2412,7 +2414,7 @@ class PreventiveController{
                          @PathVariable("tahun") tahun: Int,
                          @PathVariable("area_id") area_id: String): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
         val preventiveDetailDataList:List<PreventiveCustomerDetailHeader> = objectMapper.readValue(url)
 
         val totalNilaiPO = getTotalPO(preventiveDetailDataList)
@@ -2445,7 +2447,7 @@ class PreventiveController{
                          @PathVariable("tahun") tahun: Int,
                          @PathVariable("area_id") area_id: String): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
         val preventiveDetailDataList:List<PreventiveCustomerDetailHeader> = objectMapper.readValue(url)
 
         val totalNilaiPO = getTotalPO(preventiveDetailDataList)

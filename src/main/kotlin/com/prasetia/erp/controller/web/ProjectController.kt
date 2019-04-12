@@ -3,6 +3,7 @@ package com.prasetia.erp.controller.web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.DIREKSI_URL
 import com.prasetia.erp.pojo.project.ProjectRecapAgingData
 import com.prasetia.erp.pojo.project.ProjectRecapData
 import org.springframework.stereotype.Controller
@@ -58,7 +59,7 @@ class ProjectController{
 
 //        val condition = whereSiteTypeCondition(site_type_filter_string) + whereDateCondition(year_filter_String)
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/project/recap/$site_type_filter_string/$year_filter_String")
+        val url = URL(BASE_URL + DIREKSI_URL + "api/project/recap/$site_type_filter_string/$year_filter_String")
         val url_aging = URL(BASE_URL + "api/project/recap_aging/$site_type_filter_string/$year_filter_String")
 
         val projectRecapDataList: List<ProjectRecapData> = objectMapper.readValue(url)
@@ -93,8 +94,8 @@ class ProjectController{
     @RequestMapping("/project/recap", method = [RequestMethod.GET])
     fun index(model:Model):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/project/recap")
-        val url_aging = URL(BASE_URL + "api/project/recap_aging")
+        val url = URL(BASE_URL + DIREKSI_URL + "api/project/recap")
+        val url_aging = URL(BASE_URL + DIREKSI_URL + "api/project/recap_aging")
 
         val projectRecapDataList: List<ProjectRecapData> = objectMapper.readValue(url)
         val projectRecapAgingDataList: List<ProjectRecapAgingData> = objectMapper.readValue(url_aging)

@@ -3,6 +3,7 @@ package com.prasetia.erp.controller.web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_MAINTENANCE_URL
 import com.prasetia.erp.controller.web.xls.corrective.XlsCorrective
 import com.prasetia.erp.pojo.corrective.*
 import org.springframework.stereotype.Controller
@@ -17,7 +18,7 @@ class CorrectiveController{
     @RequestMapping("/corrective")
     fun indexCorrective(model: Model): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/corrective_summary")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_summary")
         val correctiveSummaryDataList: List<CorrectiveCustomerSummaryData> = objectMapper.readValue(url)
         val totalCorrectiveName = getTotal(correctiveSummaryDataList)
         val totalPercentPenagihan = TotalPercent(totalCorrectiveName[1], totalCorrectiveName[0])
@@ -62,7 +63,7 @@ class CorrectiveController{
     @RequestMapping("/corrective1")
     fun indexCorrective1(model: Model): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/corrective_summary")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_summary")
         val correctiveSummaryDataList: List<CorrectiveCustomerSummaryData> = objectMapper.readValue(url)
         model.addAttribute("correctiveSummaryDataList", correctiveSummaryDataList)
         return "corrective/index2"
@@ -99,7 +100,7 @@ class CorrectiveController{
     @RequestMapping("/corrective/{tahun}")
     fun indexCorrectiveByYear(model:Model, @PathVariable("tahun") tahun:String): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/corrective_year/$tahun")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_year/$tahun")
         val correctiveDataList: List<CorrectiveYearData> = objectMapper.readValue(url)
         val totalCorrectiveCustomer = getTotalCorrectiveCustomer(correctiveDataList)
         val totalPercentInvPO = getDivisionPrecent(totalCorrectiveCustomer[2], totalCorrectiveCustomer[1])
@@ -119,7 +120,7 @@ class CorrectiveController{
     @RequestMapping("/corrective/{customer_id}/{tahun}")
     fun indexCorrectiveByYearCustomer(model:Model, @PathVariable("tahun") tahun:String, @PathVariable("customer_id") customer_id:Int): String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/corrective_detail/$customer_id/$tahun")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_detail/$customer_id/$tahun")
         val correctiveDataCustomerList: List<CorrectiveDetailYearCustomerData> = objectMapper.readValue(url)
 
         var correctiveDataSOList: List<CorrectiveSOData>? = mutableListOf()
@@ -194,7 +195,7 @@ class CorrectiveController{
         response.contentType = "application/vnd.ms-excel"
         response.setHeader("Content-Disposition", "attachment; filename=\"budget-corrective-file-$tahun.xls\"")
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/corrective_year/$tahun")
+        val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_year/$tahun")
         val correctiveYearDataList: List<CorrectiveYearData> = objectMapper.readValue(url)
         XlsCorrective(response, tahun, correctiveYearDataList)
     }

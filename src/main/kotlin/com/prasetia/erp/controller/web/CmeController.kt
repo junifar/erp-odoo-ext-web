@@ -3,6 +3,7 @@ package com.prasetia.erp.controller.web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
+import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_PROJECT_URL
 import com.prasetia.erp.controller.web.xls.cme.XlsCme
 import com.prasetia.erp.pojo.cme.*
 import org.springframework.stereotype.Controller
@@ -18,7 +19,7 @@ class CmeController{
     @RequestMapping("/project")
     fun indexCME(model: Model): String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year")
+        val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year")
         val cmeSummaryYearDataList: List<CmeSummaryYearData> = objectMapper.readValue(url)
         model.addAttribute("cmeSummaryYearDataList", cmeSummaryYearDataList)
         model.addAttribute("cmeSummaryYearDataList1", cmeSummaryYearDataList.sortedByDescending { it.nilai_po }.take(5))
@@ -85,7 +86,7 @@ class CmeController{
     @RequestMapping("/project_customer/{tahun}")
     fun yearCMECustomer(model: Model, @PathVariable("tahun") tahun: String): String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year_customer/$tahun")
+        val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year_customer/$tahun")
         val cmeSummaryYearCustomerDataList: List<CmeSummaryYearCustomerData> = objectMapper.readValue(url)
         val totalCmeName = getTotalCmeCustomerYear(cmeSummaryYearCustomerDataList)
         val totalPercentPo = getPrecent(totalCmeName[4], totalCmeName[3])
@@ -260,7 +261,7 @@ class CmeController{
     @RequestMapping("/project/{tahun}/{type_id}")
     fun yearCustomerCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int): String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
+        val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
         val totalPoInv = getTotalPoInv(cmeSummaryYearProjectTypeCustDataList)
         val totalPercentPoInv = getPrecentPoInv(totalPoInv[3],totalPoInv[2])
@@ -466,7 +467,7 @@ class CmeController{
     @RequestMapping("/project/{tahun}/{type_id}/{customer_id}")
     fun yearCustomerDetailCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int, @PathVariable("customer_id") customer_id: Long): String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
+        val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearTypeCustDetailDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
         val cmeSummaryYearTypeCustDetailDataListFilter = cmeSummaryYearTypeCustDetailDataList.filter { it.customer_id == customer_id }
         var cmeYearTypeCustProject: List<CmeYearProjectTypeCustProjectDetailData>? = mutableListOf()
@@ -560,7 +561,7 @@ class CmeController{
         response.setHeader("Content-Disposition", "attachment; filename=\"budget-cme-file-$tahun-$type_id.xls\"")
 
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun/$type_id")
+        val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
         XlsCme(response, tahun, type_id, cmeSummaryYearProjectTypeCustDataList)
     }

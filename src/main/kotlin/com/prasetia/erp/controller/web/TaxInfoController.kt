@@ -3,6 +3,7 @@ package com.prasetia.erp.controller.web
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
+import com.prasetia.erp.constant.GlobalConstant.Companion.ACCOUNTING_URL
 import com.prasetia.erp.controller.web.xls.taxinfo.XlsTaxInfo
 import com.prasetia.erp.pojo.taxinfo.TaxInvoiceData
 import com.prasetia.erp.pojo.taxinfo.TaxInvoicePeriodeData
@@ -20,7 +21,7 @@ class TaxInfoController {
     @RequestMapping("/taxinfo")
     fun indexTaxInfo(model:Model):String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/taxinfoperiode")
+        val url = URL(GlobalConstant.BASE_URL + ACCOUNTING_URL + "api/taxinfoperiode")
         val taxInfoSummaryDataList: List<TaxInvoicePeriodeData> = objectMapper.readValue(url)
         model.addAttribute("taxInfoSummaryDataList", taxInfoSummaryDataList.sortedByDescending { it.year })
         return "taxinfo/index"
@@ -29,7 +30,7 @@ class TaxInfoController {
     @RequestMapping("taxinfo/{tahun}")
     fun taxInfoYear(model:Model, @PathVariable("tahun") tahun:String):String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL + "api/taxinfo/%s".format(tahun))
+        val url = URL(GlobalConstant.BASE_URL + ACCOUNTING_URL + "api/taxinfo/%s".format(tahun))
         val taxInfoDataList:List<TaxInvoiceData> = objectMapper.readValue(url)
 
         model.addAttribute("taxInfoDataList", taxInfoDataList.sortedBy { it.tanggal_pembayaran })
@@ -41,7 +42,7 @@ class TaxInfoController {
     fun downloadTaxInvoice(model:Model, response: HttpServletResponse, @PathVariable("tahun") tahun:String){
         response.contentType = "application/vnd.ms-excel"
         response.setHeader("Content-Disposition", "attachment; filename=\"tax-invoice-file-$tahun.xls\"")
-        val url = URL(GlobalConstant.BASE_URL + "api/taxinfo/%s".format(tahun))
+        val url = URL(GlobalConstant.BASE_URL + ACCOUNTING_URL + "api/taxinfo/%s".format(tahun))
         val objectMapper = ObjectMapper()
         val taxInfoDataList:List<TaxInvoiceData> = objectMapper.readValue(url)
         XlsTaxInfo(response, tahun, taxInfoDataList)

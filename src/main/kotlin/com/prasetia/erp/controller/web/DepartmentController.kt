@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_DEPT_URL
 import com.prasetia.erp.controller.web.xls.department.XlsDepartment
 import com.prasetia.erp.pojo.department.*
 import org.springframework.stereotype.Controller
@@ -20,7 +21,7 @@ class DepartmentController{
     @RequestMapping("/budget_department")
     fun indexDepartment(model: Model):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/department_summary")
+        val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_summary")
         val departmentSummaryDataList: List<DepartmentSummary> = objectMapper.readValue(url)
         val totalDepartment = getTotal(departmentSummaryDataList)
         val totalPercent = getTotalPercentDepartment(totalDepartment[1], totalDepartment[0])
@@ -54,7 +55,7 @@ class DepartmentController{
     @RequestMapping("/budget_department/{periode}")
     fun periodeDepartment(model: Model,@PathVariable("periode") periode:String):String{
         val objectMapper = ObjectMapper()
-        val url = URL(GlobalConstant.BASE_URL+"api/department_year/$periode")
+        val url = URL(GlobalConstant.BASE_URL + BUDGET_DEPT_URL +"api/department_year/$periode")
         val departmentPeriodeTypeDataList:List<DepartmentYearData> = objectMapper.readValue(url)
         val totalDepartmentName = getTotalDepartment(departmentPeriodeTypeDataList)
         val totalPercentDepartment = getTotalPercent(totalDepartmentName[1], totalDepartmentName[0])
@@ -91,7 +92,7 @@ class DepartmentController{
     fun detailDepartmentBudget(model: Model,@PathVariable("periode")periode: Int,
                                @PathVariable("department_id")department_id:Int):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
         val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
         val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
@@ -111,7 +112,7 @@ class DepartmentController{
                         @PathVariable("department_id")department_id: Int,
                         @PathVariable("budget_id")budget_id:Long): String {
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
         val departmentDetailDataListFilter = departmentDetailDataListFilterMap(departmentDetailDataList,budget_id)
         val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataListFilter)
@@ -129,7 +130,7 @@ class DepartmentController{
                                         @PathVariable("department_id")department_id: Int,
                                         @PathVariable("budget_id")budget_id:Long, @PathVariable("line_id")line_id: Long): String {
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
         val departmentDetailDataListFilter = departmentDetailDataListFilterMap(departmentDetailDataList,budget_id, line_id)
         val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataListFilter)
@@ -204,7 +205,7 @@ class DepartmentController{
     fun detailDepartment(model: Model,@PathVariable("periode")periode: Int,
                          @PathVariable("department_id")department_id:Int):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
         val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
         val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
@@ -250,7 +251,7 @@ class DepartmentController{
                         @PathVariable("department_id")department_id: Int,
                         @PathVariable("line_id")line_id:Long): String {
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/department_budget/%d/%d".format(periode,department_id))
+        val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
         val totalDepartment = getTotalDepartmentCustomer(departmentDetailDataList)
         val totalPercentRealisasiBudget = getDepartmentPrecent(totalDepartment[1], totalDepartment[0])
@@ -308,7 +309,7 @@ class DepartmentController{
         response.setHeader("Content-Disposition","attachment;filename=\"budget-department-file-$periode.xls\"")
 
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL+"api/department_budget/$periode/$department_id")
+        val url = URL(BASE_URL + BUDGET_DEPT_URL +"api/department_budget/$periode/$department_id")
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
 
 

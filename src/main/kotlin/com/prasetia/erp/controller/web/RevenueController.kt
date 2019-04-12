@@ -2,7 +2,9 @@ package com.prasetia.erp.controller.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.DIREKSI_URL
 import com.prasetia.erp.pojo.revenue.RevenueYearData
 import com.prasetia.erp.pojo.revenue.RevenueYearDetailData
 import com.prasetia.erp.pojo.revenue.RevenueYearDetailSiteTypeData
@@ -18,7 +20,7 @@ class RevenueController{
     @RequestMapping("/revenue")
     fun index(model: Model):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/revenue")
+        val url = URL(BASE_URL + DIREKSI_URL + "api/revenue")
 
         val revenueYearDataList: List<RevenueYearData> = objectMapper.readValue(url)
 
@@ -40,7 +42,7 @@ class RevenueController{
     @RequestMapping("/revenue/{tahun}")
     fun revenueByYear(model: Model, @PathVariable("tahun") tahun:String):String{
         val objectMapper = ObjectMapper()
-        val url = URL(BASE_URL + "api/revenue/%s".format(tahun))
+        val url = URL(BASE_URL + DIREKSI_URL + "api/revenue/%s".format(tahun))
 
         val revenueYearHeaderData: List<RevenueYearHeaderData> = objectMapper.readValue(url)
 
