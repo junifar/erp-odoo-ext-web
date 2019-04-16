@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_PROJECT_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.controller.web.xls.cme.XlsCme
 import com.prasetia.erp.pojo.cme.*
 import org.springframework.stereotype.Controller
@@ -12,12 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URL
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 @Controller("CME Web Controller")
 class CmeController{
 
     @RequestMapping("/project")
-    fun indexCME(model: Model): String{
+    fun indexCME(model: Model, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year")
         val cmeSummaryYearDataList: List<CmeSummaryYearData> = objectMapper.readValue(url)
