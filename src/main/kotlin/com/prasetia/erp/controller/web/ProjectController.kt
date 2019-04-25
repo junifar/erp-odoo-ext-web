@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.constant.GlobalConstant.Companion.DIREKSI_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.pojo.project.ProjectRecapAgingData
 import com.prasetia.erp.pojo.project.ProjectRecapData
 import org.springframework.stereotype.Controller
@@ -12,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import java.net.URL
+import javax.servlet.http.HttpSession
 
 @Controller("Project Web Controller")
 class ProjectController{
 
     @RequestMapping("/project/recap", method = [RequestMethod.POST])
-    fun indexPost(model: Model, @RequestParam("site_type_filter[]") site_type_filter: List<String>?, @RequestParam("year_filter[]") year_filter: List<String>? ):String{
-
+    fun indexPost(model: Model, @RequestParam("site_type_filter[]") site_type_filter: List<String>?, @RequestParam("year_filter[]") year_filter: List<String>?,
+                  session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val site_type_filter_string:String = site_type_filter.toString()
                 .replace("[", "")
                 .replace("]", "")
@@ -60,7 +65,7 @@ class ProjectController{
 //        val condition = whereSiteTypeCondition(site_type_filter_string) + whereDateCondition(year_filter_String)
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + DIREKSI_URL + "api/project/recap/$site_type_filter_string/$year_filter_String")
-        val url_aging = URL(BASE_URL + "api/project/recap_aging/$site_type_filter_string/$year_filter_String")
+        val url_aging = URL(BASE_URL + DIREKSI_URL + "api/project/recap_aging/$site_type_filter_string/$year_filter_String")
 
         val projectRecapDataList: List<ProjectRecapData> = objectMapper.readValue(url)
         val projectRecapAgingDataList: List<ProjectRecapAgingData> = objectMapper.readValue(url_aging)
@@ -92,7 +97,10 @@ class ProjectController{
     }
 
     @RequestMapping("/project/recap", method = [RequestMethod.GET])
-    fun index(model:Model):String{
+    fun index(model:Model, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + DIREKSI_URL + "api/project/recap")
         val url_aging = URL(BASE_URL + DIREKSI_URL + "api/project/recap_aging")

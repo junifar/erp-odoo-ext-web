@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_MAINTENANCE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.pojo.PreventiveCustomerGroup
 import com.prasetia.erp.pojo.PreventiveCustomerYear
 import com.prasetia.erp.pojo.preventive.PreventiveCustomerDetailHeader
@@ -22,6 +23,7 @@ import java.net.URL
 import java.text.NumberFormat
 import java.util.*
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 @Controller("Preventive Web Controller")
 class PreventiveController{
@@ -2211,7 +2213,10 @@ class PreventiveController{
 //    }
 
     @RequestMapping("/preventive/{tahun}")
-    fun indexPreventiveByYear(model:Model, @PathVariable("tahun") tahun:String): String{
+    fun indexPreventiveByYear(model:Model, @PathVariable("tahun") tahun:String, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_customer/$tahun")
         val preventiveDataList: List<PreventiveCustomerYear> = objectMapper.readValue(url)
@@ -2240,7 +2245,10 @@ class PreventiveController{
     )
 
     @RequestMapping("/preventive")
-    fun summaryPreventive(model:Model):String{
+    fun summaryPreventive(model:Model, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_summary")
 
@@ -2286,7 +2294,10 @@ class PreventiveController{
 
 
     @RequestMapping("/preventive2")
-    fun indexPreventive2(model:Model): String{
+    fun indexPreventive2(model:Model, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_customer")
         val preventiveDataList: List<PreventiveCustomerYear> = objectMapper.readValue(url)
@@ -2412,7 +2423,11 @@ class PreventiveController{
     @RequestMapping("/preventive/details/{customer_id}/{tahun}/{area_id}")
     fun detailsPreventive(model: Model, @PathVariable("customer_id") customer_id: Int,
                          @PathVariable("tahun") tahun: Int,
-                         @PathVariable("area_id") area_id: String): String{
+                         @PathVariable("area_id") area_id: String,
+                          session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
         val preventiveDetailDataList:List<PreventiveCustomerDetailHeader> = objectMapper.readValue(url)
@@ -2445,7 +2460,11 @@ class PreventiveController{
     @RequestMapping("/preventive/detail/{customer_id}/{tahun}/{area_id}")
     fun detailPreventive(model: Model, @PathVariable("customer_id") customer_id: Int,
                          @PathVariable("tahun") tahun: Int,
-                         @PathVariable("area_id") area_id: String): String{
+                         @PathVariable("area_id") area_id: String,
+                         session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/preventive_by_customer_year_area/%d/%d/%s".format(customer_id,tahun,area_id))
         val preventiveDetailDataList:List<PreventiveCustomerDetailHeader> = objectMapper.readValue(url)

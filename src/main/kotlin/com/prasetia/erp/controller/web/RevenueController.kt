@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.constant.GlobalConstant.Companion.DIREKSI_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.pojo.revenue.RevenueYearData
 import com.prasetia.erp.pojo.revenue.RevenueYearDetailData
 import com.prasetia.erp.pojo.revenue.RevenueYearDetailSiteTypeData
@@ -14,11 +15,15 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URL
+import javax.servlet.http.HttpSession
 
 @Controller("Revenue Web Controller")
 class RevenueController{
     @RequestMapping("/revenue")
-    fun index(model: Model):String{
+    fun index(model: Model, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + DIREKSI_URL + "api/revenue")
 
@@ -40,7 +45,10 @@ class RevenueController{
     )
 
     @RequestMapping("/revenue/{tahun}")
-    fun revenueByYear(model: Model, @PathVariable("tahun") tahun:String):String{
+    fun revenueByYear(model: Model, @PathVariable("tahun") tahun:String, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + DIREKSI_URL + "api/revenue/%s".format(tahun))
 
@@ -83,14 +91,22 @@ class RevenueController{
     @RequestMapping("/revenue/project_type/{tahun}/{project_type}")
     fun revenueByYearType(model: Model,
                           @PathVariable("tahun") tahun: String,
-                          @PathVariable("project_type") project_type:String):String{
+                          @PathVariable("project_type") project_type:String,
+                          session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         return "revenue/revenue_by_year_project_type"
     }
 
     @RequestMapping("/revenue/customer/{tahun}/{customer_id}")
     fun revenueByYearCustomer(model: Model,
                               @PathVariable("tahun") tahun: String,
-                              @PathVariable("customer_id") customer_id:String):String{
+                              @PathVariable("customer_id") customer_id:String,
+                              session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         return "revenue/revenue_by_year_customer"
     }
 }

@@ -28,7 +28,8 @@ class AuthController{
     @RequestMapping("/logout")
     fun sessionDestroy(session: HttpSession):String{
         session.invalidate()
-        return "redirect:$MAIN_ROOT/login"
+//        return "redirect:$MAIN_ROOT/login"
+        return "redirect:/login"
     }
 
     @RequestMapping("/login", method = [RequestMethod.POST])

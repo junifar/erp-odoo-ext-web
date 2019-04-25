@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.ACCOUNTING_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.controller.web.xls.taxinfo.XlsTaxInfo
 import com.prasetia.erp.pojo.taxinfo.TaxInvoiceData
 import com.prasetia.erp.pojo.taxinfo.TaxInvoicePeriodeData
@@ -14,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping
 import java.net.CacheResponse
 import java.net.URL
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 @Controller("Tax Info Controller")
 class TaxInfoController {
 
     @RequestMapping("/taxinfo")
-    fun indexTaxInfo(model:Model):String{
+    fun indexTaxInfo(model:Model, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + ACCOUNTING_URL + "api/taxinfoperiode")
         val taxInfoSummaryDataList: List<TaxInvoicePeriodeData> = objectMapper.readValue(url)
@@ -28,7 +33,10 @@ class TaxInfoController {
     }
 
     @RequestMapping("taxinfo/{tahun}")
-    fun taxInfoYear(model:Model, @PathVariable("tahun") tahun:String):String{
+    fun taxInfoYear(model:Model, @PathVariable("tahun") tahun:String, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + ACCOUNTING_URL + "api/taxinfo/%s".format(tahun))
         val taxInfoDataList:List<TaxInvoiceData> = objectMapper.readValue(url)

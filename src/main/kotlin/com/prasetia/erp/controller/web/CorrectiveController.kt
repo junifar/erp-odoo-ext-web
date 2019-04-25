@@ -2,8 +2,10 @@ package com.prasetia.erp.controller.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_MAINTENANCE_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.controller.web.xls.corrective.XlsCorrective
 import com.prasetia.erp.pojo.corrective.*
 import org.springframework.stereotype.Controller
@@ -12,11 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URL
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 @Controller("Corrective Web Controller")
 class CorrectiveController{
     @RequestMapping("/corrective")
-    fun indexCorrective(model: Model): String{
+    fun indexCorrective(model: Model, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_summary")
         val correctiveSummaryDataList: List<CorrectiveCustomerSummaryData> = objectMapper.readValue(url)
@@ -61,7 +67,10 @@ class CorrectiveController{
     )
 
     @RequestMapping("/corrective1")
-    fun indexCorrective1(model: Model): String{
+    fun indexCorrective1(model: Model, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_summary")
         val correctiveSummaryDataList: List<CorrectiveCustomerSummaryData> = objectMapper.readValue(url)
@@ -98,7 +107,10 @@ class CorrectiveController{
     )
 
     @RequestMapping("/corrective/{tahun}")
-    fun indexCorrectiveByYear(model:Model, @PathVariable("tahun") tahun:String): String{
+    fun indexCorrectiveByYear(model:Model, @PathVariable("tahun") tahun:String, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_year/$tahun")
         val correctiveDataList: List<CorrectiveYearData> = objectMapper.readValue(url)
@@ -118,7 +130,10 @@ class CorrectiveController{
     }
 
     @RequestMapping("/corrective/{customer_id}/{tahun}")
-    fun indexCorrectiveByYearCustomer(model:Model, @PathVariable("tahun") tahun:String, @PathVariable("customer_id") customer_id:Int): String{
+    fun indexCorrectiveByYearCustomer(model:Model, @PathVariable("tahun") tahun:String, @PathVariable("customer_id") customer_id:Int, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_MAINTENANCE_URL + "api/corrective_detail/$customer_id/$tahun")
         val correctiveDataCustomerList: List<CorrectiveDetailYearCustomerData> = objectMapper.readValue(url)

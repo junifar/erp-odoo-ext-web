@@ -62,7 +62,10 @@ class CmeController{
     )
 
     @RequestMapping("/project/{tahun}")
-    fun yearCME(model: Model, @PathVariable("tahun") tahun: String): String{
+    fun yearCME(model: Model, @PathVariable("tahun") tahun: String, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year/$tahun")
         val cmeSummaryYearProjectTypeDataList: List<CmeSummaryYearProjectTypeData> = objectMapper.readValue(url)
@@ -89,7 +92,10 @@ class CmeController{
     }
 
     @RequestMapping("/project_customer/{tahun}")
-    fun yearCMECustomer(model: Model, @PathVariable("tahun") tahun: String): String{
+    fun yearCMECustomer(model: Model, @PathVariable("tahun") tahun: String, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year_customer/$tahun")
         val cmeSummaryYearCustomerDataList: List<CmeSummaryYearCustomerData> = objectMapper.readValue(url)
@@ -264,7 +270,11 @@ class CmeController{
     )
 
     @RequestMapping("/project/{tahun}/{type_id}")
-    fun yearCustomerCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int): String{
+    fun yearCustomerCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int,
+                        session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)
@@ -292,7 +302,11 @@ class CmeController{
     }
 
     @RequestMapping("/project_customer/{tahun}/{customer_id}")
-    fun yearSiteTypeCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("customer_id") customer_id: String): String{
+    fun yearSiteTypeCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("customer_id") customer_id: String,
+                        session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + "api/project_summary_year_customer/$tahun/$customer_id")
         val cmeSummaryYearProjectTypeCustDataList: List<CmeSummaryYearCustomerProjectTypeData> = objectMapper.readValue(url)
@@ -470,7 +484,10 @@ class CmeController{
     )
 
     @RequestMapping("/project/{tahun}/{type_id}/{customer_id}")
-    fun yearCustomerDetailCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int, @PathVariable("customer_id") customer_id: Long): String{
+    fun yearCustomerDetailCME(model: Model, @PathVariable("tahun") tahun: String, @PathVariable("type_id") type_id: Int, @PathVariable("customer_id") customer_id: Long, session: HttpSession): String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + BUDGET_PROJECT_URL + "api/project_summary_year/$tahun/$type_id")
         val cmeSummaryYearTypeCustDetailDataList: List<CmeSummaryYearProjectTypeCustData> = objectMapper.readValue(url)

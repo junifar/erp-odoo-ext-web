@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import com.prasetia.erp.constant.GlobalConstant
 import com.prasetia.erp.constant.GlobalConstant.Companion.BASE_URL
 import com.prasetia.erp.constant.GlobalConstant.Companion.BUDGET_DEPT_URL
+import com.prasetia.erp.constant.GlobalConstant.Companion.REDIRECT_LOGIN_URL
 import com.prasetia.erp.controller.web.xls.department.XlsDepartment
 import com.prasetia.erp.pojo.department.*
 import org.springframework.stereotype.Controller
@@ -13,13 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import java.net.URL
 import javax.servlet.http.HttpServletResponse
+import javax.servlet.http.HttpSession
 
 @Controller("Budget Department Controller")
 class DepartmentController{
 
 
     @RequestMapping("/budget_department")
-    fun indexDepartment(model: Model):String{
+    fun indexDepartment(model: Model, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_summary")
         val departmentSummaryDataList: List<DepartmentSummary> = objectMapper.readValue(url)
@@ -53,7 +58,10 @@ class DepartmentController{
     )
 
     @RequestMapping("/budget_department/{periode}")
-    fun periodeDepartment(model: Model,@PathVariable("periode") periode:String):String{
+    fun periodeDepartment(model: Model,@PathVariable("periode") periode:String, session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(GlobalConstant.BASE_URL + BUDGET_DEPT_URL +"api/department_year/$periode")
         val departmentPeriodeTypeDataList:List<DepartmentYearData> = objectMapper.readValue(url)
@@ -90,7 +98,11 @@ class DepartmentController{
 
     @RequestMapping("/budget_department_map/{periode}/{department_id}")
     fun detailDepartmentBudget(model: Model,@PathVariable("periode")periode: Int,
-                               @PathVariable("department_id")department_id:Int):String{
+                               @PathVariable("department_id")department_id:Int,
+                               session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
@@ -110,7 +122,11 @@ class DepartmentController{
     @RequestMapping("/budget_department_map/{periode}/{department_id}/{budget_id}")
     fun detailDepartmentBudgetRealisasi(model: Model,@PathVariable("periode")periode: Int,
                         @PathVariable("department_id")department_id: Int,
-                        @PathVariable("budget_id")budget_id:Long): String {
+                        @PathVariable("budget_id")budget_id:Long,
+                                        session: HttpSession): String {
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
@@ -128,7 +144,12 @@ class DepartmentController{
     @RequestMapping("/budget_department_map/{periode}/{department_id}/{budget_id}/{line_id}")
     fun detailDepartmentBudgetLineRealisasi(model: Model,@PathVariable("periode")periode: Int,
                                         @PathVariable("department_id")department_id: Int,
-                                        @PathVariable("budget_id")budget_id:Long, @PathVariable("line_id")line_id: Long): String {
+                                        @PathVariable("budget_id")budget_id:Long,
+                                            @PathVariable("line_id")line_id: Long,
+                                            session: HttpSession): String {
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
@@ -203,7 +224,11 @@ class DepartmentController{
 
     @RequestMapping("/budget_department/{periode}/{department_id}")
     fun detailDepartment(model: Model,@PathVariable("periode")periode: Int,
-                         @PathVariable("department_id")department_id:Int):String{
+                         @PathVariable("department_id")department_id:Int,
+                         session: HttpSession):String{
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
@@ -249,7 +274,10 @@ class DepartmentController{
     @RequestMapping("/budget_department/{periode}/{department_id}/{line_id}")
     fun detailRealisasi(model: Model,@PathVariable("periode")periode: Int,
                         @PathVariable("department_id")department_id: Int,
-                        @PathVariable("line_id")line_id:Long): String {
+                        @PathVariable("line_id")line_id:Long, session: HttpSession): String {
+        if(session.getAttribute("id") == null){
+            return REDIRECT_LOGIN_URL
+        }
         val objectMapper = ObjectMapper()
         val url = URL(BASE_URL + BUDGET_DEPT_URL + "api/department_budget/%d/%d".format(periode,department_id))
         val departmentDetailDataList:List<DepartmentBudgetYearData> = objectMapper.readValue(url)
